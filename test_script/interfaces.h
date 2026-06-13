@@ -81,6 +81,14 @@ typedef void* GafimeCudaMatrix;
 extern "C" {
 GAFIME_API int gafime_cuda_available(void);
 GAFIME_API int gafime_bucket_free(GafimeBucket bucket);
+GAFIME_API int gafime_bucket_alloc(int n_samples, int n_features, GafimeBucket* bucket_out);
+GAFIME_API int gafime_bucket_upload_feature(GafimeBucket bucket, int feature_idx, const float* h_data);
+GAFIME_API int gafime_bucket_upload_target(GafimeBucket bucket, const float* h_target);
+GAFIME_API int gafime_bucket_upload_mask(GafimeBucket bucket, const uint8_t* h_mask);
+GAFIME_API int gafime_bucket_compute_batch(
+    GafimeBucket bucket, const int* h_batch_kinds, const int* h_batch_indices,
+    const int* h_batch_ops, const int* h_batch_interact, const int* h_batch_ts_params,
+    int arity, int batch_size, int val_fold_id, float* h_stats_batch);
 GAFIME_API int gafime_cuda_matrix_free(GafimeCudaMatrix matrix_handle);
 GAFIME_API int gafime_cuda_matrix_alloc(
     int n_samples, int n_features, int max_batch_size, GafimeCudaMatrix* matrix_out);

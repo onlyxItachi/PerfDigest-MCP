@@ -102,3 +102,25 @@ def test_kernel_names_are_demangled(report_path):
 def test_get_metrics_raw_ref_points_back_to_report(report_path):
     digest = tools.get_metrics(report_path, "ncu-rep", "0")
     assert digest["raw_ref"].endswith("gafime.ncu-rep")
+
+
+def test_every_kernel_satisfies_core_invariants(report_path):
+    # Per-launch coverage that holds for ANY kernel in ANY --set full report:
+    # a launch always has a name, a positive duration, and the universally
+    # collected SpeedOfLight/occupancy metrics as real floats (not absence).
+    kernels = pri_reader.load_kernels(report_path)
+    assert kernels, "report has no kernels"
+    for k in kernels:
+        digest = tools.get_metrics(report_path, "ncu-rep", str(k.index))
+        assert k.name, f"kernel #{k.index} has no name"
+        assert isinstance(k.duration_us, float) and k.duration_us > 0
+        assert set(digest["metrics"]) == set(DEFAULT_CORE_SET)
+        for always_present in ("duration_us", "compute_pct_peak", "achieved_occupancy"):
+            assert isinstance(digest["metrics"][always_present], float), (
+                f"kernel #{k.index} {k.name}: {always_present} should be measured"
+            )
+
+
+def test_kernel_indices_are_contiguous(report_path):
+    indices = [k.index for k in pri_reader.load_kernels(report_path)]
+    assert indices == list(range(len(indices)))
