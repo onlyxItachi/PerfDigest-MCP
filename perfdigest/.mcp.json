@@ -3,7 +3,7 @@
     "perfdigest": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["perfdigest"]
+      "args": ["perfdigest-mcp"]
     }
   }
 }

@@ -58,8 +58,8 @@ Prereqs on the Linux box: NVIDIA driver + CUDA toolkit (`nvcc`) + Nsight Compute
 class assumed (RTX 4060 Laptop, **sm_89** — change `-arch` if different).
 
 ```bash
-git clone git@github.com:onlyxItachi/MCP_Developing_REPO.git
-cd MCP_Developing_REPO/perfdigest
+git clone git@github.com:onlyxItachi/PerfDigest-MCP.git
+cd PerfDigest-MCP/perfdigest
 uv sync --extra cuda --extra dev          # ncu-report + pytest
 
 # 1. Build the workload (Linux: no .exe suffix)

@@ -1,5 +1,5 @@
 [project]
-name = "perfdigest"
+name = "perfdigest-mcp"
 version = "1.0.0"
 description = "Local MCP server that makes performance-profiler output (NVIDIA ncu, AMD rocprof, Linux perf, Apple Metal) token-efficient for LLM coding agents."
 readme = "README.md"
@@ -20,8 +20,8 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/onlyxItachi/MCP_Developing_REPO"
-Issues = "https://github.com/onlyxItachi/MCP_Developing_REPO/issues"
+Repository = "https://github.com/onlyxItachi/PerfDigest-MCP"
+Issues = "https://github.com/onlyxItachi/PerfDigest-MCP/issues"
 
 [project.optional-dependencies]
 # Backends. Most profilers are system CLIs whose text/JSON exports we parse in
@@ -36,7 +36,10 @@ metal = []   # xctrace JSON export — pure-Python reader
 all = ["ncu-report; sys_platform != 'darwin'"]
 dev = ["pytest>=8"]
 
+# `perfdigest-mcp` is the canonical command (matches the PyPI name, so
+# `uvx perfdigest-mcp` works); `perfdigest` is kept as a short alias.
 [project.scripts]
+perfdigest-mcp = "perfdigest.server.app:main"
 perfdigest = "perfdigest.server.app:main"
 
 [build-system]

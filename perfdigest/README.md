@@ -70,9 +70,12 @@ a file is, not *what* format it is.
 ## Install & connect
 
 ```bash
-uvx perfdigest                      # run from PyPI (downloadable)
-uv tool install "perfdigest[nvidia]"  # + NVIDIA native binary reader (Linux/Windows)
+uvx perfdigest-mcp                      # run from PyPI (downloadable)
+uv tool install "perfdigest-mcp[nvidia]"  # + NVIDIA native binary reader (Linux/Windows)
 ```
+
+> PyPI/install name is **`perfdigest-mcp`**; the command and import package are
+> `perfdigest` (e.g. `uvx perfdigest-mcp`, `import perfdigest`).
 
 Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](docs/clients.md).
 

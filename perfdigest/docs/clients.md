@@ -1,15 +1,15 @@
 # Connecting perfdigest to Claude Code and OpenAI Codex
 
 perfdigest is a local **stdio** MCP server. Once published it runs straight from
-PyPI with `uvx perfdigest` (no clone, no manual venv). Both clients below speak
+PyPI with `uvx perfdigest-mcp` (no clone, no manual venv). Both clients below speak
 stdio MCP; the only difference is the config file format.
 
 ## Install (downloadable)
 
 ```bash
-uvx perfdigest            # run on demand from PyPI (recommended)
+uvx perfdigest-mcp            # run on demand from PyPI (recommended)
 # or pin backends' optional deps:
-uv tool install "perfdigest[nvidia]"   # adds NVIDIA's native binary reader (Linux/Windows)
+uv tool install "perfdigest-mcp[nvidia]"   # adds NVIDIA's native binary reader (Linux/Windows)
 ```
 
 Backends whose readers are pure Python (AMD rocprof CSV, Linux perf, Metal JSON,
@@ -23,7 +23,7 @@ Project scope — commit `.mcp.json` at the repo root (already provided here):
 ```json
 {
   "mcpServers": {
-    "perfdigest": { "type": "stdio", "command": "uvx", "args": ["perfdigest"] }
+    "perfdigest": { "type": "stdio", "command": "uvx", "args": ["perfdigest-mcp"] }
   }
 }
 ```
@@ -31,7 +31,7 @@ Project scope — commit `.mcp.json` at the repo root (already provided here):
 Or add it from the CLI (pick a scope: `local` | `project` | `user`):
 
 ```bash
-claude mcp add perfdigest --scope user -- uvx perfdigest
+claude mcp add perfdigest --scope user -- uvx perfdigest-mcp
 ```
 
 Then inject the workflow convention once per session via the MCP prompt
@@ -46,13 +46,13 @@ Codex stores MCP servers in `~/.codex/config.toml` (or a trusted project's
 ```toml
 [mcp_servers.perfdigest]
 command = "uvx"
-args = ["perfdigest"]
+args = ["perfdigest-mcp"]
 ```
 
 Or from the CLI:
 
 ```bash
-codex mcp add perfdigest -- uvx perfdigest
+codex mcp add perfdigest -- uvx perfdigest-mcp
 ```
 
 Confirm with `/mcp` inside Codex.
