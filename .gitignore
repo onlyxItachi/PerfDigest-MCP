@@ -24,7 +24,7 @@ test_script/*.obj
 test_script/raw_details.txt
 test_script/raw_full.csv
 test_script/arm_*.json
-test_script/ncu_elevated.log
+test_script/*.log
 
 # Profiler reports — large binaries; never commit (fixtures regenerated locally)
 *.ncu-rep

@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Resuming on a new machine?** Read [`HANDOFF.md`](HANDOFF.md) first — it has the current status and the exact steps to regenerate the profiler fixture and finish the remaining tests (the work moved off Windows because Smart App Control blocks unsigned local builds).
+
 ## What this repository is
 
 A development kit for building **MCP (Model Context Protocol) servers**. The main (and currently only real) project is **`perfdigest/`** — everything else at the root is supporting scratch space.
