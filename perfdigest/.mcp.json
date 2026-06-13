@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "perfdigest": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\Users\\hamza\\Desktop\\MCP_developing_kit\\perfdigest",
+        "run",
+        "perfdigest"
+      ]
+    }
+  }
+}

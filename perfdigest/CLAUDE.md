@@ -43,7 +43,18 @@ heuristics.
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **Phase 0 — scaffold only.** All module files are docstring stubs. Start at Phase 1.
+Current state: **v1 implemented and validated.** All phases complete — contract, PRI
+reader, mapping (14 terms; default core set confirmed with the user), the 3-tool FastMCP
+server, prompts, and report discovery. 12 pytest tests pass (4 contract + 8 against a real
+`.ncu-rep`). End-to-end verified through Claude Code headless with Sonnet 4.6, and an A/B
+context-efficiency benchmark is in `eval/RESULTS.md`. The CSV fallback reader
+(`csv_reader.py`) is the one remaining stub — next extension point.
+
+Real-report lesson (baked into `mapping.py`): the init prompt's example
+`dram__throughput.avg.pct_of_peak_sustained_elapsed` does **not** exist in ncu 2026.1 — the
+DRAM %-of-peak is `gpu__dram_throughput...`. The absence convention caught it (surfaced
+`not_available_in_this_export` instead of a fake 0.0). Always verify metric names against a
+real report before trusting a mapping entry.
 
 ## The 3 tools (target signatures)
 

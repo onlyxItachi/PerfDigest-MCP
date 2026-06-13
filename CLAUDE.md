@@ -15,7 +15,7 @@ A development kit for building **MCP (Model Context Protocol) servers**. The mai
 1. **`perfdigest/docs/INIT_PROMPT.md`** — the canonical spec. All architectural decisions are locked there with rationale; do not re-litigate them.
 2. **`perfdigest/CLAUDE.md`** — the short operational contract: non-negotiable invariants, build order, tool signatures, and open items that must be asked of the user rather than invented.
 
-Current state: **Phase 0 — scaffold only.** Every module under `perfdigest/src/` is a docstring stub. The build proceeds in phases (contract → PRI reader → mapping → server shell → prompts → CSV reader); complete a phase, show it, then proceed — **do not one-shot**.
+Current state: **v1 implemented and validated** (all phases done except the `csv_reader.py` fallback stub). 12 pytest tests pass, end-to-end verified through Claude Code headless with Sonnet 4.6, and an A/B context-efficiency benchmark lives in `perfdigest/eval/RESULTS.md` (~36x fewer profiler tokens per turn vs reading the raw `ncu` details, same diagnosis). The `test_script/` folder holds the CUDA workload (`kernels.cu`) and benchmark harness used to generate the real `.ncu-rep` fixture.
 
 ## Commands (run from `perfdigest/`)
 

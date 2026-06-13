@@ -14,6 +14,21 @@ _t1
 _t2
 .write_test
 
+# test_script build + profiling artifacts (kernels.cu / bench_main.cu are source;
+# the compiled binary, profiler exports, and benchmark JSON are generated)
+test_script/*.exe
+test_script/*.exp
+test_script/*.lib
+test_script/*.pdb
+test_script/*.obj
+test_script/raw_details.txt
+test_script/raw_full.csv
+test_script/arm_*.json
+test_script/ncu_elevated.log
+
+# Profiler reports — large binaries; never commit (fixtures regenerated locally)
+*.ncu-rep
+
 # OS / editor
 .DS_Store
 Thumbs.db
