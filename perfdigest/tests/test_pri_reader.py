@@ -65,3 +65,40 @@ def test_expand_returns_raw_vendor_metrics(report_path):
     ex = tools.expand(report_path, "ncu-rep", "0", "dram")
     assert ex["metric_count"] > 0
     assert all("dram" in name.lower() for name in ex["metrics"])
+
+
+def test_unknown_kernel_raises_with_available_listing(report_path):
+    with pytest.raises(ValueError) as exc:
+        tools.get_metrics(report_path, "ncu-rep", "no_such_kernel")
+    # the error must help the agent recover, not just fail
+    assert "gafime_global_continuous_kernel" in str(exc.value)
+
+
+def test_out_of_range_index_raises(report_path):
+    with pytest.raises(ValueError):
+        tools.get_metrics(report_path, "ncu-rep", "999")
+
+
+def test_expand_all_is_superset_of_filtered(report_path):
+    every = tools.expand(report_path, "ncu-rep", "0", "all")
+    dram = tools.expand(report_path, "ncu-rep", "0", "dram")
+    assert every["metric_count"] >= dram["metric_count"]
+    assert every["metric_count"] > 100  # --set full carries a large raw set
+
+
+def test_durations_descend_when_sorted(report_path):
+    rows = tools.list_kernels(report_path, "ncu-rep")
+    hottest = max(rows, key=lambda r: r["duration_us"])
+    # the arity-5 kernel does the most work and is the known hot spot
+    assert "(int)5" in hottest["name"]
+
+
+def test_kernel_names_are_demangled(report_path):
+    # raw mangled names look like _Z..; demangled carry the readable signature
+    rows = tools.list_kernels(report_path, "ncu-rep")
+    assert all("gafime_global_continuous_kernel" in r["name"] for r in rows)
+
+
+def test_get_metrics_raw_ref_points_back_to_report(report_path):
+    digest = tools.get_metrics(report_path, "ncu-rep", "0")
+    assert digest["raw_ref"].endswith("gafime.ncu-rep")

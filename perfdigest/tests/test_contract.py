@@ -1,5 +1,9 @@
 """Contract tests — the absence convention, with no profiler or GPU needed."""
 
+import dataclasses
+
+import pytest
+
 from perfdigest.core.digest import NOT_AVAILABLE, build_digest
 from perfdigest.core.metrics import NormalizedKernel
 
@@ -35,3 +39,38 @@ def test_duration_is_a_first_class_term():
     k = _kernel()
     digest = build_digest(k, "ncu-rep", ["duration_us"])
     assert digest.metrics["duration_us"] == 12.5
+
+
+def test_duration_none_is_not_available():
+    k = NormalizedKernel(name="k", index=0, duration_us=None, raw_ref="x.ncu-rep")
+    digest = build_digest(k, "ncu-rep", ["duration_us"])
+    assert digest.metrics["duration_us"] == NOT_AVAILABLE
+
+
+def test_digest_preserves_kernel_identity():
+    k = NormalizedKernel(
+        name="myKernel", index=3, duration_us=9.0, raw_ref="run.ncu-rep",
+        metrics={"l2_hit_rate": 50.0},
+    )
+    digest = build_digest(k, "ncu-rep", ["l2_hit_rate"])
+    assert (digest.kernel, digest.index, digest.format, digest.raw_ref) == (
+        "myKernel", 3, "ncu-rep", "run.ncu-rep",
+    )
+    assert digest.to_dict()["metrics"] == {"l2_hit_rate": 50.0}
+
+
+def test_empty_request_yields_empty_metrics():
+    digest = build_digest(_kernel(l2_hit_rate=1.0), "ncu-rep", [])
+    assert digest.metrics == {}
+
+
+def test_normalized_kernel_metric_lookup():
+    k = _kernel(l2_hit_rate=42.0)
+    assert k.metric("l2_hit_rate") == 42.0
+    assert k.metric("absent") is None  # absent, not a KeyError, not 0.0
+
+
+def test_normalized_kernel_is_frozen():
+    k = _kernel()
+    with pytest.raises(dataclasses.FrozenInstanceError):
+        k.name = "mutated"  # type: ignore[misc]
