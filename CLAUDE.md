@@ -1,41 +1,116 @@
-# CLAUDE.md
+# CLAUDE.md — perfdigest
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code working in this repo. Read `docs/INIT_PROMPT.md` first — it is the
+**canonical spec** with all locked decisions and rationale. This file is the short operational
+contract; the init prompt is the source of truth.
 
-> **Resuming on a new machine?** Read [`HANDOFF.md`](HANDOFF.md) first — it has the current status and the exact steps to regenerate the profiler fixture and finish the remaining tests (the work moved off Windows because Smart App Control blocks unsigned local builds).
+## What this project is
 
-## What this repository is
+A **local, multi-backend MCP server** that makes performance-profiler output
+**token-efficient** for LLM coding agents. It reads a report from disk and returns a small,
+structured, numeric signal, keeping a `raw_ref` pointer for lazy expansion. v1.0.0 backends:
+NVIDIA `ncu` (native + CSV), AMD `rocprof`, Linux `perf` (CPU C++/Rust), Apple Metal. Dispatch
+is a `format → Backend` registry (`core/backend.py`, `adapters/registry.py`); the `server/`
+shell never imports a concrete reader.
 
-A development kit for building **MCP (Model Context Protocol) servers**. The main (and currently only real) project is **`perfdigest/`** — everything else at the root is supporting scratch space.
+We are a **translator/router, NOT a judge.** Provide clean numeric metrics deterministically;
+interpretation ("is this kernel memory-bound?") is the model's job. Do not build verdict/threshold
+heuristics.
 
-- **`perfdigest/`** — a local MCP server that makes **performance-profiler output** token-efficient for LLM coding agents. It reads profiler reports from disk and returns small, structured, numeric digests instead of letting raw multi-thousand-token tables flood the agent's context. **As of v1.0.0 it is multi-backend**: NVIDIA Nsight Compute (`ncu`), AMD HIP (`rocprof`), Linux `perf` (CPU C++/Rust), and Apple Metal (`xctrace`) — dispatched by a `format → backend` registry. This is the project all real work happens in. Usable from both Claude Code and OpenAI Codex (stdio MCP).
-- **`MCP_Developing_Workshop/`** — a Node scratchpad (npm package `mcp_developing_workshop`) with `@anthropic-ai/claude-agent-sdk`, `@anthropic-ai/sdk`, `tsx`, and `typescript` as dependencies. No source files yet.
-- **`workshop-env/`** — a POSIX Python 3.10 venv (gitignored, never commit; not used by perfdigest, which targets Python 3.11+ via uv).
+**Two operations (split in the prompt):** *digest* (read) is universal/ungated — a Mac digests a
+CI-produced NVIDIA report; *capture* (run a profiler) is platform-verified in `platform/`. Gating
+lives on the capture/advisor tier (`platform/capabilities.py`), never on readers. A new backend =
+a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `register()`s a
+`Backend` (formats, suffixes, domain, platforms, default_core_set, probe, capture_command).
 
-## Working in perfdigest — read these first, in this order
+## Non-negotiable rules (violating any of these is a bug)
 
-1. **`perfdigest/docs/INIT_PROMPT.md`** — the canonical spec. All architectural decisions are locked there with rationale; do not re-litigate them.
-2. **`perfdigest/CLAUDE.md`** — the short operational contract: non-negotiable invariants, build order, tool signatures, and open items that must be asked of the user rather than invented.
+1. **`None` ≠ `0.0`.** A missing metric means "not measured in this export", never zero. Never
+   fill a gap with `0.0`. `get_metrics` returns `"not_available_in_this_export"` for a requested
+   metric the export lacks. This is the single most dangerous failure mode.
+2. **`format` is mandatory** in v1 — the agent passes what it produced. No auto-detect /
+   `detect_format()` in v1.
+3. **Lazy-import `ncu_report`** (and other heavy/CUDA-only libs) inside the function that uses
+   them, so CSV-only paths never load them.
+4. **`mapping.py`: vendor jargon → standard term**, never → invented abstract name
+   (`l2_hit_rate`, not `low_level_cache_usage`).
+5. **`server/` is a thin shell** — no business logic. Each tool = call reader + filter + return
+   JSON. Logic lives in `core/` + `adapters/` so a future CLI can reuse it.
+6. **Compression is lazy, not lossy** — never delete the raw report; always expose `expand`.
+7. **Profiler invocation suppresses stdout:** `ncu --set full -o report.ncu-rep ./app`. Document
+   this; if `ncu` prints to stdout the raw table pollutes the agent's context before perfdigest
+   runs.
 
-Current state: **v1.0.0 — multi-backend** (branch `feat/multi-backend-v1`). The NVIDIA path of v1 is refactored onto a `Backend` registry (`core/backend.py` + `adapters/registry.py`); AMD HIP, Linux perf (CPU), and Metal adapters added; a `platform/` layer does **capture gating**; two new tools (`platform_capabilities`, `suggest_profile_command`) advise capture. 58 pytest tests pass (+16 hardware-gated skip). Apache-2.0 licensed; PyPI + Claude Code/Codex configs ready. The earlier A/B context-efficiency benchmark (~36x fewer tokens) lives in `perfdigest/eval/RESULTS.md`. `test_script/` holds the CUDA workload for the real `.ncu-rep` fixture.
+## Build order — do NOT one-shot. Complete a phase, show it, then proceed.
 
-**The load-bearing rule**: *digesting* a report is universal (a Mac digests a CI-produced NVIDIA report — CUDA-dev-on-Mac); only *capturing* is platform-gated. Gating lives in `platform/capabilities.py`, never on readers. Future backends (Go, Java, …) are planned; Windows/Metal are validated via GitHub Actions, not the Linux dev box.
+1. **Contract** — `core/metrics.py` (`NormalizedKernel`) + `core/digest.py` (JSON schema +
+   absence convention). Types only, no parsing.
+2. **PRI reader in isolation** — `adapters/nsight/pri_reader.py`: `.ncu-rep` path →
+   `NormalizedKernel`, tested with a plain script against a REAL report. ~80% of the work.
+3. **`mapping.py`** — the metric-name dict (most-changed file, isolated).
+4. **Server shell** — FastMCP + the 3 tools (`list_kernels`, `get_metrics`, `expand`).
+5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
+6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-## Commands (run from `perfdigest/`)
+Current state: **v1.0.0 — multi-backend.** The v1 NVIDIA path is refactored onto the registry;
+the `csv_reader.py` stub is now a real pure-Python reader (NVIDIA CSV digest with no GPU/PRI
+wheel). Added: AMD `rocprof`, Linux `perf` (CPU `cpu_function` units + CPU vocabulary), Metal
+(`gpu_pass`), the `platform/` capability layer, and the two capture-advisory tools. 58 pytest
+tests pass (+16 hardware-gated skips), CI runs the Linux/macOS/Windows matrix, Apache-2.0,
+PyPI + Claude Code/Codex configs ready. The original A/B benchmark is in `eval/RESULTS.md`.
 
-```bash
-uv sync --extra dev          # base + pytest (all pure-Python readers work; no GPU needed)
-uv sync --extra nvidia       # + ncu-report for native .ncu-rep parsing (alias: --extra cuda)
-uv run perfdigest            # run the multi-backend MCP server over stdio
-uv run pytest                # 58 pass + 16 hardware-gated skips
-uv build                     # build sdist+wheel (publish.yml does this on a v* tag)
+Real-report lesson (baked into `mapping.py`): the init prompt's example
+`dram__throughput.avg.pct_of_peak_sustained_elapsed` does **not** exist in ncu 2026.1 — the
+DRAM %-of-peak is `gpu__dram_throughput...`. The absence convention caught it (surfaced
+`not_available_in_this_export` instead of a fake 0.0). Always verify metric names against a
+real report before trusting a mapping entry.
+
+## The tools (5 — registry-dispatched, thin shell)
+
+Tier 1 — digest (any backend, any host; `format` is mandatory):
+```python
+list_kernels(report_ref, format) -> list[dict]   # [{name, index, duration_us, domain}]
+get_metrics(report_ref, format, kernel, metrics=None) -> dict   # None => backend default core set
+expand(report_ref, format, kernel, section) -> dict             # raw vendor metrics
+```
+Tier 2 — capture advisory (platform-verified):
+```python
+platform_capabilities() -> dict                  # can_digest (universal) vs can_capture_here (gated)
+suggest_profile_command(backend, target) -> dict # correct invocation, or a refusal that redirects
 ```
 
-## The invariants that must never break (full detail in perfdigest/CLAUDE.md)
+## Extending — adding a backend
 
-- **`None` ≠ `0.0`** — a missing metric means "not measured in this export", never zero. `get_metrics` returns `"not_available_in_this_export"` for absent metrics. Silently substituting zero is the single worst bug this tool can have.
-- **`format` is mandatory** in v1 — no auto-detect.
-- **Translator, not judge** — no verdict/threshold heuristics; interpretation is the model's job.
-- **`server/` is a thin shell** — business logic lives in `core/` and `adapters/`; `core/` never sees vendor metric names.
-- **Heavy/CUDA-only imports (`ncu_report`) are lazy** so CSV-only paths never load them.
-- **Read ≠ capture.** Digesting any report is universal and ungated; only on-device capture is platform-verified (`platform/capabilities.py`). A new backend = a folder under `adapters/` that builds + `register()`s a `Backend` (reader + `mapping.py` + probe); the server shell never imports a concrete reader.
+A backend is a folder under `src/perfdigest/adapters/<name>/`: a reader
+(`*_reader.py` → `list[NormalizedUnit]` + `raw_metrics`), a `mapping.py` (vendor →
+standard terms + `DEFAULT_CORE_SET`), and a `backend.py` that builds + `register()`s
+a `Backend`. Then add its import to `server/app.py:_register_backends()`. The server
+shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabulary),
+`adapters/rocm/` (GPU, wide CSV).
+
+## Environment & commands
+
+- **Python 3.11+**, packaged with **uv** (src-layout). Entry points: `perfdigest-mcp`
+  / `perfdigest` = `perfdigest.server.app:main`. Repo root **is** the package now.
+
+```bash
+uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
+uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
+uv run perfdigest        # run the multi-backend MCP server over stdio
+uv run pytest            # 58 pass + 16 hardware-gated skips
+```
+
+- **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says
+  "not on PyPI" — that assumption is outdated). It is declared as the `nvidia` optional extra and
+  imported lazily. It can read `.ncu-rep` files **without a GPU present**, so the PRI reader is
+  fully developable/testable on any machine; only *producing* fixture reports needs a GPU
+  (`ncu --set full -o report.ncu-rep ./app`).
+- `uv.lock` is committed for reproducible installs. Generated on first `uv lock`/`uv sync`.
+
+## Conventions
+
+- Standard hardware metric names in output JSON (lowercase, e.g. `dram_pct_peak`,
+  `achieved_occupancy`, `l2_hit_rate`).
+- Keep `core/` free of any vendor metric names — it only knows `NormalizedKernel`.
+- `eval/` is a separate top-level dir and must **not** ship inside the package.
+- `tests/fixtures/` holds REAL `.ncu-rep` samples (gitignored binaries; curate a small set).

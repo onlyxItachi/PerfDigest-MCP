@@ -1,33 +1,24 @@
-# Python virtual environments — recreated via `uv sync`, never commit
-workshop-env/
-.venv/
-venv/
+# Python
 __pycache__/
 *.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
 
-# Node
-node_modules/
+# Virtual environments (recreated via `uv sync` — never commit)
+.venv/
+venv/
 
-# Local git sandbox & scratch files (kit-root experiments, not project content)
-_gittest/
-_t1
-_t2
-.write_test
+# uv.lock IS committed (reproducible installs). Do not ignore it.
 
-# test_script build + profiling artifacts (kernels.cu / bench_main.cu are source;
-# the compiled binary, profiler exports, and benchmark JSON are generated)
-test_script/*.exe
-test_script/*.exp
-test_script/*.lib
-test_script/*.pdb
-test_script/*.obj
-test_script/raw_details.txt
-test_script/raw_full.csv
-test_script/arm_*.json
-test_script/*.log
-
-# Profiler reports — large binaries; never commit (fixtures regenerated locally)
+# Profiler reports are large binaries and regenerable — never commit them, even
+# under tests/fixtures/. The committed text/JSON fixtures (.ncu-csv, .rocprof-csv,
+# .perf-stat.json, .perf-report.txt, .metal-json) are NOT matched by these rules.
 *.ncu-rep
+*.csv
+!tests/fixtures/.gitkeep
 
 # OS / editor
 .DS_Store

@@ -12,9 +12,6 @@ jobs:
     environment: pypi
     permissions:
       id-token: write
-    defaults:
-      run:
-        working-directory: perfdigest
     steps:
       - uses: actions/checkout@v4
       - name: Install uv

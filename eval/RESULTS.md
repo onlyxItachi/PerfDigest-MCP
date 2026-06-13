@@ -58,11 +58,18 @@ arm cost more (\$0.153 vs \$0.105) — raw context is not free even once.
 
 ## Reproduce
 
-```
-# 1. build + profile (profiling needs admin once for GPU perf counters)
-nvcc -O3 -arch=sm_89 -o test_script/gafime_bench.exe test_script/kernels.cu test_script/bench_main.cu
-ncu --set full -o perfdigest/tests/fixtures/gafime test_script/gafime_bench.exe
+The original CUDA workload (GAFIME kernels) has been removed from the repo, but
+the ratio reproduces from any `--set full` report — one kernel is enough:
 
-# 2. run both arms + print the comparison
-pwsh perfdigest/eval/run_ab.ps1
+```bash
+# profile any CUDA app
+ncu --set full -o report.ncu-rep ./your_app
+
+# raw payload an agent would read, vs the perfdigest digest:
+ncu --import report.ncu-rep --page details | wc -c     # ~13.6 KB per kernel of raw noise
+# vs list_kernels + get_metrics over the same report   # ~1 KB dense signal (≈14–130x fewer tokens)
 ```
+
+Re-measured 2026-06-13 on an RTX 4060 (sm_89), single kernel: raw details
+13,615 B (~3,404 tok) and raw `--csv` dump 124,344 B (~31,086 tok) vs a 963 B
+(~241 tok) digest — i.e. 14x and 129x.

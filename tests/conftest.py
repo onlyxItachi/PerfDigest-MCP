@@ -16,8 +16,8 @@ FIXTURE = FIXTURES / "gafime.ncu-rep"
 def report_path() -> str:
     if not FIXTURE.exists():
         pytest.skip(
-            "real .ncu-rep fixture absent (gitignored). Regenerate with: "
-            "ncu --set full -o tests/fixtures/gafime test_script/gafime_bench"
+            "real .ncu-rep fixture absent (gitignored binary). Regenerate from any "
+            "CUDA app with: ncu --set full -o tests/fixtures/gafime <app>"
         )
     return str(FIXTURE)
 

@@ -63,11 +63,11 @@ Point either client at the working tree instead of PyPI:
 
 ```bash
 # Claude Code
-claude mcp add perfdigest --scope local -- uv --directory /abs/path/to/perfdigest run perfdigest
+claude mcp add perfdigest --scope local -- uv --directory /abs/path/to/PerfDigest-MCP run perfdigest-mcp
 ```
 ```toml
 # Codex ~/.codex/config.toml
 [mcp_servers.perfdigest]
 command = "uv"
-args = ["--directory", "/abs/path/to/perfdigest", "run", "perfdigest"]
+args = ["--directory", "/abs/path/to/PerfDigest-MCP", "run", "perfdigest-mcp"]
 ```
