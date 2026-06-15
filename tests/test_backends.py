@@ -16,6 +16,7 @@ CASES = {
     "nvidia": ("nvidia_sample.ncu-csv", "ncu-csv", "gpu_kernel"),
     "amd": ("amd_sample.rocprof-csv", "rocprof-csv", "gpu_kernel"),
     "cpu_stat": ("cpu_stat_sample.perf-stat.json", "perf-stat-json", "cpu_function"),
+    "cpu_stat_paranoid": ("cpu_stat_paranoid_sample.perf-stat.json", "perf-stat-json", "cpu_function"),
     "cpu_report": ("cpu_report_sample.perf-report.txt", "perf-report", "cpu_function"),
     "metal": ("metal_sample.metal-json", "metal-json", "gpu_pass"),
 }
@@ -65,6 +66,20 @@ def test_cpu_perf_stat_derived_ratios(fixtures_dir):
     assert m["wall_time_ms"] == pytest.approx(120.5)
     # A program-level unit has no per-symbol self%: honest absence, not zero.
     assert m["self_pct"] == NOT_AVAILABLE
+
+
+def test_cpu_perf_stat_strips_scope_modifiers(fixtures_dir):
+    # On a perf_event_paranoid>=2 host perf emits user-scoped names ('cycles:u',
+    # 'instructions:u', ...). They are the same counters; the digest must still
+    # derive the ratios instead of reporting everything as absent.
+    path, fmt = _path(fixtures_dir, "cpu_stat_paranoid")
+    m = tools.get_metrics(path, fmt, "0")["metrics"]
+    assert m["ipc"] == pytest.approx(2.0)  # 3,000,000:u / 1,500,000:u
+    assert m["cache_miss_rate"] == pytest.approx(10.0)  # 200:u / 2000:u
+    assert m["branch_mispredict_rate"] == pytest.approx(1.0)  # 50:u / 5000:u
+    assert m["wall_time_ms"] == pytest.approx(120.5)
+    # LLC events came back '<not supported>' on this PMU: honest absence, not zero.
+    assert m["llc_miss_rate"] == NOT_AVAILABLE
 
 
 def test_cpu_perf_report_hot_symbols(fixtures_dir):

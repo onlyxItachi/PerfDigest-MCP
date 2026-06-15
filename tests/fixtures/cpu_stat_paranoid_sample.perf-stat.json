@@ -1,0 +1,9 @@
+{"counter-value" : "120.50", "unit" : "msec", "event" : "task-clock:u", "event-runtime" : 120500000, "pcnt-running" : 100.00}
+{"counter-value" : "3000000.000000", "unit" : "", "event" : "instructions:u", "event-runtime" : 100000000, "pcnt-running" : 83.00}
+{"counter-value" : "1500000.000000", "unit" : "", "event" : "cycles:u", "event-runtime" : 100000000, "pcnt-running" : 83.00}
+{"counter-value" : "200.000000", "unit" : "", "event" : "cache-misses:u", "event-runtime" : 100000000, "pcnt-running" : 83.00}
+{"counter-value" : "2000.000000", "unit" : "", "event" : "cache-references:u", "event-runtime" : 100000000, "pcnt-running" : 83.00}
+{"counter-value" : "50.000000", "unit" : "", "event" : "branch-misses:u", "event-runtime" : 100000000, "pcnt-running" : 83.00}
+{"counter-value" : "5000.000000", "unit" : "", "event" : "branches:u", "event-runtime" : 100000000, "pcnt-running" : 83.00}
+{"counter-value" : "<not supported>", "unit" : "", "event" : "LLC-load-misses:u", "event-runtime" : 0, "pcnt-running" : 100.00}
+{"counter-value" : "<not supported>", "unit" : "", "event" : "LLC-loads:u", "event-runtime" : 0, "pcnt-running" : 100.00}

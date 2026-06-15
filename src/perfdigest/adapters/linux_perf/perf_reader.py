@@ -44,9 +44,17 @@ def _parse_stat_json(text: str, path: str) -> NormalizedUnit:
         if event is None or raw in (None, "", "<not counted>", "<not supported>"):
             continue
         try:
-            events[event] = float(str(raw).replace(",", ""))
+            value = float(str(raw).replace(",", ""))
         except ValueError:
             continue
+        events[event] = value
+        # perf appends scope modifiers (:u/:k/:uH/...) to event names — on a
+        # perf_event_paranoid>=2 host every event comes back user-scoped as
+        # 'cycles:u'. It is the SAME counter, so index it under its bare name too
+        # (a full, unmodified name still wins, hence setdefault).
+        base = re.sub(r":[a-z]+$", "", event, flags=re.IGNORECASE)
+        if base != event:
+            events.setdefault(base, value)
 
     def ev(*names: str) -> float | None:
         for n in names:
