@@ -72,9 +72,9 @@ def _complete_events(report_path: str) -> list[dict]:
                 "(format perf-stat-json), not a trace."
             ) from None
     if isinstance(raw, dict):
-        if "traceEvents" not in raw:
+        if not isinstance(raw.get("traceEvents"), list):
             raise ValueError(
-                f"{report_path} is a JSON object without a 'traceEvents' key — "
+                f"{report_path} is a JSON object without a 'traceEvents' list — "
                 "not a Chrome trace. Check the file and the format argument."
             )
         events = raw["traceEvents"]

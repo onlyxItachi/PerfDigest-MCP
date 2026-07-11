@@ -134,6 +134,12 @@ def test_wrong_json_shapes_raise_actionable_errors(tmp_path):
     with pytest.raises(Exception, match="traceEvents"):
         tools.list_kernels(str(not_trace), FMT)
 
+    # ...and a traceEvents that is not a LIST is equally not a trace.
+    bad_value = tmp_path / "badvalue.trace.json"
+    bad_value.write_text(json.dumps({"traceEvents": 42}))
+    with pytest.raises(Exception, match="traceEvents"):
+        tools.list_kernels(str(bad_value), FMT)
+
     # JSON-lines (a perf-stat export) is not valid JSON as a whole.
     jsonl = tmp_path / "stat.trace.json"
     jsonl.write_text('{"a": 1}\n{"b": 2}\n')
