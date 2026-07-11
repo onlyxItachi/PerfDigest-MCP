@@ -77,6 +77,9 @@ def capability_summary(info: PlatformInfo | None = None) -> dict:
         {"backend": b.name, "domain": b.domain, "formats": sorted(b.formats)}
         for b in registry.readable_backends()
     ]
+    # A backend missing from can_digest is no longer a silent mystery: each one
+    # carries its diagnostic (broken optional wheel vs simply not installed).
+    digest_issues = registry.reader_issues()
     capture = []
     for backend in registry.all_backends():
         report = capture_report(backend, info)
@@ -90,8 +93,11 @@ def capability_summary(info: PlatformInfo | None = None) -> dict:
                 "notes": list(report.notes),
             }
         )
-    return {
+    summary = {
         "host": info.to_dict(),
         "can_digest": digest,  # tier-1, universal
         "can_capture_here": capture,  # tier-2, gated
     }
+    if digest_issues:  # additive: absent when every reader imports cleanly
+        summary["can_digest_issues"] = digest_issues
+    return summary

@@ -16,16 +16,28 @@ _BY_FORMAT: dict[str, Backend] = {}
 
 
 def register(backend: Backend) -> Backend:
-    """Register a backend and index every format it reads. Idempotent by name."""
-    _BY_NAME[backend.name] = backend
+    """Register a backend and index every format it reads. Idempotent by name.
+
+    Collision detection and storage BOTH use the normalized key — checking the
+    raw string while storing the normalized one would let 'NCU-REP' silently
+    overwrite the backend that registered 'ncu-rep' (issue #2).
+    """
+    # Validate EVERY format key first, then commit name + formats together —
+    # a rejected backend must leave no trace (no ghost in _BY_NAME, no partial
+    # format claims dependent on frozenset iteration order).
+    keys = []
     for fmt in backend.formats:
-        existing = _BY_FORMAT.get(fmt)
+        key = _norm(fmt)
+        existing = _BY_FORMAT.get(key)
         if existing is not None and existing.name != backend.name:
             raise ValueError(
-                f"format {fmt!r} already claimed by backend {existing.name!r}; "
-                f"{backend.name!r} cannot also claim it"
+                f"format {fmt!r} (normalized {key!r}) already claimed by backend "
+                f"{existing.name!r}; {backend.name!r} cannot also claim it"
             )
-        _BY_FORMAT[_norm(fmt)] = backend
+        keys.append(key)
+    _BY_NAME[backend.name] = backend
+    for key in keys:
+        _BY_FORMAT[key] = backend
     return backend
 
 
@@ -62,11 +74,30 @@ def all_backends() -> list[Backend]:
 
 def readable_backends() -> list[Backend]:
     """Tier-1: backends whose reader dependency imports here. NOT OS-gated."""
-    return [b for b in all_backends() if _safe(b.reader_available)]
+    return [b for b in all_backends() if reader_status(b)[0]]
 
 
-def _safe(fn) -> bool:
+def reader_status(backend: Backend) -> tuple[bool, str | None]:
+    """(readable, diagnostic) — a False is no longer silent (issue #4).
+
+    Distinguishes 'reader dependency not importable / probe said no' (False,
+    reason) from 'probe itself crashed' (False, the exception) so a broken
+    optional wheel is diagnosable instead of looking identical to 'not
+    installed'. True always pairs with None.
+    """
     try:
-        return bool(fn())
-    except Exception:
-        return False
+        if bool(backend.reader_available()):
+            return True, None
+        return False, "reader_available() returned False (optional dependency not installed?)"
+    except Exception as exc:  # noqa: BLE001 — the point is to surface it
+        return False, f"reader_available() raised {type(exc).__name__}: {exc}"
+
+
+def reader_issues() -> list[dict]:
+    """Backends that cannot digest here, each with its diagnostic."""
+    out = []
+    for b in all_backends():
+        ok, why = reader_status(b)
+        if not ok:
+            out.append({"backend": b.name, "formats": sorted(b.formats), "issue": why})
+    return out

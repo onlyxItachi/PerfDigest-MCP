@@ -63,7 +63,7 @@ backend (`torch-trace`/`chrome-trace`: aggregates ph=='X' events by (cat, name) 
 ops as `framework_op` AND cat=='kernel' device kernels as `gpu_kernel` in ONE report; totals
 overlap across nested spans, documented). ptxas honesty nuance: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0 (unlike a missing
-export); `barriers` stays None on old toolkits that never print it. 95 tests pass (+16
+export); `barriers` stays None on old toolkits that never print it. 104 tests pass (+16
 hardware-gated skips). Benchmark artifacts live in the companion repo
 https://github.com/onlyxItachi/PerfDigest-MCP-Bench: the original A/B benchmark is
 `results/RESULTS.md` there; the cross-backend hardware run is
@@ -110,7 +110,7 @@ shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabular
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 95 pass + 16 hardware-gated skips
+uv run pytest            # 104 pass + 16 hardware-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says

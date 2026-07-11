@@ -45,16 +45,39 @@ def _vocabulary_hint(backend: Backend, requested: list[str]) -> dict | None:
 
 
 def _find_unit(units: list[NormalizedUnit], kernel: str) -> NormalizedUnit:
-    """Match by exact name, unique substring, or numeric index."""
-    if kernel.strip().lstrip("#").isdigit():
-        index = int(kernel.strip().lstrip("#"))
+    """Match by exact name, then '#3' explicit index, then plain-numeric index,
+    then unique substring.
+
+    Exact-name matching comes FIRST so a unit literally named '3' (arbitrary
+    emitters produce such names — chrome traces especially) stays addressable;
+    '#3' is the unambiguous way to say index 3 (issue #2). Plain numerics keep
+    working as an index fallback for units whose name doesn't shadow them.
+    """
+    k = kernel.strip()
+
+    exact = [u for u in units if u.name == k]
+    if len(exact) == 1:
+        return exact[0]
+
+    def _by_index(index: int) -> NormalizedUnit | None:
         for u in units:
             if u.index == index:
                 return u
-    exact = [u for u in units if u.name == kernel]
-    if len(exact) == 1:
-        return exact[0]
-    partial = [u for u in units if kernel in u.name]
+        return None
+
+    if k.startswith("#") and k[1:].isdigit():
+        unit = _by_index(int(k[1:]))
+        if unit is not None:
+            return unit
+        available = ", ".join(f"#{u.index} {u.name}" for u in units)
+        raise ValueError(f"index {k} not present. Available: {available}")
+
+    if not exact and k.isdigit():
+        unit = _by_index(int(k))
+        if unit is not None:
+            return unit
+
+    partial = [u for u in units if k in u.name]
     if len(partial) == 1:
         return partial[0]
     available = ", ".join(f"#{u.index} {u.name}" for u in units)
@@ -62,7 +85,7 @@ def _find_unit(units: list[NormalizedUnit], kernel: str) -> NormalizedUnit:
         raise ValueError(f"unit {kernel!r} not found. Available: {available}")
     raise ValueError(
         f"unit {kernel!r} is ambiguous ({len(exact) or len(partial)} matches). "
-        f"Disambiguate with the index from list_kernels. Available: {available}"
+        f"Disambiguate with '#<index>' from list_kernels. Available: {available}"
     )
 
 
@@ -107,7 +130,9 @@ def get_metrics(
     backend, path = _resolve(report_ref, format)
     target = _find_unit(_units(backend, path), kernel)
 
-    requested = list(metrics) if metrics else list(backend.default_core_set)
+    # Only None means "give me the defaults"; an explicit [] means an empty
+    # metrics object (issue #2 — the two were previously conflated).
+    requested = list(metrics) if metrics is not None else list(backend.default_core_set)
     digest = build_digest(target, format, requested).to_dict()
 
     hint = _vocabulary_hint(backend, requested)
@@ -157,7 +182,7 @@ def summarize_report(
     """
     backend, path = _resolve(report_ref, format)
     units = _units(backend, path)
-    requested = list(metrics) if metrics else list(backend.default_core_set)
+    requested = list(metrics) if metrics is not None else list(backend.default_core_set)
     summary = build_summary(units, format, requested, top_n)
     hint = _vocabulary_hint(backend, requested)
     if hint:
@@ -189,7 +214,7 @@ def compare_metrics(
     path_b = str(resolve_report(report_b, backend.suffixes))
     unit_a = _find_unit(_units(backend, path_a), kernel)
     unit_b = _find_unit(_units(backend, path_b), kernel_b if kernel_b else kernel)
-    requested = list(metrics) if metrics else list(backend.default_core_set)
+    requested = list(metrics) if metrics is not None else list(backend.default_core_set)
     comparison = build_comparison(unit_a, unit_b, format, requested)
     hint = _vocabulary_hint(backend, requested)
     if hint:

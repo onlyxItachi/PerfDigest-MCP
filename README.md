@@ -97,6 +97,15 @@ Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](doc
 
 ## Status
 
+**v1.1.1** — contract-hardening hotfix (issues #2/#4/#5): registry format
+collisions are detected on the normalized key (a case-variant format can no
+longer silently hijack a backend); `metrics=[]` now means an empty request
+(only `None` selects the default core set); exact unit names win over numeric
+index interpretation, with `#3` as the explicit index form; unreadable backends
+surface a diagnostic in `platform_capabilities` (`can_digest_issues`) instead
+of a silent `False`; and publishing is gated — a tag only reaches PyPI after
+the full suite, a clean-venv wheel install, and a tool-surface check pass.
+
 **v1.1.0** — the agent-loop release: `compare_metrics` (before/after deltas),
 `summarize_report` (one-call top-N), a parse-once report cache, the `ptxas`
 codegen backend (compile-time registers/spills/smem; capture needs `nvcc`, not a
