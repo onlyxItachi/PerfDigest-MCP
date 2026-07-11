@@ -112,6 +112,7 @@ def build_summary(
             {
                 "name": u.name,
                 "index": u.index,
+                "domain": u.domain,  # mixed-domain backends (chrome_trace) need this per unit
                 "duration_us": u.duration_us,
                 "metrics": build_digest(u, format, requested).metrics,
             }

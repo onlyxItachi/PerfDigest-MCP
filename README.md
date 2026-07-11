@@ -33,6 +33,7 @@ perfdigest deliberately splits what an agent does with a profiler into two tiers
 | `linux_perf` | `perf-stat-json`, `perf-report` | cpu_function | Linux `perf` | Linux | ✅ pure Python |
 | `metal` | `metal-trace` | gpu_pass | Apple `xctrace` | macOS | ✅ pure Python |
 | `ptxas` | `ptxas-verbose` | kernel_codegen | `nvcc -Xptxas -v` (**no GPU needed**) | Linux, Windows | ✅ pure Python |
+| `chrome_trace` | `torch-trace`, `chrome-trace` | framework_op + gpu_kernel | `torch.profiler` → `export_chrome_trace()` | anywhere torch runs | ✅ pure Python |
 
 GPU backends share one vocabulary (`compute_pct_peak`, `dram_pct_peak`,
 `l2_hit_rate`, `achieved_occupancy`, …); the CPU backend introduces a CPU
@@ -97,10 +98,12 @@ Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](doc
 ## Status
 
 **v1.1.0** — the agent-loop release: `compare_metrics` (before/after deltas),
-`summarize_report` (one-call top-N), a parse-once report cache, and the `ptxas`
+`summarize_report` (one-call top-N), a parse-once report cache, the `ptxas`
 codegen backend (compile-time registers/spills/smem; capture needs `nvcc`, not a
-GPU). Also normalizes `perf` scope-modifier event names (`cycles:u` on
-`perf_event_paranoid>=2` hosts).
+GPU), and the `chrome_trace` backend (torch/Kineto and any Chrome-trace emitter:
+framework ops + the CUDA kernels they launched, one report). Also normalizes
+`perf` scope-modifier event names (`cycles:u` on `perf_event_paranoid>=2`
+hosts).
 
 **v1.0.0** — multi-backend registry; NVIDIA (native + CSV), AMD HIP, Linux perf
 (C++/Rust), and Apple Metal adapters; platform capability gating; cross-client
