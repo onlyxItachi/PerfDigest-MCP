@@ -12,6 +12,7 @@ mcp = FastMCP("perfdigest")
 
 def _register_backends() -> None:
     """Import every adapter for its registry side effect (registry.register)."""
+    from perfdigest.adapters.chrome_trace import backend as _chrome  # noqa: F401
     from perfdigest.adapters.linux_perf import backend as _perf  # noqa: F401
     from perfdigest.adapters.metal import backend as _metal  # noqa: F401
     from perfdigest.adapters.nsight import backend as _nsight  # noqa: F401

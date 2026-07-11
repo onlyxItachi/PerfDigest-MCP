@@ -13,9 +13,9 @@ from perfdigest.server.app import mcp
 
 _HEADER = """\
 You have perfdigest: token-efficient access to performance-profiler reports across
-backends (NVIDIA, AMD HIP, CPU perf, Apple Metal, ptxas codegen). It is a translator,
-not a judge — it returns clean numbers; deciding "memory-bound?"/"occupancy-limited?"
-is YOUR job.
+backends (NVIDIA, AMD HIP, CPU perf, Apple Metal, ptxas codegen, torch/Chrome
+traces). It is a translator, not a judge — it returns clean numbers; deciding
+"memory-bound?"/"occupancy-limited?" is YOUR job.
 
 perfdigest has TWO operations — keep them separate:
 

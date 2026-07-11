@@ -13,6 +13,9 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
     * ``kernel_codegen``  — a kernel's compile-time resource usage (``ptxas -v``);
       no runtime duration, but registers/spills/static smem — the WHY behind
       what a runtime profiler measures
+    * ``framework_op``    — an aggregated framework-level span from a trace
+      (torch/Kineto ``aten::mm``, a JAX op, a clang ``-ftime-trace`` phase);
+      counts and wall time, no hardware counters
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -32,6 +35,7 @@ DOMAIN_GPU_KERNEL = "gpu_kernel"
 DOMAIN_CPU_FUNCTION = "cpu_function"
 DOMAIN_GPU_PASS = "gpu_pass"
 DOMAIN_KERNEL_CODEGEN = "kernel_codegen"
+DOMAIN_FRAMEWORK_OP = "framework_op"
 
 
 @dataclass(frozen=True)
