@@ -13,8 +13,9 @@ from perfdigest.server.app import mcp
 
 _HEADER = """\
 You have perfdigest: token-efficient access to performance-profiler reports across
-backends (NVIDIA, AMD HIP, CPU perf, Apple Metal). It is a translator, not a judge —
-it returns clean numbers; deciding "memory-bound?"/"occupancy-limited?" is YOUR job.
+backends (NVIDIA, AMD HIP, CPU perf, Apple Metal, ptxas codegen). It is a translator,
+not a judge — it returns clean numbers; deciding "memory-bound?"/"occupancy-limited?"
+is YOUR job.
 
 perfdigest has TWO operations — keep them separate:
 
@@ -22,10 +23,15 @@ A) DIGEST (read a report) — ALWAYS available on every machine, regardless of l
    hardware. A report captured anywhere (a CI/remote GPU runner, a teammate) can be
    digested here. This is how you do e.g. CUDA work on a Mac: capture on a GPU
    runner, digest the report locally.
-     1. list_kernels(report_ref, format) -> pick the hottest unit by duration_us.
-     2. get_metrics(report_ref, format, kernel=...) -> reason on the digest.
+     1. summarize_report(report_ref, format) -> the N hottest units + core metrics
+        in one call. Or list_kernels(...) when you only need the unit names.
+     2. get_metrics(report_ref, format, kernel=...) -> reason on one unit's digest.
         'not_available_in_this_export' means NOT MEASURED — it is NOT zero.
-     3. Only if insufficient: expand(section=...) for raw vendor counters. NEVER
+     3. In a measure->edit->measure loop: compare_metrics(report_a, report_b, ...)
+        -> {a, b, delta, delta_pct} per metric (delta = b - a), instead of holding
+        two full digests in context. 'undefined_baseline_is_zero' means measured
+        but a == 0 (a percentage is undefined) — distinct from not-measured.
+     4. Only if insufficient: expand(section=...) for raw vendor counters. NEVER
         read/cat a report file directly — expand is strictly cheaper and structured.
 
 B) CAPTURE (produce a report) — must be VERIFIED for this host first.

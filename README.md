@@ -23,7 +23,7 @@ perfdigest deliberately splits what an agent does with a profiler into two tiers
    and `suggest_profile_command` gate this so the agent never spends context on a
    capture that can't run here, and redirect it to "capture elsewhere, digest here."
 
-## Backends (v1.0.0)
+## Backends (v1.1.0)
 
 | Backend | `format` | Domain | Capture tool | Capture OS | Digest anywhere |
 |---|---|---|---|---|---|
@@ -32,11 +32,16 @@ perfdigest deliberately splits what an agent does with a profiler into two tiers
 | `rocm` | `rocprof-csv` | gpu_kernel | AMD `rocprof` | Linux, Windows | ✅ pure Python |
 | `linux_perf` | `perf-stat-json`, `perf-report` | cpu_function | Linux `perf` | Linux | ✅ pure Python |
 | `metal` | `metal-trace` | gpu_pass | Apple `xctrace` | macOS | ✅ pure Python |
+| `ptxas` | `ptxas-verbose` | kernel_codegen | `nvcc -Xptxas -v` (**no GPU needed**) | Linux, Windows | ✅ pure Python |
 
 GPU backends share one vocabulary (`compute_pct_peak`, `dram_pct_peak`,
 `l2_hit_rate`, `achieved_occupancy`, …); the CPU backend introduces a CPU
 vocabulary (`ipc`, `cache_miss_rate`, `llc_miss_rate`, `branch_mispredict_rate`,
-`self_pct`, …). Future: Go, Java, and other perf-critical runtimes.
+`self_pct`, …). The `ptxas` backend adds the **codegen layer**: runtime counters
+say *what* is slow, `registers_per_thread` / `spill_stores_bytes` /
+`static_smem_bytes` say *why the code became what it is* — captured at compile
+time, so it works in any CI job with no GPU attached. Future: Go, Java, and
+other perf-critical runtimes.
 
 ## Two load-bearing invariants (read before running)
 
@@ -52,10 +57,20 @@ vocabulary (`ipc`, `cache_miss_rate`, `llc_miss_rate`, `branch_mispredict_rate`,
 
 Tier 1 — digest (any backend, any host):
 
+- `summarize_report(report_ref, format, top_n=5)` → the N hottest units + core
+  metrics in one call (ranked by `duration_us`, falling back to `self_pct`, then
+  file order; reports duration coverage of the returned units)
 - `list_kernels(report_ref, format)` → `[{name, index, duration_us, domain}]`
 - `get_metrics(report_ref, format, kernel, metrics=None)` → compact digest
   (`metrics=None` → the backend's default core set)
+- `compare_metrics(report_a, report_b, format, kernel, kernel_b=None)` → the
+  measure→edit→measure tool: `{a, b, delta, delta_pct}` per metric with
+  `delta = b − a`; a metric missing on either side yields an honest
+  `not_available_in_this_export` delta, never a fake `0.0`
 - `expand(report_ref, format, kernel, section)` → raw vendor metrics (the safety valve)
+
+Reports are parsed once per file version (an mtime/size-keyed cache), so
+repeated digests of the same report cost no re-parse.
 
 Tier 2 — capture advisory (platform-verified):
 
@@ -80,6 +95,12 @@ uv tool install "perfdigest-mcp[nvidia]"  # + NVIDIA native binary reader (Linux
 Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](docs/clients.md).
 
 ## Status
+
+**v1.1.0** — the agent-loop release: `compare_metrics` (before/after deltas),
+`summarize_report` (one-call top-N), a parse-once report cache, and the `ptxas`
+codegen backend (compile-time registers/spills/smem; capture needs `nvcc`, not a
+GPU). Also normalizes `perf` scope-modifier event names (`cycles:u` on
+`perf_event_paranoid>=2` hosts).
 
 **v1.0.0** — multi-backend registry; NVIDIA (native + CSV), AMD HIP, Linux perf
 (C++/Rust), and Apple Metal adapters; platform capability gating; cross-client

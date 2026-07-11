@@ -22,6 +22,7 @@ PROFILER_TOOLS: dict[str, str] = {
     "linux_perf": "perf",
     "rocm": "rocprof",
     "metal": "xctrace",
+    "ptxas": "nvcc",  # codegen layer: `nvcc -Xptxas -v` needs the toolkit, not a GPU
 }
 
 
