@@ -30,4 +30,7 @@ jobs:
       - name: Sync (dev only — pure-Python readers cover the suite, no hardware)
         run: uv sync --extra dev --python ${{ matrix.python }}
       - name: Run tests
-        run: uv run pytest -q
+        # run must pin the SAME python + extras as sync: with a bare `uv run`,
+        # a python-version mismatch recreates the venv without the dev extra
+        # and pytest vanishes mid-job.
+        run: uv run --extra dev --python ${{ matrix.python }} pytest -q

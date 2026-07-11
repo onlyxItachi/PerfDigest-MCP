@@ -30,10 +30,18 @@ def test_detect_reports_this_host_os():
 
 def test_capability_summary_shape_and_digest_universality():
     summ = capabilities.capability_summary()
-    assert set(summ) == {"host", "can_digest", "can_capture_here"}
+    # can_digest_issues is optional-by-design: present exactly when some
+    # backend's reader cannot import here (e.g. the nsight PRI wheel is an
+    # optional extra, so CI runners without it get a diagnostic, not silence).
+    assert {"host", "can_digest", "can_capture_here"} <= set(summ)
+    assert set(summ) <= {"host", "can_digest", "can_capture_here", "can_digest_issues"}
     digest_backends = {d["backend"] for d in summ["can_digest"]}
     # Every pure-Python backend is digestable here regardless of local hardware.
     assert {"nsight_csv", "rocm", "metal"} <= digest_backends
+    # The two views never disagree: a backend is flagged iff it is not readable.
+    flagged = {i["backend"] for i in summ.get("can_digest_issues", [])}
+    assert flagged.isdisjoint(digest_backends)
+    assert flagged | digest_backends == {b.name for b in registry.all_backends()}
 
 
 def test_os_gate_refuses_capture_on_wrong_platform():
