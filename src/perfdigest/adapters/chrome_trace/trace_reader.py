@@ -39,21 +39,61 @@ from perfdigest.core.metrics import (
     NormalizedUnit,
 )
 
-# Device-side categories Kineto emits; everything else is host/framework side.
-_KERNEL_CATS = frozenset({"kernel"})
+# Device-side categories Kineto emits (verified against a real capture with
+# H2D/D2H transfers); everything else is host/framework side.
+_KERNEL_CATS = frozenset({"kernel", "gpu_memcpy", "gpu_memset"})
+
+# Profiler bookkeeping, not workload: 'Trace' is the whole capture window,
+# 'overhead' is the profiler's own cost. They are real data (kept, digestible)
+# but always name-tagged so every payload carries the discount signal.
+_BOOKKEEPING_CATS = frozenset({"Trace", "overhead"})
+
+# Per-call spans kept per unit for expand — bounded so a million-event trace
+# cannot balloon the raw payload.
+_MAX_RAW_DURS = 64
+
+
+def _dur(e: dict) -> float | None:
+    d = e.get("dur")
+    # bool is an int subclass; a broken emitter's "dur": true must not become 1.0us
+    if isinstance(d, bool) or not isinstance(d, (int, float)):
+        return None
+    return float(d)
 
 
 def _complete_events(report_path: str) -> list[dict]:
     with open(report_path, "r", encoding="utf-8", errors="ignore") as fh:
-        raw = json.load(fh)
-    events = raw.get("traceEvents", []) if isinstance(raw, dict) else raw
+        try:
+            raw = json.load(fh)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                f"{report_path} is not valid JSON ({exc.msg} at line {exc.lineno}) — "
+                "is this really a Chrome trace? A perf-stat export is JSON-lines "
+                "(format perf-stat-json), not a trace."
+            ) from None
+    if isinstance(raw, dict):
+        if "traceEvents" not in raw:
+            raise ValueError(
+                f"{report_path} is a JSON object without a 'traceEvents' key — "
+                "not a Chrome trace. Check the file and the format argument."
+            )
+        events = raw["traceEvents"]
+    elif isinstance(raw, list):
+        events = raw
+    else:
+        raise ValueError(
+            f"{report_path} top-level JSON is {type(raw).__name__}, expected a "
+            "trace object or event array — not a Chrome trace."
+        )
     return [
         e
         for e in events
         if isinstance(e, dict)
         and e.get("ph") == "X"
-        and isinstance(e.get("dur"), (int, float))
-        and e.get("name")
+        and _dur(e) is not None
+        # explicit None/empty check: an emitter's numeric name 0 is still a name
+        and e.get("name") is not None
+        and str(e["name"]).strip() != ""
     ]
 
 
@@ -63,7 +103,8 @@ def _grouped(report_path: str) -> list[dict[str, Any]]:
     for e in _complete_events(report_path):
         cat = str(e.get("cat", ""))
         key = (cat, str(e["name"]))
-        dur = float(e["dur"])
+        dur = _dur(e)
+        assert dur is not None  # filtered in _complete_events
         rec = groups.get(key)
         if rec is None:
             groups[key] = {
@@ -73,6 +114,7 @@ def _grouped(report_path: str) -> list[dict[str, Any]]:
                 "total": dur,
                 "min": dur,
                 "max": dur,
+                "durs": [dur],
                 "first_ts": float(e.get("ts", 0.0)),
                 "first_args": e.get("args") if isinstance(e.get("args"), dict) else {},
             }
@@ -81,15 +123,20 @@ def _grouped(report_path: str) -> list[dict[str, Any]]:
             rec["total"] += dur
             rec["min"] = min(rec["min"], dur)
             rec["max"] = max(rec["max"], dur)
+            if len(rec["durs"]) < _MAX_RAW_DURS:
+                rec["durs"].append(dur)
 
     ordered = sorted(groups.values(), key=lambda r: r["first_ts"])
 
-    # A name used in >1 category gets tagged so every unit stays unique.
+    # A name used in >1 category gets tagged so every unit stays unique;
+    # bookkeeping cats are ALWAYS tagged so the discount signal travels in
+    # every payload ('PyTorch Profiler (0) [Trace]' cannot pass as workload).
     cats_per_name: dict[str, set[str]] = {}
     for rec in ordered:
         cats_per_name.setdefault(rec["name"], set()).add(rec["cat"])
     for rec in ordered:
-        if len(cats_per_name[rec["name"]]) > 1 and rec["cat"]:
+        collide = len(cats_per_name[rec["name"]]) > 1 and rec["cat"]
+        if collide or rec["cat"] in _BOOKKEEPING_CATS:
             rec["unit_name"] = f"{rec['name']} [{rec['cat']}]"
         else:
             rec["unit_name"] = rec["name"]
@@ -131,6 +178,8 @@ def raw_metrics(report_path: str, kernel_index: int, name_filter: str) -> dict[s
         "avg_time_us": rec["total"] / rec["calls"],
         "min_time_us": rec["min"],
         "max_time_us": rec["max"],
+        # the safety valve reaches per-call spans too (bounded, file order)
+        "durs_us": list(rec["durs"]),
     }
     for k, v in rec["first_args"].items():
         if isinstance(v, (int, float, str, bool)):

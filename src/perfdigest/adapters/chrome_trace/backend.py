@@ -24,10 +24,14 @@ CHROME_TRACE_USAGE = (
     "      <hot loop>\n"
     "  prof.export_chrome_trace('report.torch-trace.json')   (format torch-trace)\n"
     "Units aggregate by (cat, name): framework ops (aten::mm, calls/total/avg) AND "
-    "the CUDA kernels they launched (domain gpu_kernel) in one report. Totals "
-    "overlap across nested spans (aten::matmul contains aten::mm) — framework "
-    "hierarchies report that way. For hardware counters on a kernel seen here, "
-    "profile it with ncu and digest via format ncu-rep."
+    "device-side kernels/memcpys (domain gpu_kernel) in one report. Totals overlap "
+    "across nested spans (aten::matmul contains aten::mm) — framework hierarchies "
+    "report that way, so per-unit totals are NOT additive and coverage% is "
+    "indicative only. Units tagged [Trace] (the whole capture window) or "
+    "[overhead] are profiler BOOKKEEPING, not workload — discount them when "
+    "ranking. When comparing two traces whose capture lengths differ, compare "
+    "avg_time_us (calls-normalized), not total_time_us. For hardware counters on "
+    "a kernel seen here, profile it with ncu and digest via format ncu-rep."
 )
 
 

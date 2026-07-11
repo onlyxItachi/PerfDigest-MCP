@@ -63,7 +63,7 @@ backend (`torch-trace`/`chrome-trace`: aggregates ph=='X' events by (cat, name) 
 ops as `framework_op` AND cat=='kernel' device kernels as `gpu_kernel` in ONE report; totals
 overlap across nested spans, documented). ptxas honesty nuance: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0 (unlike a missing
-export); `barriers` stays None on old toolkits that never print it. 88 tests pass (+16
+export); `barriers` stays None on old toolkits that never print it. 95 tests pass (+16
 hardware-gated skips). The original A/B benchmark is in `eval/RESULTS.md`; the
 cross-backend hardware run is `eval/CROSS_BACKEND_2026-06-15.md`.
 
