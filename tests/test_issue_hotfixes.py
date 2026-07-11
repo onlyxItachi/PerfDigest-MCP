@@ -54,8 +54,25 @@ def test_case_variant_format_cannot_hijack_a_backend():
         with pytest.raises(ValueError, match="already claimed"):
             registry.register(hijacker)
         assert registry.get_backend("ncu-rep").name == "nsight"  # unharmed
+        # Registration is atomic: the rejected backend leaves NO trace — no
+        # ghost in all_backends(), no partial format claims.
+        assert "hijacker" not in {b.name for b in registry.all_backends()}
     finally:
         _unregister("hijacker", {"ncu-rep"})
+
+
+def test_rejected_multiformat_backend_leaves_no_partial_claims():
+    # One good format + one colliding format: validation must reject the WHOLE
+    # registration, not claim 'fresh-fmt' before dying on the collision.
+    mixed = _fake_backend("mixed", {"fresh-fmt", "ncu-rep"}, lambda: True)
+    try:
+        with pytest.raises(ValueError, match="already claimed"):
+            registry.register(mixed)
+        assert "mixed" not in {b.name for b in registry.all_backends()}
+        with pytest.raises(ValueError, match="unsupported format"):
+            registry.get_backend("fresh-fmt")  # never claimed
+    finally:
+        _unregister("mixed", {"fresh-fmt", "ncu-rep"})
 
 
 # ------------------------------------------- issue #2: unit selection

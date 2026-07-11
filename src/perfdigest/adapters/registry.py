@@ -22,7 +22,10 @@ def register(backend: Backend) -> Backend:
     raw string while storing the normalized one would let 'NCU-REP' silently
     overwrite the backend that registered 'ncu-rep' (issue #2).
     """
-    _BY_NAME[backend.name] = backend
+    # Validate EVERY format key first, then commit name + formats together —
+    # a rejected backend must leave no trace (no ghost in _BY_NAME, no partial
+    # format claims dependent on frozenset iteration order).
+    keys = []
     for fmt in backend.formats:
         key = _norm(fmt)
         existing = _BY_FORMAT.get(key)
@@ -31,6 +34,9 @@ def register(backend: Backend) -> Backend:
                 f"format {fmt!r} (normalized {key!r}) already claimed by backend "
                 f"{existing.name!r}; {backend.name!r} cannot also claim it"
             )
+        keys.append(key)
+    _BY_NAME[backend.name] = backend
+    for key in keys:
         _BY_FORMAT[key] = backend
     return backend
 
