@@ -108,7 +108,7 @@ shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabular
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 80 pass + 16 hardware-gated skips
+uv run pytest            # 95 pass + 16 hardware-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says
