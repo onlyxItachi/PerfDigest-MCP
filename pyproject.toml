@@ -1,6 +1,6 @@
 [project]
 name = "perfdigest-mcp"
-version = "1.0.0"
+version = "1.1.0"
 description = "Local MCP server that makes performance-profiler output (NVIDIA ncu, AMD rocprof, Linux perf, Apple Metal) token-efficient for LLM coding agents."
 readme = "README.md"
 requires-python = ">=3.11"

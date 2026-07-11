@@ -15,12 +15,19 @@ from __future__ import annotations
 
 from perfdigest.adapters import registry
 from perfdigest.core.backend import Backend
-from perfdigest.core.digest import build_digest
+from perfdigest.core.compare import build_comparison
+from perfdigest.core.digest import build_digest, build_summary
 from perfdigest.core.metrics import NormalizedUnit
 from perfdigest.platform import capabilities
 from perfdigest.platform.detect import detect
+from perfdigest.report_store.cache import cached_units
 from perfdigest.report_store.discovery import resolve_report
 from perfdigest.server.app import mcp
+
+
+def _units(backend: Backend, path: str) -> list[NormalizedUnit]:
+    """Load units through the parse-once cache (reports are immutable on disk)."""
+    return cached_units(backend.name, backend.load_units, path)
 
 
 def _find_unit(units: list[NormalizedUnit], kernel: str) -> NormalizedUnit:
@@ -63,7 +70,7 @@ def list_kernels(report_ref: str, format: str) -> list[dict]:
     backend, path = _resolve(report_ref, format)
     return [
         {"name": u.name, "index": u.index, "duration_us": u.duration_us, "domain": u.domain}
-        for u in backend.load_units(path)
+        for u in _units(backend, path)
     ]
 
 
@@ -84,7 +91,7 @@ def get_metrics(
     self_pct) for cpu_function units.
     """
     backend, path = _resolve(report_ref, format)
-    target = _find_unit(backend.load_units(path), kernel)
+    target = _find_unit(_units(backend, path), kernel)
 
     requested = list(metrics) if metrics else list(backend.default_core_set)
     digest = build_digest(target, format, requested).to_dict()
@@ -111,7 +118,7 @@ def expand(report_ref: str, format: str, kernel: str, section: str) -> dict:
     reading the report file directly.
     """
     backend, path = _resolve(report_ref, format)
-    target = _find_unit(backend.load_units(path), kernel)
+    target = _find_unit(_units(backend, path), kernel)
     raw = backend.raw_metrics(path, target.index, section)
     return {
         "kernel": target.name,
@@ -122,6 +129,56 @@ def expand(report_ref: str, format: str, kernel: str, section: str) -> dict:
         "raw_ref": path,
         "metrics": raw,
     }
+
+
+@mcp.tool()
+def summarize_report(
+    report_ref: str,
+    format: str,
+    top_n: int = 5,
+    metrics: list[str] | None = None,
+) -> dict:
+    """The N hottest units + their core metrics in ONE call — start here.
+
+    Replaces the list_kernels + N x get_metrics round trips when orienting in an
+    unfamiliar report. Units are ranked by duration_us, falling back to self_pct
+    (CPU sampler symbols carry no wall time), then file order. When durations
+    exist, ``coverage_pct_of_total_duration`` says how much of the report's total
+    time the returned units account for. Same honesty rule as get_metrics:
+    'not_available_in_this_export' is NOT MEASURED, never zero.
+    """
+    backend, path = _resolve(report_ref, format)
+    units = _units(backend, path)
+    requested = list(metrics) if metrics else list(backend.default_core_set)
+    return build_summary(units, format, requested, top_n)
+
+
+@mcp.tool()
+def compare_metrics(
+    report_a: str,
+    report_b: str,
+    format: str,
+    kernel: str,
+    kernel_b: str | None = None,
+    metrics: list[str] | None = None,
+) -> dict:
+    """Delta digest of one unit across two reports — the measure->edit->measure tool.
+
+    After changing code and re-profiling, call this with A = the before report
+    and B = the after report: each metric comes back as {a, b, delta, delta_pct}
+    with ``delta = b - a`` (negative duration_us delta = B is faster). ``kernel``
+    matches in BOTH reports unless ``kernel_b`` overrides the B-side (renamed or
+    restructured kernels). Comparing two DIFFERENT kernels of one report (pass
+    the same path twice) is also legitimate. A metric missing on either side
+    yields delta = 'not_available_in_this_export' — never a fake 0.0.
+    """
+    backend = registry.get_backend(format)
+    path_a = str(resolve_report(report_a, backend.suffixes))
+    path_b = str(resolve_report(report_b, backend.suffixes))
+    unit_a = _find_unit(_units(backend, path_a), kernel)
+    unit_b = _find_unit(_units(backend, path_b), kernel_b if kernel_b else kernel)
+    requested = list(metrics) if metrics else list(backend.default_core_set)
+    return build_comparison(unit_a, unit_b, format, requested)
 
 
 @mcp.tool()

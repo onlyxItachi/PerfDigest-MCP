@@ -7,9 +7,12 @@ metric name; keys in ``metrics`` are standard hardware/runtime terms
 
 A "unit" is one profiled unit of work, whatever the backend's domain is:
 
-    * ``gpu_kernel``   — a CUDA / HIP kernel launch (NVIDIA, AMD)
-    * ``cpu_function`` — a hot symbol/function from a CPU sampler (``perf``)
-    * ``gpu_pass``     — a Metal encoder/compute pass (Apple)
+    * ``gpu_kernel``      — a CUDA / HIP kernel launch (NVIDIA, AMD)
+    * ``cpu_function``    — a hot symbol/function from a CPU sampler (``perf``)
+    * ``gpu_pass``        — a Metal encoder/compute pass (Apple)
+    * ``kernel_codegen``  — a kernel's compile-time resource usage (``ptxas -v``);
+      no runtime duration, but registers/spills/static smem — the WHY behind
+      what a runtime profiler measures
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -28,6 +31,7 @@ from typing import Mapping
 DOMAIN_GPU_KERNEL = "gpu_kernel"
 DOMAIN_CPU_FUNCTION = "cpu_function"
 DOMAIN_GPU_PASS = "gpu_pass"
+DOMAIN_KERNEL_CODEGEN = "kernel_codegen"
 
 
 @dataclass(frozen=True)

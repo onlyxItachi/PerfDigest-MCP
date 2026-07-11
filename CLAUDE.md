@@ -52,12 +52,17 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **v1.0.0 — multi-backend.** The v1 NVIDIA path is refactored onto the registry;
-the `csv_reader.py` stub is now a real pure-Python reader (NVIDIA CSV digest with no GPU/PRI
-wheel). Added: AMD `rocprof`, Linux `perf` (CPU `cpu_function` units + CPU vocabulary), Metal
-(`gpu_pass`), the `platform/` capability layer, and the two capture-advisory tools. 58 pytest
-tests pass (+16 hardware-gated skips), CI runs the Linux/macOS/Windows matrix, Apache-2.0,
-PyPI + Claude Code/Codex configs ready. The original A/B benchmark is in `eval/RESULTS.md`.
+Current state: **v1.1.0 — the agent-loop release.** On top of the v1.0.0 multi-backend base
+(NVIDIA native + CSV, AMD `rocprof`, Linux `perf`, Metal, `platform/` capability layer):
+`compare_metrics` (before/after delta digest, `delta = b - a`, absence-honest),
+`summarize_report` (one-call top-N by duration_us -> self_pct -> file order, with duration
+coverage), a parse-once report cache (`report_store/cache.py`, keyed by path+mtime+size), and
+the `ptxas` backend (`ptxas-verbose`, domain `kernel_codegen`: registers/spills/static smem
+from `nvcc -Xptxas -v` stderr — capture needs the toolkit, NOT a GPU). ptxas honesty nuance:
+the `Used ...` line is a complete enumeration, so an omitted component there is a GENUINE 0.0
+(unlike a missing export); `barriers` stays None on old toolkits that never print it. 75 tests
+pass (+16 hardware-gated skips). The original A/B benchmark is in `eval/RESULTS.md`; the
+cross-backend hardware run is `eval/CROSS_BACKEND_2026-06-15.md`.
 
 Real-report lesson (baked into `mapping.py`): the init prompt's example
 `dram__throughput.avg.pct_of_peak_sustained_elapsed` does **not** exist in ncu 2026.1 — the
@@ -65,12 +70,15 @@ DRAM %-of-peak is `gpu__dram_throughput...`. The absence convention caught it (s
 `not_available_in_this_export` instead of a fake 0.0). Always verify metric names against a
 real report before trusting a mapping entry.
 
-## The tools (5 — registry-dispatched, thin shell)
+## The tools (7 — registry-dispatched, thin shell)
 
 Tier 1 — digest (any backend, any host; `format` is mandatory):
 ```python
+summarize_report(report_ref, format, top_n=5, metrics=None) -> dict  # one-call top-N + coverage
 list_kernels(report_ref, format) -> list[dict]   # [{name, index, duration_us, domain}]
 get_metrics(report_ref, format, kernel, metrics=None) -> dict   # None => backend default core set
+compare_metrics(report_a, report_b, format, kernel, kernel_b=None, metrics=None) -> dict
+    # measure->edit->measure deltas: {a, b, delta, delta_pct}, delta = b - a
 expand(report_ref, format, kernel, section) -> dict             # raw vendor metrics
 ```
 Tier 2 — capture advisory (platform-verified):
@@ -97,7 +105,7 @@ shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabular
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 58 pass + 16 hardware-gated skips
+uv run pytest            # 75 pass + 16 hardware-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says

@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Sequence
 
-from perfdigest.core.metrics import NormalizedKernel
+from perfdigest.core.metrics import NormalizedKernel, NormalizedUnit
 
 NOT_AVAILABLE = "not_available_in_this_export"
 
@@ -68,3 +68,58 @@ def build_digest(
         metrics=metrics,
         domain=getattr(kernel, "domain", "gpu_kernel"),
     )
+
+
+def build_summary(
+    units: Sequence[NormalizedUnit],
+    format: str,
+    requested: Sequence[str],
+    top_n: int,
+) -> dict:
+    """The N hottest units with their core metrics — one call, one payload.
+
+    Replaces the list_kernels + N x get_metrics round trips an agent spends to
+    orient itself in an unfamiliar report. Hotness falls back honestly by domain:
+    ``duration_us`` (GPU kernels/passes) -> ``self_pct`` (CPU sampler symbols) ->
+    file order (e.g. codegen units, which have no runtime cost at all).
+    """
+    if any(u.duration_us is not None for u in units):
+        sorted_by = "duration_us"
+        key = lambda u: u.duration_us if u.duration_us is not None else float("-inf")
+        ordered = sorted(units, key=key, reverse=True)
+    elif any(u.metric("self_pct") is not None for u in units):
+        sorted_by = "self_pct"
+        key = lambda u: u.metric("self_pct") if u.metric("self_pct") is not None else float("-inf")
+        ordered = sorted(units, key=key, reverse=True)
+    else:
+        sorted_by = "file_order"
+        ordered = list(units)
+
+    top = ordered[: max(top_n, 0)]
+    summary: dict = {
+        "format": format,
+        "domain": units[0].domain if units else None,
+        "raw_ref": units[0].raw_ref if units else None,
+        "total_units": len(units),
+        "returned": len(top),
+        "sorted_by": sorted_by,
+        "units": [
+            {
+                "name": u.name,
+                "index": u.index,
+                "duration_us": u.duration_us,
+                "metrics": build_digest(u, format, requested).metrics,
+            }
+            for u in top
+        ],
+    }
+    # Coverage is only meaningful over measured durations (never fabricate).
+    durations = [u.duration_us for u in units if u.duration_us is not None]
+    if durations and sorted_by == "duration_us":
+        total = sum(durations)
+        covered = sum(u.duration_us for u in top if u.duration_us is not None)
+        summary["total_duration_us"] = total
+        summary["coverage_pct_of_total_duration"] = (
+            covered / total * 100.0 if total > 0 else NOT_AVAILABLE
+        )
+    return summary

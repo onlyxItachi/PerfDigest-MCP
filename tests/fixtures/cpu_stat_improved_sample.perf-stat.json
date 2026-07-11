@@ -1,0 +1,7 @@
+{"counter-value":"100.00","unit":"msec","event":"task-clock"}
+{"counter-value":"3000000","event":"instructions"}
+{"counter-value":"1200000","event":"cycles"}
+{"counter-value":"100","event":"cache-misses"}
+{"counter-value":"2000","event":"cache-references"}
+{"counter-value":"25","event":"branch-misses"}
+{"counter-value":"5000","event":"branches"}
