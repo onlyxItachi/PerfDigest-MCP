@@ -30,6 +30,20 @@ def _units(backend: Backend, path: str) -> list[NormalizedUnit]:
     return cached_units(backend.name, backend.load_units, path)
 
 
+def _vocabulary_hint(backend: Backend, requested: list[str]) -> dict | None:
+    """Flag requested terms outside the backend's vocabulary (typos vs absence)."""
+    unknown = [
+        t for t in requested if t != "duration_us" and t not in backend.standard_to_vendor
+    ]
+    if not unknown:
+        return None
+    return {
+        "requested_but_not_in_vocabulary": unknown,
+        "known_terms": list(backend.known_terms),
+        "hint": "use expand(section=...) for raw vendor counters",
+    }
+
+
 def _find_unit(units: list[NormalizedUnit], kernel: str) -> NormalizedUnit:
     """Match by exact name, unique substring, or numeric index."""
     if kernel.strip().lstrip("#").isdigit():
@@ -96,15 +110,9 @@ def get_metrics(
     requested = list(metrics) if metrics else list(backend.default_core_set)
     digest = build_digest(target, format, requested).to_dict()
 
-    unknown = [
-        t for t in requested if t != "duration_us" and t not in backend.standard_to_vendor
-    ]
-    if unknown:
-        digest["unknown_metrics"] = {
-            "requested_but_not_in_vocabulary": unknown,
-            "known_terms": list(backend.known_terms),
-            "hint": "use expand(section=...) for raw vendor counters",
-        }
+    hint = _vocabulary_hint(backend, requested)
+    if hint:
+        digest["unknown_metrics"] = hint
     return digest
 
 
@@ -150,7 +158,11 @@ def summarize_report(
     backend, path = _resolve(report_ref, format)
     units = _units(backend, path)
     requested = list(metrics) if metrics else list(backend.default_core_set)
-    return build_summary(units, format, requested, top_n)
+    summary = build_summary(units, format, requested, top_n)
+    hint = _vocabulary_hint(backend, requested)
+    if hint:
+        summary["unknown_metrics"] = hint
+    return summary
 
 
 @mcp.tool()
@@ -178,7 +190,11 @@ def compare_metrics(
     unit_a = _find_unit(_units(backend, path_a), kernel)
     unit_b = _find_unit(_units(backend, path_b), kernel_b if kernel_b else kernel)
     requested = list(metrics) if metrics else list(backend.default_core_set)
-    return build_comparison(unit_a, unit_b, format, requested)
+    comparison = build_comparison(unit_a, unit_b, format, requested)
+    hint = _vocabulary_hint(backend, requested)
+    if hint:
+        comparison["unknown_metrics"] = hint
+    return comparison
 
 
 @mcp.tool()

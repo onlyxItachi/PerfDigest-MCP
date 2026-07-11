@@ -74,4 +74,34 @@ def test_summarize_codegen_falls_back_to_file_order(fixtures_dir):
     path = str(fixtures_dir / "gpu_codegen_sample.ptxas.txt")
     s = tools.summarize_report(path, "ptxas-verbose", top_n=2)
     assert s["sorted_by"] == "file_order"
-    assert s["units"][0]["name"] == "_Z17true_spill_kernelPKfPfi"
+    assert s["units"][0]["name"] == "_Z17true_spill_kernelPKfPfi [sm_89]"
+
+
+def test_summarize_top_n_zero_and_typo_hint(fixtures_dir):
+    path = str(fixtures_dir / "nvidia_sample.ncu-csv")
+    s = tools.summarize_report(path, "ncu-csv", top_n=0)
+    assert s["returned"] == 0 and s["units"] == []
+    assert s["total_units"] == 2  # the report itself is still described
+
+    # A typo'd metric must be flagged as out-of-vocabulary, not silently
+    # uniform NOT_AVAILABLE (indistinguishable from a sparse export).
+    s = tools.summarize_report(path, "ncu-csv", metrics=["dram_pct_peakk"])
+    assert "unknown_metrics" in s
+    assert s["unknown_metrics"]["requested_but_not_in_vocabulary"] == ["dram_pct_peakk"]
+
+
+def test_compare_delta_pct_over_zero_baseline_is_undefined_not_absent():
+    # A measured 0.0 baseline (e.g. branch_efficiency of a branchless kernel):
+    # the delta exists; the PERCENTAGE is mathematically undefined — and that
+    # must NOT reuse NOT_AVAILABLE, which means "not measured in this export".
+    from perfdigest.core.compare import UNDEFINED_PCT, build_comparison
+    from perfdigest.core.metrics import NormalizedUnit
+
+    a = NormalizedUnit(name="k", index=0, duration_us=None, raw_ref="a",
+                       metrics={"x": 0.0})
+    b = NormalizedUnit(name="k", index=0, duration_us=None, raw_ref="b",
+                       metrics={"x": 5.0})
+    entry = build_comparison(a, b, "any", ["x"])["metrics"]["x"]
+    assert entry["delta"] == 5.0  # arithmetic still fine
+    assert entry["delta_pct"] == UNDEFINED_PCT
+    assert entry["delta_pct"] != "not_available_in_this_export"

@@ -45,6 +45,26 @@ def test_rewritten_file_is_reparsed(tmp_path):
     assert out[0].name == "k2"
 
 
+def test_cached_units_are_mutation_proof(tmp_path):
+    # A caller mutating a returned unit's metrics must NOT poison later hits:
+    # cached units carry read-only mapping proxies.
+    import pytest
+
+    cache.clear()
+    f = tmp_path / "r.txt"
+    f.write_text("v1")
+
+    def loader(path):
+        return [NormalizedUnit(name="k", index=0, duration_us=1.0, raw_ref="x",
+                               metrics={"m": 1.0})]
+
+    first = cache.cached_units("b1", loader, str(f))
+    with pytest.raises(TypeError):
+        first[0].metrics["m"] = 999.0  # read-only proxy
+    second = cache.cached_units("b1", loader, str(f))
+    assert second[0].metrics["m"] == 1.0
+
+
 def test_backends_do_not_share_entries(tmp_path):
     cache.clear()
     f = tmp_path / "r.txt"

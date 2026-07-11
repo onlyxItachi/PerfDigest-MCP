@@ -11,8 +11,10 @@ A = before and B = after, a negative ``duration_us`` delta means B is faster.
 
 Absence rule, compare edition: a delta only exists when BOTH sides were
 measured. One missing side keeps its NOT_AVAILABLE sentinel and the delta
-becomes NOT_AVAILABLE too — never a fake 0.0. ``delta_pct`` additionally needs
-``a != 0`` (no division blow-up masquerading as data).
+becomes NOT_AVAILABLE too — never a fake 0.0. ``delta_pct`` over a measured
+``a == 0`` baseline is a DIFFERENT case: the data was measured, the ratio is
+just undefined — it gets its own sentinel so NOT_AVAILABLE keeps meaning
+exactly "not measured in this export".
 """
 
 from __future__ import annotations
@@ -21,6 +23,10 @@ from typing import Sequence
 
 from perfdigest.core.digest import NOT_AVAILABLE
 from perfdigest.core.metrics import NormalizedUnit
+
+# Measured on both sides, but a == 0 so a percentage is mathematically undefined.
+# Deliberately distinct from NOT_AVAILABLE (= "not measured in this export").
+UNDEFINED_PCT = "undefined_baseline_is_zero"
 
 
 def _value(unit: NormalizedUnit, term: str) -> float | None:
@@ -43,7 +49,7 @@ def build_comparison(
         }
         if va is not None and vb is not None:
             entry["delta"] = vb - va
-            entry["delta_pct"] = (vb - va) / va * 100.0 if va != 0 else NOT_AVAILABLE
+            entry["delta_pct"] = (vb - va) / va * 100.0 if va != 0 else UNDEFINED_PCT
         else:
             entry["delta"] = NOT_AVAILABLE
             entry["delta_pct"] = NOT_AVAILABLE

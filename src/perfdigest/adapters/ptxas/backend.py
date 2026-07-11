@@ -32,7 +32,15 @@ def _probe() -> CapabilityReport:
     if not exe:
         return CapabilityReport(False, "nvcc not found on PATH (CUDA toolkit needed)", None)
     return CapabilityReport(
-        True, "nvcc present (no GPU needed — codegen is a compiler fact)", exe
+        True,
+        "nvcc present (no GPU needed — codegen is a compiler fact)",
+        exe,
+        notes=(
+            "Add -arch=sm_XX for your DEPLOYMENT target — without it nvcc compiles "
+            "for its default arch and the register/spill numbers describe that "
+            "default, not your GPU. Multi-arch (-gencode ...) works too: each "
+            "target becomes its own '[sm_XX]'-tagged unit.",
+        ),
     )
 
 

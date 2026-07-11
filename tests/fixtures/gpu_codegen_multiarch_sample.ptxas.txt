@@ -1,0 +1,50 @@
+ptxas info    : Overriding maximum register limit 256 for '_Z17true_spill_kernelPKfPfi' with  24 of maxrregcount option
+ptxas info    : Overriding maximum register limit 256 for '_Z16smem_tile_kernelPKfPfi' with  24 of maxrregcount option
+ptxas info    : Overriding maximum register limit 256 for '_Z13spilly_kernelPKfPfii' with  24 of maxrregcount option
+ptxas info    : Overriding maximum register limit 256 for '_Z10lean_saxpyfPKfPfl' with  24 of maxrregcount option
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z17true_spill_kernelPKfPfi' for 'sm_80'
+ptxas info    : Function properties for _Z17true_spill_kernelPKfPfi
+    312 bytes stack frame, 660 bytes spill stores, 656 bytes spill loads
+ptxas info    : Used 24 registers, used 0 barriers, 312 bytes cumulative stack size, 372 bytes cmem[0]
+ptxas info    : Compile time = 12.645 ms
+ptxas info    : Compiling entry function '_Z16smem_tile_kernelPKfPfi' for 'sm_80'
+ptxas info    : Function properties for _Z16smem_tile_kernelPKfPfi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, used 1 barriers, 4224 bytes smem, 372 bytes cmem[0]
+ptxas info    : Compile time = 2.260 ms
+ptxas info    : Compiling entry function '_Z13spilly_kernelPKfPfii' for 'sm_80'
+ptxas info    : Function properties for _Z13spilly_kernelPKfPfii
+    384 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, used 0 barriers, 384 bytes cumulative stack size, 376 bytes cmem[0]
+ptxas info    : Compile time = 93.526 ms
+ptxas info    : Compiling entry function '_Z10lean_saxpyfPKfPfl' for 'sm_80'
+ptxas info    : Function properties for _Z10lean_saxpyfPKfPfl
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, used 0 barriers, 384 bytes cmem[0]
+ptxas info    : Compile time = 1.550 ms
+ptxas info    : Overriding maximum register limit 256 for '_Z17true_spill_kernelPKfPfi' with  24 of maxrregcount option
+ptxas info    : Overriding maximum register limit 256 for '_Z16smem_tile_kernelPKfPfi' with  24 of maxrregcount option
+ptxas info    : Overriding maximum register limit 256 for '_Z13spilly_kernelPKfPfii' with  24 of maxrregcount option
+ptxas info    : Overriding maximum register limit 256 for '_Z10lean_saxpyfPKfPfl' with  24 of maxrregcount option
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z17true_spill_kernelPKfPfi' for 'sm_89'
+ptxas info    : Function properties for _Z17true_spill_kernelPKfPfi
+    312 bytes stack frame, 660 bytes spill stores, 656 bytes spill loads
+ptxas info    : Used 24 registers, used 0 barriers, 312 bytes cumulative stack size, 372 bytes cmem[0]
+ptxas info    : Compile time = 12.603 ms
+ptxas info    : Compiling entry function '_Z16smem_tile_kernelPKfPfi' for 'sm_89'
+ptxas info    : Function properties for _Z16smem_tile_kernelPKfPfi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, used 1 barriers, 4224 bytes smem, 372 bytes cmem[0]
+ptxas info    : Compile time = 1.860 ms
+ptxas info    : Compiling entry function '_Z13spilly_kernelPKfPfii' for 'sm_89'
+ptxas info    : Function properties for _Z13spilly_kernelPKfPfii
+    384 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, used 0 barriers, 384 bytes cumulative stack size, 376 bytes cmem[0]
+ptxas info    : Compile time = 72.832 ms
+ptxas info    : Compiling entry function '_Z10lean_saxpyfPKfPfl' for 'sm_89'
+ptxas info    : Function properties for _Z10lean_saxpyfPKfPfl
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, used 0 barriers, 384 bytes cmem[0]
+ptxas info    : Compile time = 1.244 ms

@@ -14,8 +14,12 @@ that lack ``barriers`` / ``cumulative stack size``):
     ptxas info : Used 24 registers, used 0 barriers, 4224 bytes smem, 372 bytes cmem[0]
     ptxas info : Compile time = 21.988 ms
 
-Names stay MANGLED as ptxas reports them ('_Z17true_spill_kernelPKfPfi') — the
-plain kernel name is a substring, so ``kernel='true_spill_kernel'`` still matches.
+Unit names are the MANGLED name as ptxas reports it, tagged with the target
+arch: '_Z17true_spill_kernelPKfPfi [sm_89]'. The plain kernel name is a
+substring, so ``kernel='true_spill_kernel'`` still matches — and a multi-gencode
+compile (the normal CI invocation, one entry per ``-gencode`` target) stays
+addressable by name: ``kernel='true_spill_kernel'`` is ambiguous across arches,
+but ``kernel='true_spill_kernelPKfPfi [sm_80]'`` (or the index) is unique.
 
 Honesty rule, ptxas edition: the ``Used ...`` line is a complete enumeration of
 nonzero resources — ptxas OMITS a component that is zero (no ``bytes smem`` means
@@ -41,6 +45,7 @@ _USED = re.compile(r"Used (\d+) registers")
 _BARRIERS = re.compile(r"used (\d+) barriers")
 _SMEM = re.compile(r"(\d+)\s+bytes smem")
 _CMEM = re.compile(r"(\d+)\s+bytes cmem\[\d+\]")
+_CUM_STACK = re.compile(r"(\d+)\s+bytes cumulative stack size")
 _COMPILE_TIME = re.compile(r"Compile time = ([\d.]+) ms")
 
 
@@ -84,6 +89,9 @@ def _parse(report_path: str) -> list[dict[str, Any]]:
                 current["static_smem_bytes"] = float(ms.group(1)) if ms else 0.0
                 cmem = [float(v) for v in _CMEM.findall(line)]
                 current["const_mem_bytes"] = sum(cmem) if cmem else 0.0
+                mc = _CUM_STACK.search(line)
+                if mc:  # raw-only extra; absent on leaf kernels
+                    current["cumulative_stack_bytes"] = float(mc.group(1))
                 continue
 
             m = _COMPILE_TIME.search(line)
@@ -107,7 +115,9 @@ def load_units(report_path: str) -> list[NormalizedUnit]:
         }
         units.append(
             NormalizedUnit(
-                name=rec["name"],
+                # Tag the arch so multi-gencode compiles (same mangled name once
+                # per -gencode target) stay distinguishable and name-addressable.
+                name=f"{rec['name']} [{rec['arch']}]",
                 index=index,
                 duration_us=None,  # a compile artifact has no runtime duration
                 raw_ref=report_path,

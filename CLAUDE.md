@@ -60,7 +60,7 @@ coverage), a parse-once report cache (`report_store/cache.py`, keyed by path+mti
 the `ptxas` backend (`ptxas-verbose`, domain `kernel_codegen`: registers/spills/static smem
 from `nvcc -Xptxas -v` stderr — capture needs the toolkit, NOT a GPU). ptxas honesty nuance:
 the `Used ...` line is a complete enumeration, so an omitted component there is a GENUINE 0.0
-(unlike a missing export); `barriers` stays None on old toolkits that never print it. 75 tests
+(unlike a missing export); `barriers` stays None on old toolkits that never print it. 80 tests
 pass (+16 hardware-gated skips). The original A/B benchmark is in `eval/RESULTS.md`; the
 cross-backend hardware run is `eval/CROSS_BACKEND_2026-06-15.md`.
 
@@ -105,7 +105,7 @@ shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabular
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 75 pass + 16 hardware-gated skips
+uv run pytest            # 80 pass + 16 hardware-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says
