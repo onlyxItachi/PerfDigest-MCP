@@ -6,8 +6,65 @@ on:
 
 # Trusted publishing (OIDC) — configure the project on PyPI to trust this repo's
 # `publish.yml`; no API token secret is stored. Tag a release like `v1.0.0`.
+#
+# The publish job is GATED (issue #5): nothing reaches PyPI unless the full
+# suite passes AND the built wheel installs clean and exposes the expected
+# console scripts + MCP tool surface — a tag on a red tree publishes nothing.
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run the full suite
+        run: |
+          uv sync --extra dev
+          uv run pytest -q
+
+      - name: Build sdist + wheel
+        run: uv build
+
+      - name: Wheel must not ship eval/ or tests/
+        run: |
+          uv run python - <<'PY'
+          import glob, sys, zipfile
+          wheel = glob.glob("dist/*.whl")[0]
+          bad = [n for n in zipfile.ZipFile(wheel).namelist()
+                 if n.startswith(("eval/", "tests/"))]
+          sys.exit(f"wheel ships stray paths: {bad}" if bad else 0)
+          PY
+
+      - name: Install wheel into a clean venv; verify scripts + tool surface
+        run: |
+          uv venv /tmp/verify-venv
+          uv pip install --python /tmp/verify-venv/bin/python dist/*.whl
+          test -x /tmp/verify-venv/bin/perfdigest-mcp
+          test -x /tmp/verify-venv/bin/perfdigest
+          /tmp/verify-venv/bin/python - <<'PY'
+          import asyncio
+          from perfdigest.server.app import _register_backends, mcp
+          _register_backends()
+          from perfdigest.server import prompts, tools  # noqa: F401 (decorator side effects)
+          names = sorted(t.name for t in asyncio.run(mcp.list_tools()))
+          expected = sorted([
+              "list_kernels", "get_metrics", "expand",
+              "summarize_report", "compare_metrics",
+              "platform_capabilities", "suggest_profile_command",
+          ])
+          assert names == expected, f"tool surface drifted: {names}"
+          print("tool surface OK:", names)
+          PY
+
+      - name: Keep the verified artifacts for the publish job
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
   pypi:
+    needs: verify
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -16,7 +73,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install uv
         uses: astral-sh/setup-uv@v5
-      - name: Build sdist + wheel
-        run: uv build
-      - name: Publish
+      - name: Download the verified artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish exactly what was verified
         run: uv publish

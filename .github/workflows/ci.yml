@@ -12,17 +12,22 @@ on:
 # The macOS job digesting the NVIDIA fixture IS the "CUDA-dev-on-a-Mac" proof.
 jobs:
   test:
-    name: test (${{ matrix.os }})
+    name: test (${{ matrix.os }}, py${{ matrix.python }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.13"]
+        include:
+          # the declared floor (requires-python >=3.11) is actually tested (issue #5)
+          - os: ubuntu-latest
+            python: "3.11"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
         uses: astral-sh/setup-uv@v5
       - name: Sync (dev only — pure-Python readers cover the suite, no hardware)
-        run: uv sync --extra dev
+        run: uv sync --extra dev --python ${{ matrix.python }}
       - name: Run tests
         run: uv run pytest -q
