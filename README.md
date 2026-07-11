@@ -111,6 +111,12 @@ config. Validated on the Linux/macOS/Windows CI matrix (pure-Python readers run
 hardware-free against committed fixtures). Real binary-capture tests are
 fixture-gated and skip without the device.
 
+**Benchmarks & evaluation:** token-efficiency A/B studies and real-hardware
+cross-backend runs live in
+[PerfDigest-MCP-Bench](https://github.com/onlyxItachi/PerfDigest-MCP-Bench)
+(digest ≈14–130x fewer tokens per turn than raw `ncu` output; see
+[`eval/README.md`](eval/README.md)).
+
 ## Related / similar projects
 
 perfdigest was authored independently; these adjacent MCP servers occupy a nearby

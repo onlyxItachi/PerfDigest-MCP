@@ -64,8 +64,10 @@ ops as `framework_op` AND cat=='kernel' device kernels as `gpu_kernel` in ONE re
 overlap across nested spans, documented). ptxas honesty nuance: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0 (unlike a missing
 export); `barriers` stays None on old toolkits that never print it. 95 tests pass (+16
-hardware-gated skips). The original A/B benchmark is in `eval/RESULTS.md`; the
-cross-backend hardware run is `eval/CROSS_BACKEND_2026-06-15.md`.
+hardware-gated skips). Benchmark artifacts live in the companion repo
+https://github.com/onlyxItachi/PerfDigest-MCP-Bench: the original A/B benchmark is
+`results/RESULTS.md` there; the cross-backend hardware run is
+`results/CROSS_BACKEND_2026-06-15.md` (local `eval/README.md` is the slim pointer).
 
 Real-report lesson (baked into `mapping.py`): the init prompt's example
 `dram__throughput.avg.pct_of_peak_sustained_elapsed` does **not** exist in ncu 2026.1 — the
@@ -123,5 +125,8 @@ uv run pytest            # 95 pass + 16 hardware-gated skips
 - Standard hardware metric names in output JSON (lowercase, e.g. `dram_pct_peak`,
   `achieved_occupancy`, `l2_hit_rate`).
 - Keep `core/` free of any vendor metric names — it only knows `NormalizedKernel`.
-- `eval/` is a separate top-level dir and must **not** ship inside the package.
+- Heavy benchmark artifacts (workload sources, result docs, captured reports like
+  `.ncu-rep`) belong in the companion repo
+  https://github.com/onlyxItachi/PerfDigest-MCP-Bench — never in this repo. Local
+  `eval/` keeps only the slim pointer README and must **not** ship inside the package.
 - `tests/fixtures/` holds REAL `.ncu-rep` samples (gitignored binaries; curate a small set).
