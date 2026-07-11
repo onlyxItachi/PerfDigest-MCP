@@ -19,8 +19,10 @@ PTXAS_USAGE = (
     "prints to STDERR — redirect it:\n"
     "  nvcc -O3 -arch=<sm> -Xptxas -v -c kernel.cu -o /dev/null 2> report.ptxas.txt"
     "   (format ptxas-verbose)\n"
-    "Unit names stay mangled ('_Z9my_kernelPf...') — the plain kernel name is a "
-    "substring, so kernel='my_kernel' matches. Nonzero spill_stores_bytes/"
+    "Unit names are the mangled name tagged with the target arch "
+    "('_Z9my_kernelPf... [sm_89]') — the plain kernel name is a substring, so "
+    "kernel='my_kernel' matches; on a multi-gencode report add the tag "
+    "(kernel='my_kernel...[sm_80]') or use the index. Nonzero spill_stores_bytes/"
     "spill_loads_bytes with capped registers is the classic occupancy-vs-spill "
     "trade-off signal to read next to an ncu digest of the same kernel."
 )

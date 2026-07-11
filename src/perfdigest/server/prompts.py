@@ -29,7 +29,8 @@ A) DIGEST (read a report) — ALWAYS available on every machine, regardless of l
         'not_available_in_this_export' means NOT MEASURED — it is NOT zero.
      3. In a measure->edit->measure loop: compare_metrics(report_a, report_b, ...)
         -> {a, b, delta, delta_pct} per metric (delta = b - a), instead of holding
-        two full digests in context.
+        two full digests in context. 'undefined_baseline_is_zero' means measured
+        but a == 0 (a percentage is undefined) — distinct from not-measured.
      4. Only if insufficient: expand(section=...) for raw vendor counters. NEVER
         read/cat a report file directly — expand is strictly cheaper and structured.
 
