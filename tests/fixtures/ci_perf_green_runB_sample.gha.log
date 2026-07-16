@@ -1,0 +1,431 @@
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	﻿2026-07-12T12:10:03.7072513Z Current runner version: '2.335.1'
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7095439Z ##[group]Runner Image Provisioner
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7096174Z Hosted Compute Agent
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7096735Z Version: 20260624.560
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7097240Z Commit: 925d229a51159bc391ae97e54a2dd1fe20af789d
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7097854Z Build Date: 2026-06-24T18:26:47Z
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7098420Z Worker ID: {40415f2e-1ff8-49fd-979d-f7f1f8165199}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7099201Z Azure Region: westus3
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7099780Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7101308Z ##[group]Operating System
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7101820Z Ubuntu
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7102339Z 24.04.4
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7102788Z LTS
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7103236Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7103696Z ##[group]Runner Image
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7104172Z Image: ubuntu-24.04
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7104681Z Version: 20260705.232.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7105724Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260705.232/images/ubuntu/Ubuntu2404-Readme.md
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7106978Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260705.232
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7107732Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7109195Z ##[group]GITHUB_TOKEN Permissions
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7111024Z Contents: read
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7111562Z Metadata: read
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7112036Z Packages: read
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7112479Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7114326Z Secret source: Actions
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7115142Z Prepare workflow directory
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7440463Z Prepare all required actions
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:03.7478333Z Getting action download info
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:04.0458338Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:04.4384070Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:04.5815951Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.1275050Z Complete job name: capture linux perf (degraded-PMU honesty test)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2029831Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2038837Z ##[group]Run actions/checkout@v4
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2040087Z with:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2040853Z   repository: onlyxItachi/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2047379Z   token: ***
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2048066Z   ssh-strict: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2048763Z   ssh-user: git
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2049592Z   persist-credentials: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2050379Z   clean: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2051107Z   sparse-checkout-cone-mode: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2051956Z   fetch-depth: 1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2052663Z   fetch-tags: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2053380Z   show-progress: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2054130Z   lfs: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2054855Z   submodules: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2055575Z   set-safe-directory: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2056525Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2057241Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2058123Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2874229Z Syncing repository: onlyxItachi/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2877033Z ##[group]Getting Git version info
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2878395Z Working directory is '/home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench'
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.2880422Z [command]/usr/bin/git version
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5029759Z git version 2.54.0
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5045681Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5059571Z Temporarily overriding HOME='/home/runner/work/_temp/8298235b-032f-4660-984a-0cecfc3e3e03' before making global git config changes
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5064209Z Adding repository directory to the temporary git global config as a safe directory
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5067317Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5096292Z Deleting the contents of '/home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench'
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5100582Z ##[group]Initializing the repository
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5104171Z [command]/usr/bin/git init /home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5891823Z hint: Using 'master' as the name for the initial branch. This default branch name
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5894341Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5896356Z hint: to use in all of your new repositories, which will suppress this warning,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5897690Z hint: call:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5898824Z hint:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5900176Z hint: 	git config --global init.defaultBranch <name>
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5901686Z hint:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5903059Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5905268Z hint: 'development'. The just-created branch can be renamed via this command:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5906984Z hint:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5907930Z hint: 	git branch -m <name>
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5909306Z hint:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5910311Z hint: Disable this message with "git config set advice.defaultBranchName false"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5912146Z Initialized empty Git repository in /home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench/.git/
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.5915862Z [command]/usr/bin/git remote add origin https://github.com/onlyxItachi/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.7991153Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.7992509Z ##[group]Disabling automatic garbage collection
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.7995937Z [command]/usr/bin/git config --local gc.auto 0
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.8193774Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.8195584Z ##[group]Setting up auth
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.8201068Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.8234188Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.8913894Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.8943829Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.9185168Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.9215909Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.9445922Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.9576951Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.9578266Z ##[group]Fetching the repository
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:05.9590639Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +319a17cef9edef5d80a7a5b91b808744673b64ab:refs/remotes/origin/main
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.5759509Z From https://github.com/onlyxItachi/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.5761849Z  * [new ref]         319a17cef9edef5d80a7a5b91b808744673b64ab -> origin/main
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.5782540Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.5783744Z ##[group]Determining the checkout info
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.5785322Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.5789457Z [command]/usr/bin/git sparse-checkout disable
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.6752893Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.7313214Z ##[group]Checking out the ref
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.7317243Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9525492Z Switched to a new branch 'main'
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9527065Z branch 'main' set up to track 'origin/main'.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9528494Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9562599Z [command]/usr/bin/git log -1 --format=%H
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9585149Z 319a17cef9edef5d80a7a5b91b808744673b64ab
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9757016Z ##[group]Run grep -m1 "model name" /proc/cpuinfo || true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9757483Z ^[[36;1mgrep -m1 "model name" /proc/cpuinfo || true^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9757795Z ^[[36;1mecho "SIMD flags:"^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:06.9758183Z ^[[36;1mgrep -m1 -o -E 'avx[0-9_a-z]*|sse4[._a-z0-9]*|fma' /proc/cpuinfo | sort -u | tr '\n' ' '; echo^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0350258Z shell: /usr/bin/bash -e {0}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0350601Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0350838Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0351106Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0696044Z model name	: AMD EPYC 9V74 80-Core Processor
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0697209Z SIMD flags:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0714362Z avx avx2 avx512_bf16 avx512_bitalg avx512_vbmi2 avx512_vnni avx512_vpopcntdq avx512bw avx512cd avx512dq avx512f avx512ifma avx512vbmi avx512vl fma sse4_1 sse4_2 sse4a 
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0745638Z ##[group]Run sudo apt-get update -q
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0745965Z ^[[36;1msudo apt-get update -q^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0746342Z ^[[36;1msudo apt-get install -y -q linux-tools-common "linux-tools-$(uname -r)" \^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0746779Z ^[[36;1m  || sudo apt-get install -y -q linux-tools-generic^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0747106Z ^[[36;1mPERF=/usr/bin/perf^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0747453Z ^[[36;1m"$PERF" --version || PERF="$(ls -1 /usr/lib/linux-tools/*/perf | head -n1)"^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0747819Z ^[[36;1m"$PERF" --version^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0748076Z ^[[36;1mecho "PERF=$PERF" >> "$GITHUB_ENV"^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0809373Z ^[[36;1msudo sysctl kernel.perf_event_paranoid=1^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0843739Z shell: /usr/bin/bash -e {0}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0844014Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0844257Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.0844529Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.7410696Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.9573985Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.9586092Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.9849575Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.9850417Z Get:6 https://dl.google.com/linux/chrome-stable/deb stable InRelease [1825 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:07.9941598Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.0117562Z Get:7 https://packages.microsoft.com/repos/azure-cli noble InRelease [3564 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.0888277Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.4869534Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1092 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5088232Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [269 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5173708Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5417920Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1660 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5555224Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [327 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5705424Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5729751Z Get:18 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1216 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.5950882Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1225 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.8778526Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [276 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.8826508Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.8870839Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5744 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9111804Z Get:29 https://packages.microsoft.com/repos/azure-cli noble/main amd64 Packages [2314 B]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9312923Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [10.5 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9656371Z Get:30 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [11.6 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9801335Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [827 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9880132Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [187 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9912135Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [44.8 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9932510Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [11.9 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:08.9961093Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1174 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:09.0020469Z Get:31 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [214 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:09.0075341Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [231 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:09.0111461Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:09.0162128Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 c-n-f Metadata [24.2 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:09.0695190Z Get:32 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [181 kB]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:17.0303561Z Fetched 8808 kB in 2s (5795 kB/s)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:17.6981384Z Reading package lists...
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:17.7257823Z Reading package lists...
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:17.9322417Z Building dependency tree...
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:17.9330185Z Reading state information...
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.2763308Z linux-tools-common is already the newest version (6.8.0-134.134).
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.2763912Z linux-tools-common set to manually installed.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.2764429Z linux-tools-6.17.0-1018-azure is already the newest version (6.17.0-1018.18~24.04.1).
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.2765004Z linux-tools-6.17.0-1018-azure set to manually installed.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.2765487Z 0 upgraded, 0 newly installed, 0 to remove and 38 not upgraded.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4483975Z perf version 6.17.13
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4552580Z perf version 6.17.13
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4613854Z kernel.perf_event_paranoid = 1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4652848Z ##[group]Run "$PERF" list 2>/dev/null | grep -iE 'fp_arith|fp_ret|simd|vec' || echo "(no SIMD/FP hardware events exposed)"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4653458Z ^[[36;1m"$PERF" list 2>/dev/null | grep -iE 'fp_arith|fp_ret|simd|vec' || echo "(no SIMD/FP hardware events exposed)"^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4680883Z shell: /usr/bin/bash -e {0}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4681104Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4681299Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4681549Z   PERF: /usr/bin/perf
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.4681731Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5114924Z   irq_vectors:call_function_entry                    [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5115773Z   irq_vectors:call_function_exit                     [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5116330Z   irq_vectors:call_function_single_entry             [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5116749Z   irq_vectors:call_function_single_exit              [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5117154Z   irq_vectors:deferred_error_apic_entry              [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5117501Z   irq_vectors:deferred_error_apic_exit               [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5117834Z   irq_vectors:error_apic_entry                       [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5118430Z   irq_vectors:error_apic_exit                        [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5118918Z   irq_vectors:irq_work_entry                         [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5119816Z   irq_vectors:irq_work_exit                          [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5120164Z   irq_vectors:local_timer_entry                      [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5120497Z   irq_vectors:local_timer_exit                       [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5120831Z   irq_vectors:reschedule_entry                       [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5121164Z   irq_vectors:reschedule_exit                        [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5121514Z   irq_vectors:spurious_apic_entry                    [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5121877Z   irq_vectors:spurious_apic_exit                     [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5122237Z   irq_vectors:thermal_apic_entry                     [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5122578Z   irq_vectors:thermal_apic_exit                      [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5122918Z   irq_vectors:threshold_apic_entry                   [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5123261Z   irq_vectors:threshold_apic_exit                    [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5123597Z   irq_vectors:vector_activate                        [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5123921Z   irq_vectors:vector_alloc                           [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5124246Z   irq_vectors:vector_alloc_managed                   [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5124582Z   irq_vectors:vector_clear                           [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5124912Z   irq_vectors:vector_config                          [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5125260Z   irq_vectors:vector_deactivate                      [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5125602Z   irq_vectors:vector_free_moved                      [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5125943Z   irq_vectors:vector_reserve                         [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5126295Z   irq_vectors:vector_reserve_managed                 [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5126637Z   irq_vectors:vector_setup                           [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5126967Z   irq_vectors:vector_teardown                        [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5127297Z   irq_vectors:vector_update                          [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5127626Z   irq_vectors:x86_platform_ipi_entry                 [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5128001Z   irq_vectors:x86_platform_ipi_exit                  [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5128422Z   memcg:mod_memcg_lruvec_state                       [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5128949Z   skb:skb_copy_datagram_iovec                        [Tracepoint event]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5151485Z ##[group]Run cc -O2 -fno-inline -fno-omit-frame-pointer -o cpu_bench workloads/cpu_bench.c -lm
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5152035Z ^[[36;1mcc -O2 -fno-inline -fno-omit-frame-pointer -o cpu_bench workloads/cpu_bench.c -lm^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5152413Z ^[[36;1mLC_ALL=C "$PERF" stat -j -o cpu_stat_ci.json \^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5152974Z ^[[36;1m  -e task-clock,cycles,instructions,cache-references,cache-misses,branches,branch-misses,LLC-loads,LLC-load-misses \^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5153513Z ^[[36;1m  -- ./cpu_bench^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5153720Z ^[[36;1mcat cpu_stat_ci.json^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5153995Z ^[[36;1m"$PERF" record -e cycles:u -g -o perf.data -- ./cpu_bench \^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5154345Z ^[[36;1m  || "$PERF" record -e cpu-clock:u -g -o perf.data -- ./cpu_bench^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5154802Z ^[[36;1mLC_ALL=C "$PERF" report -i perf.data --stdio -n --no-children -g none --percent-limit 0.5 > cpu_report_ci.txt^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5155215Z ^[[36;1mhead -40 cpu_report_ci.txt^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5182073Z shell: /usr/bin/bash -e {0}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5182290Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5182494Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5182722Z   PERF: /usr/bin/perf
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:18.5182904Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4556331Z done 0 1799996340.972833
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4578397Z {"counter-value" : "8283437829.000000", "unit" : "", "event" : "task-clock", "event-runtime" : 8283437829, "pcnt-running" : 100.00, "metric-value" : "0.999855", "metric-unit" : "CPUs utilized"}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4579584Z {"counter-value" : "<not supported>", "unit" : "", "event" : "cycles", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4580119Z {"counter-value" : "<not supported>", "unit" : "", "event" : "instructions", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4580699Z {"counter-value" : "<not supported>", "unit" : "", "event" : "cache-references", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4581252Z {"counter-value" : "<not supported>", "unit" : "", "event" : "cache-misses", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4581762Z {"counter-value" : "<not supported>", "unit" : "", "event" : "branches", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4582276Z {"counter-value" : "<not supported>", "unit" : "", "event" : "branch-misses", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4582800Z {"counter-value" : "<not supported>", "unit" : "", "event" : "LLC-loads", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:27.4583317Z {"counter-value" : "<not supported>", "unit" : "", "event" : "LLC-load-misses", "event-runtime" : 0, "pcnt-running" : 100.00}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.8878636Z done 0 1799996340.972833
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.8879365Z [ perf record: Woken up 11 times to write data ]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9134808Z [ perf record: Captured and wrote 2.823 MB perf.data (33624 samples) ]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9409679Z # To display the perf.data header info, please use --header/--header-only options.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9410212Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9410427Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9410652Z # Total Lost Samples: 0
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9410924Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9411163Z # Samples: 33K of event 'task-clock:u'
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9411521Z # Event count (approx.): 8406000000
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9411832Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9412227Z # Overhead       Samples  Command    Shared Object  Symbol                            
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9412747Z # ........  ............  .........  .............  ..................................
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9413100Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9413426Z     94.93%         31920  cpu_bench  cpu_bench      [.] compute_bound_poly.constprop.0
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9413846Z      3.96%          1333  cpu_bench  cpu_bench      [.] mem_bound_chase.constprop.0
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9414162Z      1.10%           371  cpu_bench  cpu_bench      [.] main
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9414335Z 
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9414338Z 
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9414665Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9414858Z # (Cannot load tips.txt file, please install perf!)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9415100Z #
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9485432Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9486664Z ##[group]Run actions/setup-python@v5
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9486886Z with:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9487052Z   python-version: 3.12
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9487240Z   check-latest: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9489317Z   token: ***
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9489498Z   update-environment: true
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9489701Z   allow-prereleases: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9489888Z   freethreaded: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9490061Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9490243Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9490476Z   PERF: /usr/bin/perf
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:35.9490657Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.0592745Z ##[group]Installed versions
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1208108Z (node:2527) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1208726Z (Use `node --trace-deprecation ...` to show where the warning was created)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1209651Z Successfully set up CPython (3.12.13)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1210143Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1324209Z ##[group]Run pip install -q "$PERFDIGEST_SPEC"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1324516Z ^[[36;1mpip install -q "$PERFDIGEST_SPEC"^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1324750Z ^[[36;1mpython ci/digest_check.py \^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1324977Z ^[[36;1m  perf-stat-json:cpu_stat_ci.json \^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1325207Z ^[[36;1m  perf-report:cpu_report_ci.txt^[[0m
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1457104Z shell: /usr/bin/bash -e {0}
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1457328Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1457526Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1457756Z   PERF: /usr/bin/perf
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1457993Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1458362Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib/pkgconfig
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1458699Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1459101Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1459490Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1459789Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:36.1460041Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0583016Z 
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0583980Z ===== perf-stat-json :: cpu_stat_ci.json — 1 units =====
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0584393Z [
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0584600Z  {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0584822Z   "name": "<program>",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0585072Z   "index": 0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0585317Z   "duration_us": 8283437829000.0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0585621Z   "domain": "cpu_function"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0585890Z  }
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0586106Z ]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0586355Z --- digest of '<program>' ---
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0586679Z {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0586886Z  "kernel": "<program>",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0587152Z  "index": 0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0587503Z  "format": "perf-stat-json",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0587804Z  "domain": "cpu_function",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0588131Z  "raw_ref": "cpu_stat_ci.json",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0588423Z  "metrics": {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0588693Z   "self_pct": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0589229Z   "samples": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0589681Z   "wall_time_ms": 8283437829.0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0589994Z   "ipc": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0590371Z   "instructions": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0590750Z   "cycles": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0591128Z   "cache_miss_rate": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0591532Z   "llc_miss_rate": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0591961Z   "branch_mispredict_rate": "not_available_in_this_export"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0592359Z  }
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0592567Z }
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0592684Z 
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0593011Z ===== perf-report :: cpu_report_ci.txt — 3 units =====
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0593372Z [
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0593576Z  {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0593873Z   "name": "compute_bound_poly.constprop.0",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0594204Z   "index": 0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0594454Z   "duration_us": null,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0594731Z   "domain": "cpu_function"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0594994Z  },
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0595214Z  {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0595467Z   "name": "mem_bound_chase.constprop.0",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0595788Z   "index": 1,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0596025Z   "duration_us": null,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0596286Z   "domain": "cpu_function"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0596607Z  },
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0596813Z  {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0597024Z   "name": "main",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0597265Z   "index": 2,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0597499Z   "duration_us": null,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0597759Z   "domain": "cpu_function"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0598015Z  }
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0598217Z ]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0598571Z --- digest of 'compute_bound_poly.constprop.0' ---
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0598928Z {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0599312Z  "kernel": "compute_bound_poly.constprop.0",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0600007Z  "index": 0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0600249Z  "format": "perf-report",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0600759Z  "domain": "cpu_function",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0601076Z  "raw_ref": "cpu_report_ci.txt",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0601369Z  "metrics": {
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0601606Z   "self_pct": 94.93,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0601903Z   "samples": 31920.0,
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0602215Z   "wall_time_ms": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0602470Z   "ipc": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0602708Z   "instructions": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0602951Z   "cycles": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0603201Z   "cache_miss_rate": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0603461Z   "llc_miss_rate": "not_available_in_this_export",
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0603852Z   "branch_mispredict_rate": "not_available_in_this_export"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0604114Z  }
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0604261Z }
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0604344Z 
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.0604490Z OK — 2 report(s) digested honestly.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1946129Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1947819Z ##[group]Run actions/upload-artifact@v4
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1948166Z with:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1948427Z   name: ci-captures-perf
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1948757Z   path: cpu_stat_ci.json
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	cpu_report_ci.txt
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1949297Z   if-no-files-found: warn
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1949604Z   compression-level: 6
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1949885Z   overwrite: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1950167Z   include-hidden-files: false
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1950465Z env:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1950736Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1951081Z   PERF: /usr/bin/perf
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1951473Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1952005Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib/pkgconfig
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1952540Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1953007Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1953494Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1953984Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.1954400Z ##[endgroup]
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3412918Z (node:2564) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3413502Z (Use `node --trace-deprecation ...` to show where the warning was created)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3457479Z Multiple search paths detected. Calculating the least common ancestor of all paths
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3460018Z The least common ancestor is /home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench. This will be the root directory of the artifact
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3460917Z With the provided path, there will be 2 files uploaded
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3465689Z Artifact name is valid!
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.3466051Z Root directory input is valid!
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.6788725Z Beginning upload of artifact content to blob storage
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.6951043Z (node:2564) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:50.9425771Z Uploaded bytes 806
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.0115727Z Finished uploading artifact content to blob storage!
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.0116388Z SHA256 digest of uploaded artifact zip is 4d4ad6459346171d099649bf8d63836cc357c6272f742a1259291752d2702ce3
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.0117258Z Finalizing artifact upload
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.2436070Z Artifact ci-captures-perf.zip successfully finalized. Artifact ID 8259831139
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.2437186Z Artifact ci-captures-perf has been successfully uploaded! Final size is 806 bytes. Artifact ID is 8259831139
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.2442176Z Artifact download URL: https://github.com/onlyxItachi/PerfDigest-MCP-Bench/actions/runs/29192140809/artifacts/8259831139
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.2584260Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.2585240Z Post job cleanup.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.3602905Z (node:2576) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.3603786Z (Use `node --trace-deprecation ...` to show where the warning was created)
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.3727226Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.3728197Z Post job cleanup.
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4457310Z [command]/usr/bin/git version
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4490374Z git version 2.54.0
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4520038Z Temporarily overriding HOME='/home/runner/work/_temp/7a7bc0ad-a738-4111-b049-df5007e6ae25' before making global git config changes
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4520903Z Adding repository directory to the temporary git global config as a safe directory
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4525196Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4561535Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4593885Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4804618Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4825425Z http.https://github.com/.extraheader
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4834635Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.4866127Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.5106600Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.5137535Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.5471266Z Cleaning up orphan processes
+capture linux perf (degraded-PMU honesty test)	UNKNOWN STEP	2026-07-12T12:10:51.5724238Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
