@@ -17,6 +17,7 @@ frozen dataclasses, but a plain metrics dict would still be writable).
 from __future__ import annotations
 
 import os
+import stat
 import threading
 from collections import OrderedDict
 from dataclasses import replace
@@ -40,6 +41,14 @@ def cached_units(
     """``loader(path)``, memoized on the file's identity + content version."""
     abspath = os.path.abspath(path)
     st = os.stat(abspath)
+    if stat.S_ISDIR(st.st_mode):
+        # Directory-tree reports (criterion's output root): a directory's mtime
+        # does NOT change when a nested file is rewritten in place (cargo bench
+        # overwrites <bench>/new/estimates.json), so the key below cannot see a
+        # re-run and would serve stale units. Caching must stay behaviorally
+        # invisible, so directory refs are parsed fresh every time (the trees
+        # are small JSON files; the IO saving is not worth the staleness risk).
+        return loader(path)
     key = (backend_name, abspath, st.st_mtime_ns, st.st_size)
 
     with _LOCK:

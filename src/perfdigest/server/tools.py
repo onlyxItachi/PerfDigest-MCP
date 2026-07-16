@@ -91,7 +91,7 @@ def _find_unit(units: list[NormalizedUnit], kernel: str) -> NormalizedUnit:
 
 def _resolve(report_ref: str, format: str) -> tuple[Backend, str]:
     backend = registry.get_backend(format)
-    path = resolve_report(report_ref, backend.suffixes)
+    path = resolve_report(report_ref, backend.suffixes, accept_dir=backend.report_is_directory)
     return backend, str(path)
 
 
@@ -210,8 +210,8 @@ def compare_metrics(
     yields delta = 'not_available_in_this_export' — never a fake 0.0.
     """
     backend = registry.get_backend(format)
-    path_a = str(resolve_report(report_a, backend.suffixes))
-    path_b = str(resolve_report(report_b, backend.suffixes))
+    path_a = str(resolve_report(report_a, backend.suffixes, accept_dir=backend.report_is_directory))
+    path_b = str(resolve_report(report_b, backend.suffixes, accept_dir=backend.report_is_directory))
     unit_a = _find_unit(_units(backend, path_a), kernel)
     unit_b = _find_unit(_units(backend, path_b), kernel_b if kernel_b else kernel)
     requested = list(metrics) if metrics is not None else list(backend.default_core_set)

@@ -24,6 +24,9 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
     * ``ci_step``         — one CI job/step from a saved GitHub Actions run log
       (``gh run view --log``); log-line counts and annotation counts, no
       hardware counters at all
+    * ``benchmark``       — one benchmark's wall-time statistics from a bench
+      harness's own estimator (criterion ``estimates.json``); no hardware
+      counters
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -47,6 +50,7 @@ DOMAIN_FRAMEWORK_OP = "framework_op"
 DOMAIN_BUILD_PHASE = "build_phase"
 DOMAIN_BUILD_STEP = "build_step"
 DOMAIN_CI_STEP = "ci_step"
+DOMAIN_BENCHMARK = "benchmark"
 
 
 @dataclass(frozen=True)
