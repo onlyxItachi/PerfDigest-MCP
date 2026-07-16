@@ -16,6 +16,8 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
     * ``framework_op``    — an aggregated framework-level span from a trace
       (torch/Kineto ``aten::mm``, a JAX op, a clang ``-ftime-trace`` phase);
       counts and wall time, no hardware counters
+    * ``build_step``      — one build-graph edge (``ninja .ninja_log``); wall
+      time for compiling/linking one output, no hardware counters
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -36,6 +38,7 @@ DOMAIN_CPU_FUNCTION = "cpu_function"
 DOMAIN_GPU_PASS = "gpu_pass"
 DOMAIN_KERNEL_CODEGEN = "kernel_codegen"
 DOMAIN_FRAMEWORK_OP = "framework_op"
+DOMAIN_BUILD_STEP = "build_step"
 
 
 @dataclass(frozen=True)
