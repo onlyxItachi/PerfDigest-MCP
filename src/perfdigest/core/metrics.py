@@ -27,6 +27,9 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
     * ``benchmark``       — one benchmark's wall-time statistics from a bench
       harness's own estimator (criterion ``estimates.json``); no hardware
       counters
+    * ``build_diag``      — one crate's build diagnostics from a saved
+      ``cargo build --message-format=json`` stream; error/warning counts,
+      NO timing of any kind (duration stays honestly ``None``)
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -51,6 +54,7 @@ DOMAIN_BUILD_PHASE = "build_phase"
 DOMAIN_BUILD_STEP = "build_step"
 DOMAIN_CI_STEP = "ci_step"
 DOMAIN_BENCHMARK = "benchmark"
+DOMAIN_BUILD_DIAG = "build_diag"
 
 
 @dataclass(frozen=True)

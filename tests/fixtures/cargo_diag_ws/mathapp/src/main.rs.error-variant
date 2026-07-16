@@ -1,0 +1,11 @@
+//! mathapp — tiny bin crate depending on mathlib, used ONLY to generate the
+//! cargo_diag test fixtures. THIS is the error-fixture variant: `add` is
+//! called with a &str where an i64 is expected — a REAL E0308 type error.
+
+use mathlib::{add, mul};
+
+fn main() {
+    let a = add(2, "three"); // deliberate E0308: &str is not i64
+    let m = mul(4, 5);
+    println!("add={a} mul(4,5)={m}");
+}
