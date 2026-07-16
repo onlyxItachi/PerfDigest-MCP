@@ -31,7 +31,7 @@ Honesty notes:
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import Any, Callable
 
 from perfdigest.core.metrics import (
     DOMAIN_FRAMEWORK_OP,
@@ -97,8 +97,21 @@ def _complete_events(report_path: str) -> list[dict]:
     ]
 
 
-def _grouped(report_path: str) -> list[dict[str, Any]]:
-    """-> one record per (cat, name), ordered by first appearance (ts)."""
+def _grouped(
+    report_path: str,
+    *,
+    tag_override: "Callable[[dict[str, Any]], str | None] | None" = None,
+) -> list[dict[str, Any]]:
+    """-> one record per (cat, name), ordered by first appearance (ts).
+
+    ``tag_override(rec)``, if given, is consulted per group AHEAD of the
+    default cat-collision / bookkeeping-cat rule below; a truthy return forces
+    ``rec['unit_name']`` to ``f"{name} [{tag_override(rec)}]"`` regardless of
+    cat. This is the surgical hook ``clang_time_trace`` reuses to tag
+    ``-ftime-trace``'s ``Total <Phase>`` aggregates (a name-prefix rule, not a
+    cat collision — those events carry no ``cat`` at all). Default ``None``
+    leaves chrome_trace's own behavior byte-for-byte unchanged.
+    """
     groups: dict[tuple[str, str], dict[str, Any]] = {}
     for e in _complete_events(report_path):
         cat = str(e.get("cat", ""))
@@ -135,8 +148,11 @@ def _grouped(report_path: str) -> list[dict[str, Any]]:
     for rec in ordered:
         cats_per_name.setdefault(rec["name"], set()).add(rec["cat"])
     for rec in ordered:
+        forced = tag_override(rec) if tag_override is not None else None
         collide = len(cats_per_name[rec["name"]]) > 1 and rec["cat"]
-        if collide or rec["cat"] in _BOOKKEEPING_CATS:
+        if forced:
+            rec["unit_name"] = f"{rec['name']} [{forced}]"
+        elif collide or rec["cat"] in _BOOKKEEPING_CATS:
             rec["unit_name"] = f"{rec['name']} [{rec['cat']}]"
         else:
             rec["unit_name"] = rec["name"]

@@ -14,8 +14,11 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
       no runtime duration, but registers/spills/static smem — the WHY behind
       what a runtime profiler measures
     * ``framework_op``    — an aggregated framework-level span from a trace
-      (torch/Kineto ``aten::mm``, a JAX op, a clang ``-ftime-trace`` phase);
-      counts and wall time, no hardware counters
+      (torch/Kineto ``aten::mm``, a JAX op); counts and wall time, no hardware
+      counters
+    * ``build_phase``     — an aggregated compiler phase from a build-time
+      trace (clang ``-ftime-trace``: ``Frontend``, ``InstantiateFunction``,
+      ``CodeGen Function``...); counts and wall time, no hardware counters
     * ``build_step``      — one build-graph edge (``ninja .ninja_log``); wall
       time for compiling/linking one output, no hardware counters
 
@@ -38,6 +41,7 @@ DOMAIN_CPU_FUNCTION = "cpu_function"
 DOMAIN_GPU_PASS = "gpu_pass"
 DOMAIN_KERNEL_CODEGEN = "kernel_codegen"
 DOMAIN_FRAMEWORK_OP = "framework_op"
+DOMAIN_BUILD_PHASE = "build_phase"
 DOMAIN_BUILD_STEP = "build_step"
 
 
