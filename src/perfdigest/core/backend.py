@@ -63,6 +63,9 @@ class Backend:
         reader_available: can the reader's dependency import here? (tier-1 gate).
         capture_command: optional advisor — build the correct, platform-aware
             profile invocation string for a target.
+        report_is_directory: the report_ref is a directory TREE, not a file
+            (criterion's ``target/criterion``); resolution returns the directory
+            as-is and ``suffixes`` becomes irrelevant.
     """
 
     name: str
@@ -79,6 +82,7 @@ class Backend:
     reader_available: Callable[[], bool] = lambda: True
     capture_command: Callable[[str, "PlatformInfo"], str] | None = None
     known_terms: tuple[str, ...] = field(default=())
+    report_is_directory: bool = False
 
     def __post_init__(self):
         # known_terms defaults to the mapping's standard terms + duration.

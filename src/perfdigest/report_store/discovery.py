@@ -16,15 +16,30 @@ DEFAULT_SUFFIXES: tuple[str, ...] = (".ncu-rep",)
 
 
 def resolve_report(
-    report_ref: str, suffixes: tuple[str, ...] = DEFAULT_SUFFIXES
+    report_ref: str,
+    suffixes: tuple[str, ...] = DEFAULT_SUFFIXES,
+    accept_dir: bool = False,
 ) -> Path:
     """Resolve a report reference to an existing report file.
 
     Accepts: a path to a report file, a path missing the backend's suffix, or a
     directory (resolves to the newest matching report inside it).
+
+    ``accept_dir=True`` is for backends whose report IS a directory tree
+    (criterion's ``target/criterion`` output root): the directory itself is the
+    report_ref, so it is returned as-is — suffix completion and newest-file
+    scanning do not apply, and a non-directory ref is a clear error.
     """
     suffixes = tuple(suffixes) or DEFAULT_SUFFIXES
     p = Path(report_ref).expanduser()
+
+    if accept_dir:
+        if p.is_dir():
+            return p
+        raise FileNotFoundError(
+            f"report directory not found: {report_ref} — this format's "
+            "report_ref is a DIRECTORY (e.g. target/criterion), not a file."
+        )
 
     if p.is_dir():
         candidates = [
