@@ -1,0 +1,268 @@
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	﻿2026-07-11T21:32:41.7088089Z Current runner version: '2.335.1'
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7113601Z ##[group]Runner Image Provisioner
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7114526Z Hosted Compute Agent
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7115149Z Version: 20260624.560
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7115752Z Commit: 925d229a51159bc391ae97e54a2dd1fe20af789d
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7116993Z Build Date: 2026-06-24T18:26:47Z
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7117744Z Worker ID: {d6b26736-9ae9-45ed-8d34-d6e83c265bd1}
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7118548Z Azure Region: eastus
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7119181Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7120732Z ##[group]Operating System
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7121450Z Ubuntu
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7121955Z 24.04.4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7122439Z LTS
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7122995Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7123566Z ##[group]Runner Image
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7124265Z Image: ubuntu-24.04
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7124871Z Version: 20260705.232.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7126609Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260705.232/images/ubuntu/Ubuntu2404-Readme.md
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7128379Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260705.232
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7129404Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7130585Z ##[group]GITHUB_TOKEN Permissions
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7132646Z Contents: read
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7133294Z Metadata: read
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7133831Z Packages: read
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7134560Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7137205Z Secret source: Actions
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7138062Z Prepare workflow directory
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7469511Z Prepare all required actions
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.7507977Z Getting action download info
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:41.9456476Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.0236785Z Download action repository 'astral-sh/setup-uv@v5' (SHA:d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3181512Z Complete job name: test (ubuntu-latest, py3.11)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3915641Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3924778Z ##[group]Run actions/checkout@v4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3925519Z with:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3925986Z   repository: onlyxItachi/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3930107Z   token: ***
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3930545Z   ssh-strict: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3930977Z   ssh-user: git
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3931426Z   persist-credentials: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3931909Z   clean: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3932347Z   sparse-checkout-cone-mode: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3932866Z   fetch-depth: 1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3933284Z   fetch-tags: false
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3933722Z   show-progress: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3934157Z   lfs: false
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3934603Z   submodules: false
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3935051Z   set-safe-directory: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.3935790Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.4881085Z Syncing repository: onlyxItachi/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.4882883Z ##[group]Getting Git version info
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.4883688Z Working directory is '/home/runner/work/PerfDigest-MCP/PerfDigest-MCP'
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.4884801Z [command]/usr/bin/git version
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.4973780Z git version 2.54.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5027436Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5043314Z Temporarily overriding HOME='/home/runner/work/_temp/fa6c3e0f-d3e9-4317-a8c9-4d3daeaf9a79' before making global git config changes
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5045754Z Adding repository directory to the temporary git global config as a safe directory
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5049646Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PerfDigest-MCP/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5099125Z Deleting the contents of '/home/runner/work/PerfDigest-MCP/PerfDigest-MCP'
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5104544Z ##[group]Initializing the repository
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5109598Z [command]/usr/bin/git init /home/runner/work/PerfDigest-MCP/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5233798Z hint: Using 'master' as the name for the initial branch. This default branch name
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5234844Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5235824Z hint: to use in all of your new repositories, which will suppress this warning,
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5236985Z hint: call:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5237475Z hint:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5238409Z hint: 	git config --global init.defaultBranch <name>
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5239103Z hint:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5239966Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5241707Z hint: 'development'. The just-created branch can be renamed via this command:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5243093Z hint:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5243863Z hint: 	git branch -m <name>
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5244770Z hint:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5245900Z hint: Disable this message with "git config set advice.defaultBranchName false"
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5248070Z Initialized empty Git repository in /home/runner/work/PerfDigest-MCP/PerfDigest-MCP/.git/
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5251615Z [command]/usr/bin/git remote add origin https://github.com/onlyxItachi/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5296959Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5297756Z ##[group]Disabling automatic garbage collection
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5300443Z [command]/usr/bin/git config --local gc.auto 0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5327927Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5328619Z ##[group]Setting up auth
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5334558Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5367034Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5739344Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5769912Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.5983518Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.6013025Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.6225020Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.6257811Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.6258554Z ##[group]Fetching the repository
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.6267470Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +431745608c7cf4aca8e1e376083d02344279b392:refs/remotes/pull/10/merge
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8261315Z From https://github.com/onlyxItachi/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8263169Z  * [new ref]         431745608c7cf4aca8e1e376083d02344279b392 -> pull/10/merge
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8299168Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8300813Z ##[group]Determining the checkout info
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8302199Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8309719Z [command]/usr/bin/git sparse-checkout disable
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8357649Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8385241Z ##[group]Checking out the ref
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8388483Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/10/merge
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8476424Z Note: switching to 'refs/remotes/pull/10/merge'.
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8477579Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8478418Z You are in 'detached HEAD' state. You can look around, make experimental
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8480424Z changes and commit them, and you can discard any commits you make in this
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8481625Z state without impacting any branches by switching back to a branch.
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8482468Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8483239Z If you want to create a new branch to retain commits you create, you may
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8484650Z do so (now or later) by using -c with the switch command. Example:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8485205Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8485544Z   git switch -c <new-branch-name>
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8485965Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8486652Z Or undo this operation with:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8487084Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8487369Z   git switch -
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8487728Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8488183Z Turn off this advice by setting config variable advice.detachedHead to false
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8488882Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8489614Z HEAD is now at 4317456 Merge 4e6a4df1c971d3ebfbee0ff4d4c550a0a8b26df9 into dff3d1913542a106b8e24db20eb555653f8728ac
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8492231Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8521049Z [command]/usr/bin/git log -1 --format=%H
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8542624Z 431745608c7cf4aca8e1e376083d02344279b392
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8820484Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8823655Z ##[group]Run astral-sh/setup-uv@v5
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8824411Z with:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8828906Z   github-token: ***
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8829511Z   enable-cache: auto
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8830285Z   cache-dependency-glob: **/uv.lock
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	**/requirements*.txt
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8831067Z   prune-cache: true
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8831659Z   ignore-nothing-to-cache: false
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8832418Z   ignore-empty-workdir: false
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:42.8833033Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:43.0535472Z (node:2297) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:43.0538886Z (Use `node --trace-deprecation ...` to show where the warning was created)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:43.2849728Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.11.28/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:43.5208989Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/c2c97649-2db7-4d11-aeb5-c1f3b583bb51 -f /home/runner/work/_temp/50c7cf00-3829-4660-a0fc-cbc1cf7a430a
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0121697Z Added /home/runner/.local/bin to the path
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0124361Z Added /opt/hostedtoolcache/uv/0.11.28/x86_64 to the path
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0147854Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0149948Z Successfully installed uv version 0.11.28
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0152009Z Searching files using cache dependency glob: **/uv.lock,**/requirements*.txt
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0338313Z /home/runner/work/PerfDigest-MCP/PerfDigest-MCP/uv.lock
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.0355714Z Found 1 files to hash.
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.1387924Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-unknown-c80f7b3b784173c0e806fe9a57e1d03f05efaa2b9e02fb3e21dad533227506bf
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.1854685Z No GitHub Actions cache found for key: setup-uv-1-x86_64-unknown-linux-gnu-unknown-c80f7b3b784173c0e806fe9a57e1d03f05efaa2b9e02fb3e21dad533227506bf
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.2098814Z ##[group]Run uv sync --extra dev --python 3.11
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.2100391Z ^[[36;1muv sync --extra dev --python 3.11^[[0m
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.2311759Z shell: /usr/bin/bash -e {0}
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.2312914Z env:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.2313989Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.2315421Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:44.3497640Z Downloading cpython-3.11.15-linux-x86_64-gnu (download) (29.5MiB)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.2385154Z  Downloaded cpython-3.11.15-linux-x86_64-gnu (download)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.3632251Z Using CPython 3.11.15
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.3632910Z Creating virtual environment at: .venv
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.3665975Z Resolved 44 packages in 0.54ms
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.3767163Z    Building perfdigest-mcp @ file:///home/runner/work/PerfDigest-MCP/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.4037773Z Downloading pygments (1.2MiB)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.4046927Z Downloading pydantic-core (2.0MiB)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.4048310Z Downloading cryptography (4.5MiB)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.5653159Z  Downloaded pydantic-core
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.6153454Z  Downloaded cryptography
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:45.6481564Z  Downloaded pygments
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.0906509Z       Built perfdigest-mcp @ file:///home/runner/work/PerfDigest-MCP/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.0915625Z Prepared 41 packages in 723ms
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1165167Z Installed 41 packages in 24ms
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1166620Z  + annotated-doc==0.0.4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1167080Z  + annotated-types==0.7.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1167468Z  + anyio==4.13.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1167794Z  + attrs==26.1.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1168127Z  + certifi==2026.5.20
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1168506Z  + cffi==2.0.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1169324Z  + click==8.4.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1169731Z  + cryptography==48.0.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1170089Z  + h11==0.16.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1170438Z  + httpcore==1.0.9
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1170794Z  + httpx==0.28.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1171120Z  + httpx-sse==0.4.3
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1171447Z  + idna==3.18
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1171771Z  + iniconfig==2.3.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1172125Z  + jsonschema==4.26.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1172565Z  + jsonschema-specifications==2025.9.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1173079Z  + markdown-it-py==4.2.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1173446Z  + mcp==1.27.2
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1173768Z  + mdurl==0.1.2
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1174099Z  + packaging==26.2
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1174716Z  + perfdigest-mcp==1.1.1 (from file:///home/runner/work/PerfDigest-MCP/PerfDigest-MCP)
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1175440Z  + pluggy==1.6.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1175769Z  + pycparser==3.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1176288Z  + pydantic==2.13.4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1176665Z  + pydantic-core==2.46.4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1177073Z  + pydantic-settings==2.14.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1177501Z  + pygments==2.20.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1177828Z  + pyjwt==2.13.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1178152Z  + pytest==9.0.3
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1178491Z  + python-dotenv==1.2.2
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1178882Z  + python-multipart==0.0.32
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1179279Z  + referencing==0.37.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1179594Z  + rich==15.0.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1179888Z  + rpds-py==2026.5.1
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1180210Z  + shellingham==1.5.4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1180547Z  + sse-starlette==3.4.4
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1181198Z  + starlette==1.3.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1181779Z  + typer==0.26.7
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1182371Z  + typing-extensions==4.15.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1183062Z  + typing-inspection==0.4.2
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1183483Z  + uvicorn==0.49.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1308692Z ##[group]Run uv run pytest -q
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1309020Z ^[[36;1muv run pytest -q^[[0m
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1341632Z shell: /usr/bin/bash -e {0}
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1341877Z env:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1342121Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:46.1342453Z ##[endgroup]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:47.9463271Z ........................................................................ [ 60%]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0960465Z .....F....ssssssssssssssss......................                         [100%]
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0961932Z =================================== FAILURES ===================================
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0963154Z ____________ test_capability_summary_shape_and_digest_universality _____________
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0964160Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0964784Z     def test_capability_summary_shape_and_digest_universality():
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0965406Z         summ = capabilities.capability_summary()
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0966599Z >       assert set(summ) == {"host", "can_digest", "can_capture_here"}
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0967452Z E       AssertionError: assert {'can_capture...sues', 'host'} == {'can_capture...gest', 'host'}
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0968120Z E         
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0968412Z E         Extra items in the left set:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0969167Z E         'can_digest_issues'
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0969494Z E         
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0969758Z E         Full diff:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0970049Z E           {
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0970334Z E               'can_capture_here',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0970705Z E               'can_digest',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0971049Z E         +     'can_digest_issues',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0971462Z E               'host',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0971763Z E           }
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0971919Z 
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0972088Z tests/test_platform.py:33: AssertionError
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0972600Z =========================== short test summary info ============================
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0973969Z FAILED tests/test_platform.py::test_capability_summary_shape_and_digest_universality - AssertionError: assert {'can_capture...sues', 'host'} == {'can_capture...gest', 'host'}
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0975307Z   
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0975591Z   Extra items in the left set:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0975994Z   'can_digest_issues'
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0976552Z   
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0976807Z   Full diff:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0977092Z     {
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0977377Z         'can_capture_here',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0977729Z         'can_digest',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0978057Z   +     'can_digest_issues',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0978409Z         'host',
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0978693Z     }
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.0978994Z 1 failed, 103 passed, 16 skipped in 0.29s
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.1759928Z ##[error]Process completed with exit code 1.
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.1901998Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.1903265Z Post job cleanup.
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2685535Z [command]/usr/bin/git version
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2752607Z git version 2.54.0
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2789308Z Temporarily overriding HOME='/home/runner/work/_temp/e445adec-3218-4a17-9795-681fe7715dc0' before making global git config changes
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2790197Z Adding repository directory to the temporary git global config as a safe directory
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2794721Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PerfDigest-MCP/PerfDigest-MCP
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2829517Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.2862505Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3078130Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3102998Z http.https://github.com/.extraheader
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3112816Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3142281Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3357900Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3386926Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3721488Z Cleaning up orphan processes
+test (ubuntu-latest, py3.11)	UNKNOWN STEP	2026-07-11T21:32:48.3991271Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, astral-sh/setup-uv@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

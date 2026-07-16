@@ -201,9 +201,10 @@ def test_single_timestamped_line_is_a_genuine_zero_not_absent(tmp_path):
     assert m["duration_s"] == 0.0
 
 
-# SYNTHETIC — not sourced from any real gh export; the real committed fixture's
-# only run is all-green (0 errors), so the marker-counting logic itself is
-# unit-tested here in isolation, on lines clearly marked as fabricated.
+# SYNTHETIC — not sourced from any real gh export. A REAL single-`##[error]`
+# fixture now exists (ci_test_failed_sample.gha.log, exercised in
+# test_ci_prev_green.py); these fabricated lines remain only for what real
+# data still does not show: MULTIPLE error/warning markers within one step.
 _SYNTHETIC_ANNOTATIONS_LOG = (
     "test\tRun\t2026-07-01T09:00:00.0000000Z starting\n"
     "test\tRun\t2026-07-01T09:00:01.0000000Z ##[error]assertion failed in test_foo\n"
