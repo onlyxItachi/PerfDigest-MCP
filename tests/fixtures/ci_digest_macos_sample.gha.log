@@ -1,0 +1,333 @@
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	﻿2026-07-12T12:07:34.9804200Z Current runner version: '2.335.1'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9820760Z ##[group]Runner Image Provisioner
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9821300Z Hosted Compute Agent
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9821660Z Version: 20260624.560
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9822040Z Commit: 925d229a51159bc391ae97e54a2dd1fe20af789d
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9822640Z Build Date: 2026-06-24T18:26:47Z
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9823080Z Worker ID: {63eb6d82-ebb1-43b7-8af8-c92ad056feb3}
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9823530Z Azure Region: westus
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9823870Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9824730Z ##[group]Operating System
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9825100Z macOS
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9825400Z 26.4
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9825710Z 25E246
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9826030Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9826360Z ##[group]Runner Image
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9826720Z Image: macos-26-arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9827100Z Version: 20260630.0213.1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9827960Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260630.0213/images/macos/macos-26-arm64-Readme.md
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9828990Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260630.0213
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9829840Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9830620Z ##[group]GITHUB_TOKEN Permissions
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9831820Z Contents: read
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9832150Z Metadata: read
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9832490Z Packages: read
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9832830Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9834180Z Secret source: Actions
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:34.9834620Z Prepare workflow directory
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:35.0104180Z Prepare all required actions
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:35.0132030Z Getting action download info
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:35.1411390Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:35.4539710Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.4924390Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6420700Z Complete job name: digest on macos-latest (reports captured on Linux)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6828610Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6834470Z ##[group]Run actions/checkout@v4
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6834950Z with:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6835300Z   repository: onlyxItachi/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6838110Z   token: ***
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6838500Z   ssh-strict: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6838830Z   ssh-user: git
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6839290Z   persist-credentials: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6840100Z   clean: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6840500Z   sparse-checkout-cone-mode: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6840900Z   fetch-depth: 1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6841210Z   fetch-tags: false
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6841620Z   show-progress: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6841970Z   lfs: false
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6842300Z   submodules: false
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6842640Z   set-safe-directory: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6843270Z env:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6843610Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:36.6844020Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0163830Z Syncing repository: onlyxItachi/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0165820Z ##[group]Getting Git version info
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0166510Z Working directory is '/Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0167490Z [command]/opt/homebrew/bin/git version
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0354520Z git version 2.55.0
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0447940Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0453100Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/07f094f9-bf9c-4863-b8fa-214adb838279/.gitconfig'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0454400Z Temporarily overriding HOME='/Users/runner/work/_temp/07f094f9-bf9c-4863-b8fa-214adb838279' before making global git config changes
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0455970Z Adding repository directory to the temporary git global config as a safe directory
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0457020Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0496700Z Deleting the contents of '/Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0498900Z ##[group]Initializing the repository
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0502060Z [command]/opt/homebrew/bin/git init /Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0714520Z hint: Using 'master' as the name for the initial branch. This default branch name
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0715510Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0716430Z hint: to use in all of your new repositories, which will suppress this warning,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0717010Z hint: call:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0717490Z hint:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0718020Z hint: 	git config --global init.defaultBranch <name>
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0718510Z hint:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0719040Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0719840Z hint: 'development'. The just-created branch can be renamed via this command:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0720410Z hint:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0720740Z hint: 	git branch -m <name>
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0721260Z hint:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0721750Z hint: Disable this message with "git config set advice.defaultBranchName false"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0723000Z Initialized empty Git repository in /Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench/.git/
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0725140Z [command]/opt/homebrew/bin/git remote add origin https://github.com/onlyxItachi/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0790490Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0791300Z ##[group]Disabling automatic garbage collection
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0792910Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0855070Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0856510Z ##[group]Setting up auth
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0859530Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.0919000Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.2814120Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.2876060Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.3569530Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.3629410Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.5364010Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.5589060Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.5590550Z ##[group]Fetching the repository
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:37.5592030Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +48c294e477659ade592893a7cc948a3c80f4f1df:refs/remotes/origin/main
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2425190Z From https://github.com/onlyxItachi/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2427870Z  * [new ref]         48c294e477659ade592893a7cc948a3c80f4f1df -> origin/main
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2431060Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2432060Z ##[group]Determining the checkout info
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2432890Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2433720Z [command]/opt/homebrew/bin/git sparse-checkout disable
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2507790Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2568280Z ##[group]Checking out the ref
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2569640Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2712610Z Switched to a new branch 'main'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2720810Z branch 'main' set up to track 'origin/main'.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2911540Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2946580Z [command]/opt/homebrew/bin/git log -1 --format=%H
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.2953160Z 48c294e477659ade592893a7cc948a3c80f4f1df
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3131010Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3137810Z ##[group]Run actions/download-artifact@v4
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3140150Z with:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3140860Z   pattern: ci-captures-*
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3141600Z   merge-multiple: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3143730Z   repository: onlyxItachi/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3144630Z   run-id: 29192019451
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3145270Z env:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3145890Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.3146810Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.4439880Z (node:25813) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.4442360Z (Use `node --trace-deprecation ...` to show where the warning was created)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5032410Z Found 2 artifact(s)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5033630Z Filtering artifacts by pattern 'ci-captures-*'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5044260Z Preparing to download the following artifacts:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5046170Z - ci-captures-ptxas (ID: 8259801903, Size: 364, Expected Digest: sha256:e3f6e3c81db5febfbd19a9fa19d67297875f4ce155b23c6d60069c5f1539dfd6)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5048960Z - ci-captures-perf (ID: 8259794934, Size: 808, Expected Digest: sha256:381e1531150420991bc63541c39b6dc0c1e26b0f476e7e0a8bf1551c9152e882)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5798950Z Redirecting to blob download url: https://productionresultssa1.blob.core.windows.net/actions-results/cff1235f-4b49-47a9-aada-e8d760ae1c20/workflow-job-run-f26f6d4b-5b80-59a3-840d-e5cd5d38843a/artifacts/ab874cb57700e60401b4b209100e6b84ba9e997ba47b4c0494fdaf86ab4048ef.zip
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5802920Z Starting download of artifact to: /Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5835830Z Redirecting to blob download url: https://productionresultssa1.blob.core.windows.net/actions-results/cff1235f-4b49-47a9-aada-e8d760ae1c20/workflow-job-run-53acf78a-d7ef-501f-afaf-936473e27791/artifacts/83e254e281b2fa1e124cf621a796e3236e50a316067106f13d4cadba2137c339.zip
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.5839810Z Starting download of artifact to: /Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6015430Z (node:25813) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6059260Z SHA256 digest of downloaded artifact is e3f6e3c81db5febfbd19a9fa19d67297875f4ce155b23c6d60069c5f1539dfd6
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6060900Z Artifact download completed successfully.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6062430Z SHA256 digest of downloaded artifact is 381e1531150420991bc63541c39b6dc0c1e26b0f476e7e0a8bf1551c9152e882
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6064140Z Artifact download completed successfully.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6065090Z Total of 2 artifact(s) downloaded
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6065900Z Download artifact has finished successfully
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6231180Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6236780Z ##[group]Run actions/setup-python@v5
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6237560Z with:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6238120Z   python-version: 3.12
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6240060Z   check-latest: false
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6246700Z   token: ***
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6247300Z   update-environment: true
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6247960Z   allow-prereleases: false
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6248610Z   freethreaded: false
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6249220Z env:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6249790Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.6250520Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7268930Z ##[group]Installed versions
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7329760Z (node:25814) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7331640Z (Use `node --trace-deprecation ...` to show where the warning was created)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7332730Z Successfully set up CPython (3.12.10)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7333930Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7421940Z ##[group]Run pip install -q "$PERFDIGEST_SPEC"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7423230Z ^[[36;1mpip install -q "$PERFDIGEST_SPEC"^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7424120Z ^[[36;1mpython ci/digest_check.py \^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7424940Z ^[[36;1m  perf-stat-json:cpu_stat_ci.json \^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7425800Z ^[[36;1m  perf-report:cpu_report_ci.txt \^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7426660Z ^[[36;1m  ptxas-verbose:gpu_codegen_ci.ptxas.txt^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7493060Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7493920Z env:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7494490Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7495440Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7496670Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7497910Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7499080Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7500220Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:38.7501110Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7396240Z 
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7396940Z ===== perf-stat-json :: cpu_stat_ci.json — 1 units =====
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7397280Z [
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7397420Z  {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7397580Z   "name": "<program>",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7397770Z   "index": 0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7397950Z   "duration_us": 10644284788000.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7398210Z   "domain": "cpu_function"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7398400Z  }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7398530Z ]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7398710Z --- digest of '<program>' ---
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7398900Z {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7399090Z  "kernel": "<program>",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7399290Z  "index": 0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7399460Z  "format": "perf-stat-json",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7399680Z  "domain": "cpu_function",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7399890Z  "raw_ref": "cpu_stat_ci.json",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7400110Z  "metrics": {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7400330Z   "self_pct": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7400610Z   "samples": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7400860Z   "wall_time_ms": 10644284788.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7401090Z   "ipc": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7401360Z   "instructions": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7401650Z   "cycles": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7401920Z   "cache_miss_rate": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7402210Z   "llc_miss_rate": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7402530Z   "branch_mispredict_rate": "not_available_in_this_export"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7402820Z  }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7402970Z }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7403080Z 
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7403240Z ===== perf-report :: cpu_report_ci.txt — 3 units =====
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7403480Z [
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7403630Z  {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7403790Z   "name": "compute_bound_poly.constprop.0",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7406210Z   "index": 0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7406410Z   "duration_us": null,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7406600Z   "domain": "cpu_function"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7406800Z  },
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7406940Z  {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7407100Z   "name": "mem_bound_chase.constprop.0",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7407330Z   "index": 1,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7407510Z   "duration_us": null,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7407840Z   "domain": "cpu_function"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7408170Z  },
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7408370Z  {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7408550Z   "name": "main",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7408760Z   "index": 2,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7408920Z   "duration_us": null,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7409110Z   "domain": "cpu_function"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7409300Z  }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7409440Z ]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7409650Z --- digest of 'compute_bound_poly.constprop.0' ---
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7409880Z {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7410080Z  "kernel": "compute_bound_poly.constprop.0",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7410320Z  "index": 0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7410470Z  "format": "perf-report",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7411160Z  "domain": "cpu_function",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7411390Z  "raw_ref": "cpu_report_ci.txt",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7411590Z  "metrics": {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7411750Z   "self_pct": 95.23,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7411930Z   "samples": 41283.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7412160Z   "wall_time_ms": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7412410Z   "ipc": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7412670Z   "instructions": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7412940Z   "cycles": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7413200Z   "cache_miss_rate": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7413480Z   "llc_miss_rate": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7413810Z   "branch_mispredict_rate": "not_available_in_this_export"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7414170Z  }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7414310Z }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7414390Z 
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7414660Z ===== ptxas-verbose :: gpu_codegen_ci.ptxas.txt — 2 units =====
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7414930Z [
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7415070Z  {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7415260Z   "name": "_Z17fma_compute_boundPKfPfli [sm_89]",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7415490Z   "index": 0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7415650Z   "duration_us": null,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7415880Z   "domain": "kernel_codegen"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7416080Z  },
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7416220Z  {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7416370Z   "name": "_Z15saxpy_mem_boundfPKfPfl [sm_89]",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7416620Z   "index": 1,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7416820Z   "duration_us": null,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7417030Z   "domain": "kernel_codegen"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7417210Z  }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7417350Z ]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7417530Z --- digest of '_Z17fma_compute_boundPKfPfli [sm_89]' ---
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7417780Z {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7417940Z  "kernel": "_Z17fma_compute_boundPKfPfli [sm_89]",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7418190Z  "index": 0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7418360Z  "format": "ptxas-verbose",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7418550Z  "domain": "kernel_codegen",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7418760Z  "raw_ref": "gpu_codegen_ci.ptxas.txt",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7418970Z  "metrics": {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7419130Z   "registers_per_thread": 9.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7419350Z   "spill_stores_bytes": 0.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7419550Z   "spill_loads_bytes": 0.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7419730Z   "stack_frame_bytes": 0.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7419950Z   "static_smem_bytes": 0.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7420170Z   "const_mem_bytes": 380.0,
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7420360Z   "barriers": "not_available_in_this_export",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7420640Z   "compile_time_ms": "not_available_in_this_export"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7420870Z  }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7421000Z }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7421080Z 
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7421210Z OK — 3 report(s) digested honestly.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7830540Z ##[group]Run python - <<'EOF'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7830790Z ^[[36;1mpython - <<'EOF'^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7830970Z ^[[36;1mimport json^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7831230Z ^[[36;1mfrom perfdigest.platform.capabilities import capability_summary^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7831770Z ^[[36;1mfrom perfdigest.server.app import _register_backends^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7832050Z ^[[36;1m_register_backends()^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7832230Z ^[[36;1ms = capability_summary()^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7832440Z ^[[36;1mprint(json.dumps({^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7832640Z ^[[36;1m    "host_os": s["host"]["os"],^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7832900Z ^[[36;1m    "can_digest": [d["backend"] for d in s["can_digest"]],^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7833290Z ^[[36;1m    "can_capture_here": [c["backend"] for c in s["can_capture_here"] if c["capturable"]],^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7833630Z ^[[36;1m}, indent=1))^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7833780Z ^[[36;1mEOF^[[0m
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7862850Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7863090Z env:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7863250Z   PERFDIGEST_SPEC: perfdigest-mcp==1.1.1
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7863550Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7864000Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7864400Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7864760Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7865120Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:43.7865380Z ##[endgroup]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0880770Z {
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0881240Z  "host_os": "darwin",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0881450Z  "can_digest": [
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0881630Z   "chrome_trace",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0881800Z   "linux_perf",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0881960Z   "metal",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0882110Z   "nsight_csv",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0920790Z   "ptxas",
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0920970Z   "rocm"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0921090Z  ],
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0921230Z  "can_capture_here": [
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0921390Z   "metal"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0921520Z  ]
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.0921660Z }
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.1373200Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.1374270Z Post job cleanup.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.2348200Z (node:25853) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.2349080Z (Use `node --trace-deprecation ...` to show where the warning was created)
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.2437280Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.2438200Z Post job cleanup.
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3181390Z [command]/opt/homebrew/bin/git version
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3252810Z git version 2.55.0
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3267990Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/4287f6ca-4a64-44ce-a28b-dd552a8a1ec2/.gitconfig'
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3273480Z Temporarily overriding HOME='/Users/runner/work/_temp/4287f6ca-4a64-44ce-a28b-dd552a8a1ec2' before making global git config changes
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3274240Z Adding repository directory to the temporary git global config as a safe directory
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3276780Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/PerfDigest-MCP-Bench/PerfDigest-MCP-Bench
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3333290Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.3385560Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.4030830Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.4076670Z http.https://github.com/.extraheader
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.4082330Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.4134410Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.4816640Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.4871370Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.5612240Z Cleaning up orphan processes
+digest on macos-latest (reports captured on Linux)	UNKNOWN STEP	2026-07-12T12:07:44.8419550Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

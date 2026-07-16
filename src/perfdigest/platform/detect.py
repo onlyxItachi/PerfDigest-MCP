@@ -25,6 +25,7 @@ PROFILER_TOOLS: dict[str, str] = {
     "ptxas": "nvcc",  # codegen layer: `nvcc -Xptxas -v` needs the toolkit, not a GPU
     "clang_time_trace": "clang++",  # backend probe also falls back to plain `clang`
     "ninja_log": "ninja",  # .ninja_log is a byproduct of `ninja -C <build-dir>`
+    "gha_log": "gh",  # CIDigest: capture needs the GitHub CLI, digest needs nothing
 }
 
 
