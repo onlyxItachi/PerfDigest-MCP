@@ -16,6 +16,7 @@ def _register_backends() -> None:
     from perfdigest.adapters.clang_time_trace import backend as _clang_tt  # noqa: F401
     from perfdigest.adapters.linux_perf import backend as _perf  # noqa: F401
     from perfdigest.adapters.metal import backend as _metal  # noqa: F401
+    from perfdigest.adapters.ninja_log import backend as _ninja_log  # noqa: F401
     from perfdigest.adapters.nsight import backend as _nsight  # noqa: F401
     from perfdigest.adapters.ptxas import backend as _ptxas  # noqa: F401
     from perfdigest.adapters.rocm import backend as _rocm  # noqa: F401
