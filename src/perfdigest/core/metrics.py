@@ -18,6 +18,9 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
       counts and wall time, no hardware counters
     * ``build_step``      — one build-graph edge (``ninja .ninja_log``); wall
       time for compiling/linking one output, no hardware counters
+    * ``ci_step``         — one CI job/step from a saved GitHub Actions run log
+      (``gh run view --log``); log-line counts and annotation counts, no
+      hardware counters at all
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -39,6 +42,7 @@ DOMAIN_GPU_PASS = "gpu_pass"
 DOMAIN_KERNEL_CODEGEN = "kernel_codegen"
 DOMAIN_FRAMEWORK_OP = "framework_op"
 DOMAIN_BUILD_STEP = "build_step"
+DOMAIN_CI_STEP = "ci_step"
 
 
 @dataclass(frozen=True)
