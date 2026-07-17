@@ -12,6 +12,7 @@ mcp = FastMCP("perfdigest")
 
 def _register_backends() -> None:
     """Import every adapter for its registry side effect (registry.register)."""
+    from perfdigest.adapters.cargo_diag import backend as _cargo_diag  # noqa: F401
     from perfdigest.adapters.chrome_trace import backend as _chrome  # noqa: F401
     from perfdigest.adapters.clang_time_trace import backend as _clang_tt  # noqa: F401
     from perfdigest.adapters.criterion import backend as _criterion  # noqa: F401
