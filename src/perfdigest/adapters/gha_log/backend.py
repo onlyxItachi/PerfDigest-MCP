@@ -11,6 +11,7 @@ this is the only backend whose probe checks two independent conditions.
 from __future__ import annotations
 
 import subprocess
+import time
 
 from perfdigest.adapters import registry
 from perfdigest.adapters.gha_log import gha_log_reader, mapping
@@ -57,6 +58,49 @@ GHA_LOG_USAGE = (
 )
 
 
+# `gh auth status` is the fleet's only probe doing I/O beyond shutil.which —
+# it can hit the network. capability_summary() probes every backend, so the
+# auth result is memoized per process with a TTL: platform_capabilities stays
+# fast/offline-safe, while a mid-session `gh auth login` is still picked up
+# within a few minutes (pre-release review finding 5).
+_AUTH_TTL_S = 300.0
+_auth_memo: tuple[float, CapabilityReport] | None = None
+
+
+def _clear_auth_memo() -> None:
+    """Testing hook: forget the memoized auth probe (mirrors cache.clear())."""
+    global _auth_memo
+    _auth_memo = None
+
+
+def _auth_probe(exe: str) -> CapabilityReport:
+    global _auth_memo
+    now = time.monotonic()
+    if _auth_memo is not None and now - _auth_memo[0] < _AUTH_TTL_S:
+        return _auth_memo[1]
+    try:
+        result = subprocess.run(
+            [exe, "auth", "status"], capture_output=True, text=True, timeout=10
+        )
+    except Exception as exc:  # noqa: BLE001 — surfaced as a diagnosable reason
+        report = CapabilityReport(
+            False, f"gh present but 'gh auth status' failed to run: {exc}", exe
+        )
+    else:
+        if result.returncode != 0:
+            report = CapabilityReport(
+                False,
+                "gh present but not authenticated (gh auth status failed); run "
+                "`gh auth login` to enable capture. Digesting an already-saved "
+                ".gha.log never needs authentication.",
+                exe,
+            )
+        else:
+            report = CapabilityReport(True, "gh present and authenticated", exe)
+    _auth_memo = (now, report)
+    return report
+
+
 def _probe() -> CapabilityReport:
     info = detect()
     exe = info.profilers_on_path.get("gha_log")
@@ -65,23 +109,7 @@ def _probe() -> CapabilityReport:
     # `gh` present is necessary but not sufficient for CAPTURE: pulling a real
     # run's log also needs an authenticated session. Digesting an already-saved
     # log needs neither check — that split is called out in the usage prompt.
-    try:
-        result = subprocess.run(
-            [exe, "auth", "status"], capture_output=True, text=True, timeout=10
-        )
-    except Exception as exc:  # noqa: BLE001 — surfaced as a diagnosable reason
-        return CapabilityReport(
-            False, f"gh present but 'gh auth status' failed to run: {exc}", exe
-        )
-    if result.returncode != 0:
-        return CapabilityReport(
-            False,
-            "gh present but not authenticated (gh auth status failed); run "
-            "`gh auth login` to enable capture. Digesting an already-saved "
-            ".gha.log never needs authentication.",
-            exe,
-        )
-    return CapabilityReport(True, "gh present and authenticated", exe)
+    return _auth_probe(exe)
 
 
 def _capture_command(target: str, info: PlatformInfo) -> str:

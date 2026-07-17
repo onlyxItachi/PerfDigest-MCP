@@ -1,15 +1,18 @@
 """Read Chrome-trace JSON (torch/Kineto & friends) -> NormalizedUnit.
 
 The FRAMEWORK layer. ``torch.profiler`` (Kineto) exports the Chrome Trace
-Format — and so do JAX, clang ``-ftime-trace``, Bazel and others — so this one
-pure-Python reader digests them all. We bind to the exported ARTIFACT, never to
-the framework's profiler API: the format has stayed stable across torch
-releases while the internals churned (fragility stays on the other side of the
-file boundary).
+Format — and so do JAX, Bazel and others — so this one pure-Python reader
+digests them all. We bind to the exported ARTIFACT, never to the framework's
+profiler API: the format has stayed stable across torch releases while the
+internals churned (fragility stays on the other side of the file boundary).
+Compiler/build traces that share the format have DEDICATED backends built on
+these same helpers — clang ``-ftime-trace`` -> ``clang_time_trace`` (adds
+``[total]`` aggregate tagging), cmake profiling -> ``cmake_profile`` (adds
+B/E pair folding) — route those formats there, not here.
 
 Two top-level shapes, both handled:
 
-  * dict with a ``traceEvents`` list (Kineto, ``-ftime-trace``)
+  * dict with a ``traceEvents`` list (Kineto and friends)
   * bare JSON array of events (legacy exporters)
 
 Only complete events (``"ph": "X"``) with a numeric ``dur`` are aggregated —
@@ -92,6 +95,11 @@ def _fold_begin_end_pairs(events: list) -> list:
                     dur = float(e["ts"]) - float(b["ts"])
                 except (KeyError, TypeError, ValueError):
                     continue  # unpaired timing info: skip, never fabricate
+                if dur < 0:
+                    # E before its own B on one thread is emitter/clock
+                    # corruption — a negative elapsed is physically impossible,
+                    # so drop the pair like an unparseable one.
+                    continue
                 out = dict(b)
                 out["ph"] = "X"
                 out["dur"] = dur
@@ -127,7 +135,7 @@ def _complete_events(report_path: str, *, fold_be_pairs: bool = False) -> list[d
         )
     if fold_be_pairs:
         events = _fold_begin_end_pairs(events)
-    return [
+    complete = [
         e
         for e in events
         if isinstance(e, dict)
@@ -137,6 +145,23 @@ def _complete_events(report_path: str, *, fold_be_pairs: bool = False) -> list[d
         and e.get("name") is not None
         and str(e["name"]).strip() != ""
     ]
+    if not complete and events:
+        # A valid trace with zero digestible events must not become a silent
+        # empty report ("the run did nothing" is a conclusion, not a default).
+        phases = {e.get("ph") for e in events if isinstance(e, dict)}
+        if not fold_be_pairs and ("B" in phases or "E" in phases):
+            raise ValueError(
+                f"{report_path} contains only begin/end (ph B/E) pair events and "
+                "no complete (ph 'X') events — this looks like a cmake "
+                "--profiling-format=google-trace capture; digest it with format "
+                "cmake-profile, which folds the pairs."
+            )
+        raise ValueError(
+            f"{report_path} is a valid trace container but has no complete "
+            "(ph=='X') events with a numeric dur — nothing to digest. Check the "
+            "emitter and the format argument."
+        )
+    return complete
 
 
 def _grouped(
@@ -199,7 +224,13 @@ def _grouped(
         forced = tag_override(rec) if tag_override is not None else None
         collide = len(cats_per_name[rec["name"]]) > 1 and rec["cat"]
         if forced:
-            rec["unit_name"] = f"{rec['name']} [{forced}]"
+            # A forced tag must not defeat the uniqueness invariant: if the
+            # name ALSO collides across categories, keep the cat tag too.
+            rec["unit_name"] = (
+                f"{rec['name']} [{forced}] [{rec['cat']}]"
+                if collide
+                else f"{rec['name']} [{forced}]"
+            )
         elif collide or rec["cat"] in _BOOKKEEPING_CATS:
             rec["unit_name"] = f"{rec['name']} [{rec['cat']}]"
         else:

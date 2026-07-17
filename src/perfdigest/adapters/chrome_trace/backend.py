@@ -17,7 +17,11 @@ from perfdigest.platform.detect import PlatformInfo
 _PLATFORMS = frozenset({"linux", "darwin", "win32"})  # torch captures everywhere
 
 CHROME_TRACE_USAGE = (
-    "Chrome-trace digest (torch/Kineto, JAX, clang -ftime-trace...). Capture in "
+    "Chrome-trace digest (torch/Kineto, JAX, and other Chrome-trace emitters). "
+    "NOT for compiler/build traces that have their own backend: clang "
+    "-ftime-trace files belong to format clang-time-trace (its [total] tagging "
+    "prevents double-counting aggregate phases) and cmake profiling output to "
+    "format cmake-profile (B/E pair folding). Capture in "
     "code, exporting to a FILE (never print the profiler table):\n"
     "  with torch.profiler.profile(activities=[ProfilerActivity.CPU, "
     "ProfilerActivity.CUDA]) as prof:\n"
