@@ -48,7 +48,12 @@ def cached_units(
         # re-run and would serve stale units. Caching must stay behaviorally
         # invisible, so directory refs are parsed fresh every time (the trees
         # are small JSON files; the IO saving is not worth the staleness risk).
-        return loader(path)
+        # Same mutation-proofing as the cached path — the module invariant
+        # ("no caller can mutate shared state") holds for every return.
+        return [
+            replace(u, metrics=MappingProxyType(dict(u.metrics)))
+            for u in loader(path)
+        ]
     key = (backend_name, abspath, st.st_mtime_ns, st.st_size)
 
     with _LOCK:

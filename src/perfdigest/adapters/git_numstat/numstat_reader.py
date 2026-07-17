@@ -34,6 +34,11 @@ Line grammar, verified against REAL ``git diff --numstat -M`` output
   * Non-ASCII paths arrive C-quoted by git (``"docs/\\303\\266l\\303\\247..."``,
     core.quotePath default) and are kept VERBATIM as printed — the name is
     honest to the artifact; we do not unquote.
+  * Known ambiguity, inherent to the unquoted artifact: a plain file whose
+    NAME literally contains ``" => "`` (``notes about a => b.txt``) is
+    indistinguishable from a whole-path rename in numstat output — git prints
+    both identically — and parses as a rename here. git's own limitation;
+    ``expand`` shows ``path_as_printed`` so the raw line is always recoverable.
 
 ``duration_us`` is ``None`` for every unit: a change digest has no time
 dimension at all, so ``summarize_report`` falls back to file order and ranking

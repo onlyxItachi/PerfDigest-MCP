@@ -49,11 +49,11 @@ def _bench_dirs(root: Path) -> list[tuple[str, Path]]:
     found: list[tuple[str, Path]] = []
     for est in root.glob("**/new/estimates.json"):
         rel_parts = est.parent.parent.relative_to(root).parts
-        # criterion's own HTML lives under report/ dirs (the root's and each
-        # benchmark's); no estimates.json is written there, but guard anyway so
-        # a bookkeeping dir can never masquerade as a benchmark.
-        if "report" in rel_parts:
-            continue
+        # criterion's own HTML bookkeeping lives under report/ dirs, but those
+        # never contain a new/estimates.json, so the glob alone excludes them.
+        # No name-based guard on top: a user CAN name a bench "report" (it
+        # collides with criterion's HTML dir — criterion's wart, not ours), and
+        # suppressing its genuinely-written estimates would fabricate absence.
         found.append(("/".join(rel_parts), est))
     if not found:
         raise ValueError(

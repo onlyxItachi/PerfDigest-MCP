@@ -12,10 +12,13 @@ from perfdigest.adapters import registry
 from perfdigest.server.app import mcp
 
 _HEADER = """\
-You have perfdigest: token-efficient access to performance-profiler reports across
-backends (NVIDIA, AMD HIP, CPU perf, Apple Metal, ptxas codegen, torch/Chrome
-traces). It is a translator, not a judge — it returns clean numbers; deciding
-"memory-bound?"/"occupancy-limited?" is YOUR job.
+You have perfdigest: token-efficient access to the development loop's report
+artifacts across four feedback channels — performance profilers (NVIDIA, AMD
+HIP, CPU perf, Apple Metal, torch/Chrome traces), build tools (ptxas codegen,
+clang -ftime-trace, cmake configure profiles, ninja logs, cargo diagnostics,
+criterion benchmarks), CI run logs (GitHub Actions), and repo change state
+(git numstat). It is a translator, not a judge — it returns clean numbers;
+deciding "memory-bound?"/"build-bottlenecked?"/"release-ready?" is YOUR job.
 
 perfdigest has TWO operations — keep them separate:
 

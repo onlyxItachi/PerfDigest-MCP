@@ -296,6 +296,7 @@ def test_probe_distinguishes_missing_tool_from_missing_auth(monkeypatch):
         returncode = 1
 
     monkeypatch.setattr(gha_backend.subprocess, "run", lambda *a, **k: _Unauthed())
+    gha_backend._clear_auth_memo()  # TTL memo (finding 5) must not leak stages
     report = gha_backend._probe()
     assert report.available is False
     assert "auth" in report.reason.lower()
@@ -305,6 +306,7 @@ def test_probe_distinguishes_missing_tool_from_missing_auth(monkeypatch):
         returncode = 0
 
     monkeypatch.setattr(gha_backend.subprocess, "run", lambda *a, **k: _Authed())
+    gha_backend._clear_auth_memo()  # TTL memo (finding 5) must not leak stages
     report = gha_backend._probe()
     assert report.available is True
     assert report.tool == "/usr/bin/gh"

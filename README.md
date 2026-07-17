@@ -49,7 +49,7 @@ composition.)
 | Build | `ptxas` | `ptxas-verbose` | kernel_codegen | `nvcc -Xptxas -v` (**no GPU needed**) | ✅ pure Python |
 | Build | `clang_time_trace` | `clang-time-trace`, `ftime-trace` | build_phase | `clang -ftime-trace` | ✅ pure Python |
 | Build | `cmake_profile` | `cmake-profile`, `cmake-trace` | build_phase | `cmake --profiling-format=google-trace` (≥3.18) | ✅ pure Python |
-| Build | `ninja_log` | `ninja-log` | build_step | `.ninja_log` (byproduct of any `ninja` build) | ✅ pure Python |
+| Build | `ninja_log` | `ninja-log`, `ninja_log` | build_step | `.ninja_log` (byproduct of any `ninja` build) | ✅ pure Python |
 | Build | `cargo_diag` | `cargo-diag`, `cargo-json` | build_diag | `cargo build --message-format=json` | ✅ pure Python |
 | Build | `criterion` | `criterion`, `criterion-json` | benchmark | `cargo bench` (`target/criterion` dir) | ✅ pure Python |
 | CI | `gha_log` | `gha-log`, `gh-run-log` | ci_step | saved `gh run view <id> --log` | ✅ pure Python |

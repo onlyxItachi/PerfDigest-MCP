@@ -113,18 +113,21 @@ def test_dir_without_estimates_raises_loudly_never_silent_empty(tmp_path):
     assert "no */new/estimates.json" in str(exc.value)
 
 
-def test_criterion_report_bookkeeping_dirs_are_skipped(tmp_path, fixtures_dir):
-    # criterion writes its own HTML under report/ dirs. Real trees put no
-    # estimates.json there, but the guard must hold even if one appeared
-    # (synthetic tree: a real estimates.json copied under a report/ path).
+def test_bench_named_report_is_digested_never_suppressed(tmp_path, fixtures_dir):
+    # criterion's own HTML bookkeeping lives under report/ dirs but NEVER
+    # contains new/estimates.json, so the glob alone excludes it. A user CAN
+    # name a bench "report" (criterion's known dir-collision wart) and its
+    # genuinely-written estimates must appear — suppressing them by path name
+    # would fabricate absence (pre-release review finding 2; synthetic tree
+    # built from a real estimates.json).
     root = tmp_path / "criterion"
     real = fixtures_dir / "criterion_sample" / "criterion" / "fib_plain" / "new" / "estimates.json"
-    for rel in ("mybench/new", "report/mybench/new"):
+    for rel in ("mybench/new", "report/new"):
         d = root / rel
         d.mkdir(parents=True)
         shutil.copy(real, d / "estimates.json")
     units = tools.list_kernels(str(root), FMT)
-    assert [u["name"] for u in units] == ["mybench"]  # report/ never a benchmark
+    assert [u["name"] for u in units] == ["mybench", "report"]
 
 
 def test_rerun_overwrite_is_seen_immediately(tmp_path, fixtures_dir):

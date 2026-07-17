@@ -198,6 +198,12 @@ def raw_metrics(report_path: str, kernel_index: int, name_filter: str) -> dict[s
         "error_lines": rec["error_lines"][:_MAX_RAW_ANNOTATION_LINES],
         "warning_lines": rec["warning_lines"][:_MAX_RAW_ANNOTATION_LINES],
     }
+    # Explicit truncation markers (only when truncation happened) — the caller
+    # must not have to infer it by comparing counts against list lengths.
+    if len(rec["error_lines"]) > _MAX_RAW_ANNOTATION_LINES:
+        out["error_lines_truncated_to"] = _MAX_RAW_ANNOTATION_LINES
+    if len(rec["warning_lines"]) > _MAX_RAW_ANNOTATION_LINES:
+        out["warning_lines_truncated_to"] = _MAX_RAW_ANNOTATION_LINES
     wanted = None if name_filter.lower() == "all" else name_filter.lower()
     if wanted is not None:
         out = {k: v for k, v in out.items() if wanted in k.lower()}
