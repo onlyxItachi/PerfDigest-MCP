@@ -52,22 +52,30 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **v1.1.0 — the agent-loop release.** On top of the v1.0.0 multi-backend base
-(NVIDIA native + CSV, AMD `rocprof`, Linux `perf`, Metal, `platform/` capability layer):
-`compare_metrics` (before/after delta digest, `delta = b - a`, absence-honest),
-`summarize_report` (one-call top-N by duration_us -> self_pct -> file order, with duration
-coverage), a parse-once report cache (`report_store/cache.py`, keyed by path+mtime+size), and
-the `ptxas` backend (`ptxas-verbose`, domain `kernel_codegen`: registers/spills/static smem
-from `nvcc -Xptxas -v` stderr — capture needs the toolkit, NOT a GPU), and the `chrome_trace`
-backend (`torch-trace`/`chrome-trace`: aggregates ph=='X' events by (cat, name) — framework
-ops as `framework_op` AND cat=='kernel' device kernels as `gpu_kernel` in ONE report; totals
-overlap across nested spans, documented). ptxas honesty nuance: the `Used ...` line is a
-complete enumeration, so an omitted component there is a GENUINE 0.0 (unlike a missing
-export); `barriers` stays None on old toolkits that never print it. 104 tests pass (+16
-hardware-gated skips). Benchmark artifacts live in the companion repo
-https://github.com/onlyxItachi/PerfDigest-MCP-Bench: the original A/B benchmark is
-`results/RESULTS.md` there; the cross-backend hardware run is
-`results/CROSS_BACKEND_2026-06-15.md` (local `eval/README.md` is the slim pointer).
+Current state: **v1.2.0 — the Development Observatory release (pre-release, in review).**
+The digest matrix now covers the four feedback channels of the dev loop — RepoState (what
+changed) -> BuildDigest (does it build) -> CIDigest (does it pass) -> PerfDigest (how fast) —
+through the SAME seven tools; a backend is a registry row, never a new API surface, and every
+reader binds to an on-disk artifact, never a live API. On the v1.1 base (compare_metrics,
+summarize_report, parse-once cache, `ptxas`, `chrome_trace`), v1.2 adds: `clang_time_trace`
+(reuses chrome_trace's `_grouped` with a `tag_override` hook; `Total *` aggregates are tagged
+`[total]` because below `-ftime-trace-granularity` they are sometimes the ONLY complete
+measurement), `cmake_profile` (cmake emits bare B/E pairs with NO ph=='X' events — the
+`fold_be_pairs` hook stack-folds them; unpaired B is dropped, never given a fabricated
+duration), `ninja_log` (v5-v7 logs, last-occurrence-wins rebuild semantics, per-edge times
+overlap under parallel builds), `cargo_diag` (crate units, durations honestly absent — the
+stream carries no timing; counts are genuine 0.0, complete-enumeration rule like ptxas),
+`criterion` (FIRST directory-shaped report_ref: `Backend.report_is_directory` +
+`resolve_report(accept_dir=)` + a cache bypass because a dir's mtime doesn't change on nested
+rewrites), `gha_log` (saved `gh run view --log` files; current gh exports often can't attribute
+lines to steps -> units degrade honestly to per-job; failed runs typically finish FASTER than
+green — they died early), and `git_numstat` (RepoState: session-retrospective `git diff
+--numstat -M` snapshots; binary files are `-`/`-` -> honest absence, never 0.0; renames parsed
+from git's real brace grammar). ptxas honesty nuance still holds: the `Used ...` line is a
+complete enumeration, so an omitted component there is a GENUINE 0.0; `barriers` stays None on
+old toolkits. 206 tests pass (+16 hardware-gated skips). Benchmark artifacts live in the
+companion repo https://github.com/onlyxItachi/PerfDigest-MCP-Bench (token A/Bs, cross-backend
+runs, demanding-workload studies; local `eval/README.md` is the slim pointer).
 
 Real-report lesson (baked into `mapping.py`): the init prompt's example
 `dram__throughput.avg.pct_of_peak_sustained_elapsed` does **not** exist in ncu 2026.1 — the
@@ -99,7 +107,8 @@ A backend is a folder under `src/perfdigest/adapters/<name>/`: a reader
 standard terms + `DEFAULT_CORE_SET`), and a `backend.py` that builds + `register()`s
 a `Backend`. Then add its import to `server/app.py:_register_backends()`. The server
 shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabulary),
-`adapters/rocm/` (GPU, wide CSV).
+`adapters/rocm/` (GPU, wide CSV), `adapters/clang_time_trace/` (reusing the chrome-trace
+machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 
 ## Environment & commands
 
@@ -110,7 +119,7 @@ shell and `core/` never change. Templates: `adapters/linux_perf/` (CPU vocabular
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 104 pass + 16 hardware-gated skips
+uv run pytest            # 206 pass + 16 hardware-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says

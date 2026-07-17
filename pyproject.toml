@@ -1,7 +1,7 @@
 [project]
 name = "perfdigest-mcp"
-version = "1.1.1"
-description = "Local MCP server that makes performance-profiler output (NVIDIA ncu, AMD rocprof, Linux perf, Apple Metal) token-efficient for LLM coding agents."
+version = "1.2.0"
+description = "Local MCP server that digests development-loop reports — profilers (NVIDIA ncu, AMD rocprof, Linux perf, Apple Metal, chrome-trace), build tools (ptxas, clang -ftime-trace, cmake, ninja, cargo), benchmarks (criterion), CI run logs, and git change state — into token-efficient JSON for LLM coding agents."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
