@@ -1,0 +1,11 @@
+1	0	NOTES => TASKS.md
+-	-	data/assets.dat
+-	-	data/logo.bin
+0	0	docs/{ => api}/config.py
+1	0	docs/read me.txt
+0	0	{src => docs}/util.py
+1	0	"docs/\303\266l\303\247\303\274m.txt"
+4	1	src/engine.py
+0	3	src/legacy.py
+2	0	src/new_module.py
+1	0	src/{parser.py => parser_v2.py}

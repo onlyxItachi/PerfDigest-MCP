@@ -30,6 +30,9 @@ A "unit" is one profiled unit of work, whatever the backend's domain is:
     * ``build_diag``      — one crate's build diagnostics from a saved
       ``cargo build --message-format=json`` stream; error/warning counts,
       NO timing of any kind (duration stays honestly ``None``)
+    * ``repo_change``     — one changed file from a saved ``git diff --numstat``
+      (RepoState: the session-retrospective change digest); line counts only,
+      no time dimension at all
 
 THE absence rule (the single most dangerous failure mode if violated):
 
@@ -55,6 +58,7 @@ DOMAIN_BUILD_STEP = "build_step"
 DOMAIN_CI_STEP = "ci_step"
 DOMAIN_BENCHMARK = "benchmark"
 DOMAIN_BUILD_DIAG = "build_diag"
+DOMAIN_REPO_CHANGE = "repo_change"
 
 
 @dataclass(frozen=True)
