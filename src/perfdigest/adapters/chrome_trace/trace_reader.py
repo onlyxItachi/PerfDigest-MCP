@@ -61,7 +61,47 @@ def _dur(e: dict) -> float | None:
     return float(d)
 
 
-def _complete_events(report_path: str) -> list[dict]:
+def _fold_begin_end_pairs(events: list) -> list:
+    """Fold ``ph=='B'``/``'E'`` pairs into synthetic complete events.
+
+    Some Chrome-trace emitters (cmake ``--profiling-format=google-trace``) use
+    begin/end pairs instead of complete ``X`` events. Per the format, an ``E``
+    closes the MOST RECENT open ``B`` on the same (pid, tid) — a stack. The
+    folded event takes name/cat/args/ts from the B side (cmake's E events carry
+    only ph/pid/tid/ts, verified on a real capture) and ``dur`` = E.ts - B.ts.
+
+    Honesty: a leftover B (truncated trace) has no measurable duration and is
+    dropped — never a fabricated ``dur``; a stray E has nothing to close and is
+    likewise dropped. Non-B/E events (including real X events) pass through
+    untouched.
+    """
+    folded: list = []
+    stacks: dict[tuple, list[dict]] = {}
+    for e in events:
+        if not isinstance(e, dict):
+            folded.append(e)
+            continue
+        ph = e.get("ph")
+        if ph == "B":
+            stacks.setdefault((e.get("pid"), e.get("tid")), []).append(e)
+        elif ph == "E":
+            stack = stacks.get((e.get("pid"), e.get("tid")))
+            if stack:
+                b = stack.pop()
+                try:
+                    dur = float(e["ts"]) - float(b["ts"])
+                except (KeyError, TypeError, ValueError):
+                    continue  # unpaired timing info: skip, never fabricate
+                out = dict(b)
+                out["ph"] = "X"
+                out["dur"] = dur
+                folded.append(out)
+        else:
+            folded.append(e)
+    return folded
+
+
+def _complete_events(report_path: str, *, fold_be_pairs: bool = False) -> list[dict]:
     with open(report_path, "r", encoding="utf-8", errors="ignore") as fh:
         try:
             raw = json.load(fh)
@@ -85,6 +125,8 @@ def _complete_events(report_path: str) -> list[dict]:
             f"{report_path} top-level JSON is {type(raw).__name__}, expected a "
             "trace object or event array — not a Chrome trace."
         )
+    if fold_be_pairs:
+        events = _fold_begin_end_pairs(events)
     return [
         e
         for e in events
@@ -101,6 +143,7 @@ def _grouped(
     report_path: str,
     *,
     tag_override: "Callable[[dict[str, Any]], str | None] | None" = None,
+    fold_be_pairs: bool = False,
 ) -> list[dict[str, Any]]:
     """-> one record per (cat, name), ordered by first appearance (ts).
 
@@ -111,9 +154,14 @@ def _grouped(
     ``-ftime-trace``'s ``Total <Phase>`` aggregates (a name-prefix rule, not a
     cat collision — those events carry no ``cat`` at all). Default ``None``
     leaves chrome_trace's own behavior byte-for-byte unchanged.
+
+    ``fold_be_pairs=True`` is the same kind of surgical hook for
+    ``cmake_profile``: cmake's profiler emits ``B``/``E`` pairs instead of
+    ``X`` events, so they are folded first (see ``_fold_begin_end_pairs``).
+    Default ``False`` — chrome_trace's own inputs are untouched.
     """
     groups: dict[tuple[str, str], dict[str, Any]] = {}
-    for e in _complete_events(report_path):
+    for e in _complete_events(report_path, fold_be_pairs=fold_be_pairs):
         cat = str(e.get("cat", ""))
         key = (cat, str(e["name"]))
         dur = _dur(e)

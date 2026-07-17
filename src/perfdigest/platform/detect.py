@@ -27,6 +27,7 @@ PROFILER_TOOLS: dict[str, str] = {
     "ninja_log": "ninja",  # .ninja_log is a byproduct of `ninja -C <build-dir>`
     "gha_log": "gh",  # CIDigest: capture needs the GitHub CLI, digest needs nothing
     "criterion": "cargo",  # `cargo bench` writes target/criterion/**/new/estimates.json
+    "cmake_profile": "cmake",  # configure profiling is built into cmake >= 3.18
     "cargo_diag": "cargo",  # BuildDigest: --message-format=json is a cargo flag
     "git_numstat": "git",  # RepoState: `git diff --numstat -M` is the capture
 }

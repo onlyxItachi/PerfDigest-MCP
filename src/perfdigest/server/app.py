@@ -15,6 +15,7 @@ def _register_backends() -> None:
     from perfdigest.adapters.cargo_diag import backend as _cargo_diag  # noqa: F401
     from perfdigest.adapters.chrome_trace import backend as _chrome  # noqa: F401
     from perfdigest.adapters.clang_time_trace import backend as _clang_tt  # noqa: F401
+    from perfdigest.adapters.cmake_profile import backend as _cmake_profile  # noqa: F401
     from perfdigest.adapters.criterion import backend as _criterion  # noqa: F401
     from perfdigest.adapters.gha_log import backend as _gha_log  # noqa: F401
     from perfdigest.adapters.git_numstat import backend as _git_numstat  # noqa: F401
