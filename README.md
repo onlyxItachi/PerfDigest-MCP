@@ -137,6 +137,7 @@ previous-green comparison proven on real two-run fixtures). RepoState:
 honest absence, never `0.0`). Zero new tools — every backend rides the same
 seven; 206 tests. Every fixture in the release was produced by the real tool it
 mimics — several briefs were corrected by what the artifacts actually contained.
+Python 3.10–3.14 including free-threaded 3.14t, Linux/macOS/Windows CI-verified.
 
 **v1.1.1** — contract-hardening hotfix (issues #2/#4/#5): registry format
 collisions are detected on the normalized key (a case-variant format can no

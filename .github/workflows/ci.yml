@@ -17,11 +17,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python: ["3.13"]
-        include:
-          # the declared floor (requires-python >=3.11) is actually tested (issue #5)
-          - os: ubuntu-latest
-            python: "3.11"
+        # The full requires-python range on every OS, floor (3.10) to
+        # free-threaded 3.14 ("3.14t" is uv's key for the cp314t build; the
+        # whole dep tree ships cp314t wheels for all three OSes — verified
+        # against PyPI before widening the matrix).
+        python: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.14t"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
