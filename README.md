@@ -123,7 +123,11 @@ Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](doc
 
 ## Status
 
-**v1.2.0 (pre-release, in review)** — the Development Observatory release:
+**v1.2.0 (pre-release, in review)** — the Development Observatory release
+(Python 3.10–3.14 incl. free-threaded 3.14t, CI-verified on Linux/macOS/Windows;
+one known upstream gap: *Windows* 3.14t cannot install yet because `mcp`'s
+`pywin32` dependency ships no cp314t wheel — that CI cell is a documented
+allowed-failure until pywin32 catches up):
 seven new backends extend the digest matrix from profilers to the whole
 edit→build→verify→measure loop. BuildDigest: `clang_time_trace` (compiler-phase
 traces, with `[total]` aggregate tagging), `cmake_profile` (configure-step
@@ -137,7 +141,6 @@ previous-green comparison proven on real two-run fixtures). RepoState:
 honest absence, never `0.0`). Zero new tools — every backend rides the same
 seven; 206 tests. Every fixture in the release was produced by the real tool it
 mimics — several briefs were corrected by what the artifacts actually contained.
-Python 3.10–3.14 including free-threaded 3.14t, Linux/macOS/Windows CI-verified.
 
 **v1.1.1** — contract-hardening hotfix (issues #2/#4/#5): registry format
 collisions are detected on the normalized key (a case-variant format can no
