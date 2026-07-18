@@ -63,8 +63,47 @@ jobs:
           name: dist
           path: dist/
 
+  # requires-python >=3.10 is a public claim; this gate proves it on the exact
+  # floor before anything reaches PyPI: full suite + clean-venv wheel install +
+  # tool-surface assert, all PINNED to 3.10 (sync/run/venv alike — an unpinned
+  # `uv run` silently recreates the venv on another interpreter).
+  verify-floor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run the full suite on the 3.10 floor
+        run: |
+          uv python install 3.10
+          uv sync --extra dev --python 3.10
+          uv run --extra dev --python 3.10 pytest -q
+
+      - name: Install the wheel into a clean 3.10 venv; verify scripts + tool surface
+        run: |
+          uv build
+          uv venv --python 3.10 /tmp/verify-310
+          uv pip install --python /tmp/verify-310/bin/python dist/*.whl
+          test -x /tmp/verify-310/bin/perfdigest-mcp
+          test -x /tmp/verify-310/bin/perfdigest
+          /tmp/verify-310/bin/python - <<'PY'
+          import asyncio
+          from perfdigest.server.app import _register_backends, mcp
+          _register_backends()
+          from perfdigest.server import prompts, tools  # noqa: F401 (decorator side effects)
+          names = sorted(t.name for t in asyncio.run(mcp.list_tools()))
+          expected = sorted([
+              "list_kernels", "get_metrics", "expand",
+              "summarize_report", "compare_metrics",
+              "platform_capabilities", "suggest_profile_command",
+          ])
+          assert names == expected, f"tool surface drifted on the 3.10 floor: {names}"
+          print("3.10 floor tool surface OK:", names)
+          PY
+
   pypi:
-    needs: verify
+    needs: [verify, verify-floor]
     runs-on: ubuntu-latest
     environment: pypi
     permissions:

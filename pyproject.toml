@@ -3,13 +3,21 @@ name = "perfdigest-mcp"
 version = "1.2.0"
 description = "Local MCP server that digests development-loop reports — profilers (NVIDIA ncu, AMD rocprof, Linux perf, Apple Metal, chrome-trace), build tools (ptxas, clang -ftime-trace, cmake, ninja, cargo), benchmarks (criterion), CI run logs, and git change state — into token-efficient JSON for LLM coding agents."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 authors = [{ name = "Hamza Usta" }]
 keywords = ["mcp", "profiler", "cuda", "nsight", "rocm", "metal", "perf", "llm", "claude", "codex"]
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    # Official trove classifier (verified against trove-classifiers): the
+    # suite passes on CPython 3.14t and CI runs that leg on every push.
+    "Programming Language :: Python :: Free Threading",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries",
     "Topic :: System :: Benchmark",
