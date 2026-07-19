@@ -143,20 +143,33 @@ def test_omitted_key_absent_when_every_name_is_shown():
 
 
 def test_coverage_uses_exact_summation():
-    """Values chosen so naive left-to-right summation loses the small terms.
+    """Coverage must be the exactly-rounded total, not an accumulation artifact.
 
-    ``sum()`` returns a different float here on CPython < 3.12 than on >= 3.12
-    (Neumaier compensation landed in 3.12); ``math.fsum`` is exactly rounded, so
-    the digest is the same bytes everywhere. Asserting against fsum pins that.
+    What this pins: the digest equals ``math.fsum``, which is exactly rounded
+    and therefore identical on every interpreter — the property issue #26 is
+    about. The guard against a vacuous test is an EXPLICIT left-to-right
+    accumulation, which loses the small terms on every Python.
+
+    What it deliberately does not claim: that it would catch a regression to
+    the builtin ``sum()`` on modern Pythons. Measured while writing this test —
+    CPython 3.12+ compensates (Neumaier) well enough to return the exact answer
+    for every sequence tried here, so on 3.12+ ``sum()`` and ``fsum`` agree and
+    only 3.10/3.11 would go red. The cross-interpreter guarantee itself is
+    verified by hashing one digest under several interpreters (bench repo's
+    interpreter-matrix identity leg), not by this unit test.
     """
     values = [1e16, 1.0, 1.0, 1.0, -1e16]
     units = [_unit(f"k{i}", i, v) for i, v in enumerate(values)]
 
     summary = build_summary(units, "ncu-rep", ["duration_us"], len(values))
 
-    assert summary["total_duration_us"] == math.fsum(values)
-    # The naive accumulation genuinely differs — otherwise this test proves nothing.
-    assert math.fsum(values) != sum(values)
+    assert summary["total_duration_us"] == math.fsum(values) == 3.0
+
+    naive = 0.0
+    for v in values:  # what an uncompensated accumulator would produce
+        naive += v
+    assert naive != math.fsum(values), "values no longer exercise summation error"
+
     assert summary["coverage_pct_of_total_duration"] == pytest.approx(100.0)
 
 
