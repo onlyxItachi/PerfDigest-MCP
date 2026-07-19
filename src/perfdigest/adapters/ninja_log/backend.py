@@ -20,7 +20,16 @@ NINJA_LOG_USAGE = (
     "time — summarize_report's coverage_pct_of_total_duration is coverage over "
     "SUMMED edge time, not build wall-clock. A target rebuilt across multiple "
     "invocations appears once per rebuild in the raw file; this reader keeps "
-    "only the LAST timing for each output (the earlier ones are stale)."
+    "only the LAST timing for each output (the earlier ones are stale). "
+    "COMPARING TWO LOGS (e.g. a cold build vs an incremental rebuild): diff "
+    "duration_ms only. start_ms/end_ms are measured from the start of THEIR OWN "
+    "ninja invocation, so a delta between two logs subtracts two unrelated time "
+    "origins — 'this target now starts 40s earlier' would be an artifact of the "
+    "second build having fewer preceding edges, not a fact about the target. "
+    "Within ONE log they are meaningful (edge ordering/overlap) and stay "
+    "available via expand. A duration_ms delta of exactly 0.0 across two logs "
+    "is the strong signal that a target did NOT rebuild: ninja appends, so an "
+    "untouched edge's line is carried over byte-for-byte."
 )
 
 
