@@ -35,8 +35,10 @@ claude mcp add perfdigest --scope user -- uvx perfdigest-mcp
 ```
 
 Then inject the workflow convention once per session via the MCP prompt
-`perfdigest_usage`, and call `/mcp` to confirm the three digest tools +
-`platform_capabilities` + `suggest_profile_command` are listed.
+`perfdigest_usage`, and call `/mcp` to confirm all seven tools are listed: the
+five digest tools (`summarize_report`, `list_kernels`, `get_metrics`,
+`compare_metrics`, `expand`) plus `platform_capabilities` and
+`suggest_profile_command`.
 
 ## OpenAI Codex
 

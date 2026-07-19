@@ -1,8 +1,15 @@
 # CLAUDE.md — perfdigest
 
-Guidance for Claude Code working in this repo. Read `docs/INIT_PROMPT.md` first — it is the
-**canonical spec** with all locked decisions and rationale. This file is the short operational
-contract; the init prompt is the source of truth.
+Guidance for Claude Code working in this repo. **This file is the live contract** —
+where it and any other document disagree about the current state, this one wins.
+
+`docs/INIT_PROMPT.md` is the original kickoff spec, kept deliberately FROZEN as the
+record of why the locked design decisions were made (the absence convention, the
+digest/capture split, mandatory `format`, mapping-not-inventing). Read it for
+rationale, never for current facts: it predates the release and its concrete
+numbers are superseded — it says Python 3.11+ (the floor is now 3.10) and describes
+three tier-1 tools (there are five, plus two capture-advisory ones), and its claim
+that `ncu_report` is not on PyPI stopped being true. Those are history, not bugs.
 
 ## What this project is
 
@@ -52,7 +59,7 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **v1.2.0 — the Development Observatory release (pre-release, in review).**
+Current state: **v1.2.0 — the Development Observatory release (RELEASED, on PyPI).**
 The digest matrix now covers the four feedback channels of the dev loop — RepoState (what
 changed) -> BuildDigest (does it build) -> CIDigest (does it pass) -> PerfDigest (how fast) —
 through the SAME seven tools; a backend is a registry row, never a new API surface, and every
@@ -112,8 +119,12 @@ machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 
 ## Environment & commands
 
-- **Python 3.11+**, packaged with **uv** (src-layout). Entry points: `perfdigest-mcp`
-  / `perfdigest` = `perfdigest.server.app:main`. Repo root **is** the package now.
+- **Python 3.10+** (the floor `pyproject.toml` declares and CI tests), packaged with
+  **uv** (src-layout). CI runs 3.10/3.11/3.12/3.13/3.14 and free-threaded 3.14t on
+  Linux, macOS and Windows; the one known gap is Windows + 3.14t, where `mcp`'s
+  `pywin32` dependency has no cp314t wheel yet (that cell is an allowed failure).
+  Entry points: `perfdigest-mcp` / `perfdigest` = `perfdigest.server.app:main`.
+  Repo root **is** the package now.
 
 ```bash
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU

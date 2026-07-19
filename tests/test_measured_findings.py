@@ -173,6 +173,69 @@ def test_coverage_uses_exact_summation():
     assert summary["coverage_pct_of_total_duration"] == pytest.approx(100.0)
 
 
+# --- #31: a comparison must not hide the B-side domain ----------------------
+
+
+def test_compare_reports_both_domains_when_they_differ(fixtures_dir):
+    """One torch trace holds framework_op AND gpu_kernel units, and comparing
+    two units of one report is supported — so the payload must carry both.
+    """
+    report = str(fixtures_dir / "torch_sample.torch-trace.json")
+    units = tools.list_kernels(report, FMT)
+    framework = next(u for u in units if u["domain"] == "framework_op")
+    kernel = next(u for u in units if u["domain"] == "gpu_kernel")
+
+    out = tools.compare_metrics(
+        report, report, FMT, kernel=f"#{framework['index']}", kernel_b=f"#{kernel['index']}"
+    )
+
+    assert out["domain_a"] == "framework_op"
+    assert out["domain_b"] == "gpu_kernel"
+    assert out["domain"] == out["domain_a"]  # retained alias, A-side as before
+
+
+def test_compare_domain_alias_holds_for_same_domain_units(fixtures_dir):
+    report = str(fixtures_dir / "torch_sample.torch-trace.json")
+    kernels = [u for u in tools.list_kernels(report, FMT) if u["domain"] == "gpu_kernel"]
+    out = tools.compare_metrics(
+        report, report, FMT, kernel=f"#{kernels[0]['index']}", kernel_b=f"#{kernels[1]['index']}"
+    )
+
+    assert out["domain"] == out["domain_a"] == out["domain_b"] == "gpu_kernel"
+
+
+# --- #30: live guidance must describe the shipped contract ------------------
+
+
+def test_live_guidance_matches_the_shipped_surface():
+    """The docs an agent reads must not describe an older contract."""
+    import re
+    from pathlib import Path
+
+    from perfdigest.server.app import mcp
+
+    repo = Path(__file__).resolve().parents[1]
+    claude_md = (repo / "CLAUDE.md").read_text(encoding="utf-8")
+    clients_md = (repo / "docs" / "clients.md").read_text(encoding="utf-8")
+    pyproject = (repo / "pyproject.toml").read_text(encoding="utf-8")
+
+    assert "pre-release, in review" not in claude_md
+
+    # The runtime floor the live guide states must be the one the package
+    # declares. Asserted by extraction rather than by a literal, because the
+    # guide legitimately QUOTES the frozen init prompt's superseded floor while
+    # explaining that it is history.
+    floor = re.search(r'requires-python\s*=\s*"[>=<]*\s*(\d+\.\d+)"', pyproject).group(1)
+    assert f"**Python {floor}+**" in claude_md, f"CLAUDE.md does not state the {floor} floor"
+
+    # Every shipped tool name should appear in the client setup guide, so a
+    # reader verifying their install checks for the surface that exists.
+    import asyncio
+
+    for name in sorted(t.name for t in asyncio.run(mcp.list_tools())):
+        assert name in clients_md, f"{name} missing from docs/clients.md"
+
+
 # --- #25 / #27: caveats must actually reach the agent -----------------------
 
 

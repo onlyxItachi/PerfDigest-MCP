@@ -1,8 +1,9 @@
 """The MCP tools — a thin shell over registry + core + platform, no business logic.
 
 Two tiers (see ``server/prompts.py``):
-  * Tier 1 — read/digest: ``list_kernels`` / ``get_metrics`` / ``expand`` work for
-    ANY registered ``format`` on ANY host. A report's origin is irrelevant.
+  * Tier 1 — read/digest: ``summarize_report`` / ``list_kernels`` / ``get_metrics``
+    / ``compare_metrics`` / ``expand`` work for ANY registered ``format`` on ANY
+    host. A report's origin is irrelevant.
   * Tier 2 — capture advisory: ``platform_capabilities`` / ``suggest_profile_command``
     are platform-verified and refuse a capture that cannot run here.
 

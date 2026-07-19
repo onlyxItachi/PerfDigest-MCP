@@ -60,7 +60,15 @@ def build_comparison(
         "index_a": unit_a.index,
         "index_b": unit_b.index,
         "format": format,
+        # Both sides carry a domain, and they can legitimately differ: one
+        # trace holds framework_op AND gpu_kernel units, and comparing two
+        # units of one report is a supported flow. Reporting only A's domain
+        # would assert something untrue of half the payload and drop a fact
+        # the reader already knows. ``domain`` stays as A's value so existing
+        # callers keep working, with the honest pair alongside it.
         "domain": unit_a.domain,
+        "domain_a": unit_a.domain,
+        "domain_b": unit_b.domain,
         "raw_ref_a": unit_a.raw_ref,
         "raw_ref_b": unit_b.raw_ref,
         "sign_convention": "delta = b - a",
