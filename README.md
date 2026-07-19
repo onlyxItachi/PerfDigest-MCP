@@ -123,7 +123,7 @@ Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](doc
 
 ## Status
 
-**v1.2.0 (pre-release, in review)** — the Development Observatory release
+**v1.2.0** — the Development Observatory release
 (Python 3.10–3.14 incl. free-threaded 3.14t, CI-verified on Linux/macOS/Windows;
 one known upstream gap: *Windows* 3.14t cannot install yet because `mcp`'s
 `pywin32` dependency ships no cp314t wheel — that CI cell is a documented
