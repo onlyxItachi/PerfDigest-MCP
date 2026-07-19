@@ -165,11 +165,26 @@ config. Validated on the Linux/macOS/Windows CI matrix (pure-Python readers run
 hardware-free against committed fixtures). Real binary-capture tests are
 fixture-gated and skip without the device.
 
-**Benchmarks & evaluation:** token-efficiency A/B studies and real-hardware
-cross-backend runs live in
+## Measured behavior
+
+Every number here comes from a real capture on real hardware, published with the
+workload that produced it in
 [PerfDigest-MCP-Bench](https://github.com/onlyxItachi/PerfDigest-MCP-Bench)
-(digest ≈14–130x fewer tokens per turn than raw `ncu` output; see
-[`eval/README.md`](eval/README.md)).
+(local [`eval/README.md`](eval/README.md) is the pointer). Ratios are digest
+payload vs the raw report an agent would otherwise read.
+
+| Study | Subject | What it measured |
+|---|---|---|
+| Demanding workloads **pt. 1** | closed-source cuBLAS GEMMs; torch.compile inference | four vendor kernel families diagnosed from counters alone — no source to read — at **29–46×**; Inductor fusion visible structurally at **74–115×** |
+| **pt. 2** | a full `torch.compile` **training** step (forward + backward + AdamW) | Inductor-fused *backward* kernels diagnosed memory-bound at **96–450×**; and a `compare_metrics` pairing caught reporting the **wrong sign** of a fusion win when one kernel is compared against what is really its multi-kernel replacement |
+| **pt. 3** | one C++ project through **every** build lens (`cmake_profile` + `ninja_log` + `clang_time_trace`) | a template-heavy TU dominating the build 5× over the next edge, its cost split by `-ftime-trace` into a single recursive-`constexpr` evaluation (37% of compile time) and STL instantiation pressure (**10.7×** nesting overlap, which is why aggregate spans are tagged); **261–5,440×** on the trace lenses |
+| **pt. 4** | the CUDA optimization loop (naive → coalesced → vectorized) | v0→v1 a real **2.64×** win explained by `dram_pct_peak` 36%→90%; v1→v2 an honest **non-win** — a genuine −20.9% instruction cut bought nothing once already at ~90% of DRAM peak; `ptxas` foreshadows the ranking only *below* the roofline ceiling; **11–86×** |
+| Interpreter matrix | six CPythons, 3.10 → free-threaded 3.14t | digests **byte-identical** across all six for 10 of 11 pure-Python backends (the one divergence traced to CPython 3.12's `sum()` change); readers parse in < 2 ms; the parse-once cache holds correctness under 8-thread free-threaded contention at **2.36×** GIL throughput |
+
+The low ratios are published next to the high ones on purpose. A `.ninja_log` digests
+at **0.80×** and its `summarize_report` at **0.49×** — a build log is already terse,
+so there is nothing to compress; what the digest buys there is a *uniform contract*,
+not fewer tokens. A measurement tool that only reported its wins would not be one.
 
 ## Related / similar projects
 
