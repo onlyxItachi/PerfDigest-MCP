@@ -7,6 +7,7 @@ that the export does not contain is returned as the literal string
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Sequence
 
@@ -101,11 +102,19 @@ def build_summary(
         ordered = list(units)
 
     top = ordered[: max(top_n, 0)]
+    # ``total_units`` counts UNITS, and a report can hold many units per name
+    # (repeated kernel launches, repeated build edges). Top-N can therefore drop
+    # a whole name — a variant that lost a near-tie disappears entirely — and a
+    # payload that looks complete would imply the report holds fewer distinct
+    # units than it does. The counts below make that visible.
+    distinct_names = {u.name for u in units}
+    omitted_names = distinct_names - {u.name for u in top}
     summary: dict = {
         "format": format,
         "domain": units[0].domain if units else None,
         "raw_ref": units[0].raw_ref if units else None,
         "total_units": len(units),
+        "distinct_names_total": len(distinct_names),
         "returned": len(top),
         "sorted_by": sorted_by,
         "units": [
@@ -119,14 +128,23 @@ def build_summary(
             for u in top
         ],
     }
+    if omitted_names:  # additive: absent when top-N shows every name
+        summary["distinct_names_omitted"] = len(omitted_names)
     # Coverage is only meaningful over measured durations (never fabricate);
     # an all-zero total makes the ratio undefined, so the key is simply omitted
     # rather than overloading the NOT_AVAILABLE (= "not measured") sentinel.
+    #
+    # fsum, not sum: it is exactly rounded, so the digest of one report is
+    # byte-identical on every interpreter. The builtin sum() changed its float
+    # accumulation in CPython 3.12 (Neumaier), which made this the only value in
+    # the whole surface that differed across supported Pythons — measured, not
+    # theoretical. Stability matters here because it means a diff between two
+    # digests always says the REPORT changed, never the runtime.
     durations = [u.duration_us for u in units if u.duration_us is not None]
     if durations and sorted_by == "duration_us":
-        total = sum(durations)
+        total = math.fsum(durations)
         summary["total_duration_us"] = total
         if total > 0:
-            covered = sum(u.duration_us for u in top if u.duration_us is not None)
+            covered = math.fsum(u.duration_us for u in top if u.duration_us is not None)
             summary["coverage_pct_of_total_duration"] = covered / total * 100.0
     return summary

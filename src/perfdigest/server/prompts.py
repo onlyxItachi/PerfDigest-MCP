@@ -28,12 +28,23 @@ A) DIGEST (read a report) — ALWAYS available on every machine, regardless of l
    runner, digest the report locally.
      1. summarize_report(report_ref, format) -> the N hottest units + core metrics
         in one call. Or list_kernels(...) when you only need the unit names.
+        Top-N ranks UNITS, and one name can have many units (repeated kernel
+        launches, repeated build edges), so a whole name can fall outside the
+        top N — 'distinct_names_omitted' says how many did. Raise top_n or call
+        list_kernels before concluding the report holds only what you were shown.
      2. get_metrics(report_ref, format, kernel=...) -> reason on one unit's digest.
         'not_available_in_this_export' means NOT MEASURED — it is NOT zero.
      3. In a measure->edit->measure loop: compare_metrics(report_a, report_b, ...)
         -> {a, b, delta, delta_pct} per metric (delta = b - a), instead of holding
         two full digests in context. 'undefined_baseline_is_zero' means measured
         but a == 0 (a percentage is undefined) — distinct from not-measured.
+        A pairing assumes the unit means the SAME THING on both sides. When the
+        change restructured the work — a compiler fused N kernels into M, a
+        build rebuilt only some targets, a job was renamed — check the unit
+        counts on each side first and sum whole groups when the mapping is not
+        1:1. A correct delta can still answer the wrong question, and it will
+        not look wrong: a measured case reported +101% where the honest
+        group-vs-group comparison was -12.3%.
      4. Only if insufficient: expand(section=...) for raw vendor counters. NEVER
         read/cat a report file directly — expand is strictly cheaper and structured.
 

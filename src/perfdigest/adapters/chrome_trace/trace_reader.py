@@ -51,6 +51,37 @@ _KERNEL_CATS = frozenset({"kernel", "gpu_memcpy", "gpu_memset"})
 # but always name-tagged so every payload carries the discount signal.
 _BOOKKEEPING_CATS = frozenset({"Trace", "overhead"})
 
+# torch.compile's own dispatch machinery is the SAME kind of envelope — each of
+# these spans exists to wrap the compiled work and therefore contains its time —
+# but the cat rule above cannot see them: verified against a real compiled
+# training capture (torch 2.12), every one arrives with cat 'cpu_op', exactly
+# like a genuine `aten::` op. So they are matched by name instead, in the same
+# spirit as clang's `Total ` rule. Untagged, they outrank real compute in a
+# top-N summary and an agent double-counts the work they merely wrap.
+_DISPATCH_NAME_PREFIXES = (
+    "Torch-Compiled Region",    # Dynamo's compiled-region envelope
+    "TorchDynamo ",             # e.g. 'TorchDynamo Cache Lookup'
+    "Pregraph bytecode",        # Dynamo, pre-graph interpretation
+    "AOTDispatcher ",           # e.g. 'AOTDispatcher Runtime Wrapper Prologue'
+    "CompiledFunction",         # AOTAutograd node ('CompiledFunctionBackward')
+    "## Call CompiledFxGraph",  # Inductor's graph-call marker
+)
+_DISPATCH_TAG = "dispatch"
+
+
+def _is_compile_dispatch(name: str) -> bool:
+    """True for a torch.compile dispatch/envelope span (see above).
+
+    ``CompiledFunction`` is matched anywhere in the name, not just at the start:
+    the autograd engine wraps the compiled backward in an envelope of its own
+    ('autograd::engine::evaluate_function: CompiledFunctionBackward'), and a
+    prefix-only rule would leave that one — often a top-3 span — untagged.
+    Eager autograd envelopes ('...: MseLossBackward0') are deliberately NOT
+    tagged here: they are the engine's normal structure rather than compile
+    machinery, and their overlap is documented in the usage prompt instead.
+    """
+    return name.startswith(_DISPATCH_NAME_PREFIXES) or "CompiledFunction" in name
+
 # Per-call spans kept per unit for expand — bounded so a million-event trace
 # cannot balloon the raw payload.
 _MAX_RAW_DURS = 64
@@ -172,6 +203,11 @@ def _grouped(
 ) -> list[dict[str, Any]]:
     """-> one record per (cat, name), ordered by first appearance (ts).
 
+    Tagging precedence: an explicit ``tag_override`` wins, then the name-based
+    ``[dispatch]`` rule for torch.compile envelopes, then the cat-based
+    collision / bookkeeping rule. A forced tag never suppresses a cat-collision
+    tag — both are appended, so unit names stay unique either way.
+
     ``tag_override(rec)``, if given, is consulted per group AHEAD of the
     default cat-collision / bookkeeping-cat rule below; a truthy return forces
     ``rec['unit_name']`` to ``f"{name} [{tag_override(rec)}]"`` regardless of
@@ -222,6 +258,8 @@ def _grouped(
         cats_per_name.setdefault(rec["name"], set()).add(rec["cat"])
     for rec in ordered:
         forced = tag_override(rec) if tag_override is not None else None
+        if forced is None and _is_compile_dispatch(rec["name"]):
+            forced = _DISPATCH_TAG
         collide = len(cats_per_name[rec["name"]]) > 1 and rec["cat"]
         if forced:
             # A forced tag must not defeat the uniqueness invariant: if the
