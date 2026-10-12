@@ -127,8 +127,7 @@ test failure fails CI. A future successful installation automatically runs the
 suite. The classifier has positive and negative regression tests. Its green
 job conclusion is **not** a Windows 3.14t support/execution pass.
 
-Hosted migration results and clean-wheel evidence will be appended after the
-final draft PR run. The [first run](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242)
+The [first run](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242)
 exposed a test-fixture portability error: all nine Python 3.10–3.12 cells and the
 3.10 wheel check failed on description indentation. A separately captured SDK
 1.30.0/Python 3.10 legacy listing confirms this difference already existed in
@@ -140,6 +139,56 @@ any schema/payload assertions. The first failed run remains part of the record.
 Locally, downloads of some frozen-lock/floor wheels encountered a
 files.pythonhosted.org TLS hostname mismatch; those failed attempts are not
 counted as passing installation checks and TLS verification was not disabled.
+
+## Hosted result and every matrix cell
+
+[Corrected CI run 38229435731](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731)
+validated implementation commit `b89c1956e6074b673c4d35e21eefa2b57144cff2`:
+**17 executed matrix cells each passed 229 tests with 16 fixture skips**. Both
+clean-wheel jobs passed. The remaining Windows 3.14t cell is **NOT EXECUTED**,
+with the exact historical dependency gap classified and both test steps skipped.
+There are no new failing or allowed-failure cells after the correction.
+
+Downloaded CI artifacts contain 34 independently installed v1 client receipts
+(17 SDK 1.27.2 and 17 SDK 1.30.0, all using protocol 2025-11-25) and two
+clean-wheel SDK 2.3.0 receipts using protocol 2026-07-28. The local modern client
+also successfully probes the base v1 server and falls back to initialization.
+A separate local Python 3.14 clean wheel, installed from the package cache,
+passed dependency consistency and the complete stdio contract. Failed local
+TLS/download attempts remain uncounted; hosted clean-wheel resolution passed on
+both the Python 3.10 floor and Python 3.14.
+
+The initial failures below are retained as evidence, not reclassified as passes.
+They were the verified Python-dependent description-whitespace mismatch described
+above. The correction changes the test comparison only, not the server API.
+
+| OS / Python | Legacy PR 35 | Initial migration run | Corrected migration run |
+| --- | --- | --- | --- |
+| ubuntu-latest / 3.10 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166123) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667315) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978927) |
+| ubuntu-latest / 3.11 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166110) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667319) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978814) |
+| ubuntu-latest / 3.12 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166235) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667404) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978969) |
+| ubuntu-latest / 3.13 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166245) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667314) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978918) |
+| ubuntu-latest / 3.14 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166170) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667330) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978910) |
+| ubuntu-latest / 3.14t | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166155) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667435) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978778) |
+| macos-latest / 3.10 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166107) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667341) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978701) |
+| macos-latest / 3.11 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740165914) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667343) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978821) |
+| macos-latest / 3.12 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166102) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667555) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978838) |
+| macos-latest / 3.13 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166176) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667456) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978931) |
+| macos-latest / 3.14 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166165) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667460) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978892) |
+| macos-latest / 3.14t | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166248) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667359) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978908) |
+| windows-latest / 3.10 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166223) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667403) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978872) |
+| windows-latest / 3.11 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166234) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667517) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978948) |
+| windows-latest / 3.12 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166061) | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667324) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744979004) |
+| windows-latest / 3.13 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166192) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667507) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978828) |
+| windows-latest / 3.14 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166347) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667393) | [pass](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744979024) |
+| windows-latest / 3.14t | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38227999286/job/114740166173) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667482) | [NOT EXECUTED (known gap)](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744979005) |
+
+| Clean wheel | Initial run | Corrected run |
+| --- | --- | --- |
+| Python 3.10 | [failure](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667390) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978748) |
+| Python 3.14 | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242/job/114743667017) | [success](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229435731/job/114744978502) |
+
+The successful CI runs test saved reports; they are not hardware-capture or performance qualification.
 
 ## Release boundary and reproduction
 
