@@ -1,9 +1,14 @@
 # MCP SDK 2 migration and protocol compatibility
 
-This is an **unreleased migration**, based on `390ad80a952f7af2c86c3e18baddb8d2423a2192`.
-The package version remains 1.2.0; no release, tag or publication is part of this
-change. Evidence was collected on 12 October 2026. `CLAUDE.md` remains the live
-behavior contract; `docs/INIT_PROMPT.md` is unchanged.
+Version **1.3.0** migrates the Python SDK while preserving the published
+**v1.2.1** tool contract. The initial investigation used source commit
+`390ad80a952f7af2c86c3e18baddb8d2423a2192`, which already contained post-v1.2.0
+PR #32/#33 fixes despite its 1.2.0 package metadata. It was not the published
+v1.2.0 artifact. Release preparation incorporates v1.2.1 main/tag commit
+`39c79b5373eed26e432d14c3193a14db8bc89f2c` and verifies the actual registry
+package as the release-to-release baseline. Evidence was collected on
+12 October 2026. `CLAUDE.md` remains the live behavior contract;
+`docs/INIT_PROMPT.md` is unchanged. See [v1.3.0 release notes](releases/v1.3.0.md).
 
 ## SDK change versus protocol change
 
@@ -100,8 +105,10 @@ fixture skips**. The 32 concurrent stdio reads test exercises the SDK's worker
 thread dispatch and verifies per-unit identity, values and missingness. These
 are fixture/transport checks, not new hardware captures or performance claims.
 
-`tests/run_legacy_client.py` creates isolated SDK 1.27.2 and 1.30.0 environments
-and checks the installed migrated server. `tests/verify_wheel.py` builds the
+`tests/run_legacy_client.py` creates isolated SDK 1.27.2 and 1.30.0 environments,
+installs the actual PyPI `perfdigest-mcp==1.2.1` baseline in each, and checks both
+that released server and the installed migrated server over real stdio. Every
+receipt records the actual client/server Python, SDK and distribution versions. `tests/verify_wheel.py` builds the
 wheel from an sdist, checks packaged source bytes and excluded directories,
 installs into a clean environment, checks dependencies and both entrypoints,
 then exercises real modern stdio calls. The CI matrix runs the genuine legacy
@@ -193,8 +200,12 @@ The successful CI runs test saved reports; they are not hardware-capture or perf
 ## Release boundary and reproduction
 
 CI runs on pull requests and pushes to main; publishing runs only on `v*` tags.
-The publish workflow's test, floor and clean-wheel gates are unchanged. This
-work creates a draft PR only, with no main write, tag, merge or publication.
+The publish workflow's test, floor and clean-wheel gates are unchanged. Version
+1.3.0 follows the user-authorized sequential release after verified v1.2.1:
+merge only after the full matrix passes, then tag the verified main commit,
+observe OIDC publishing, verify PyPI artifacts and run a clean registry-install
+stdio smoke. The GitHub Release records the completed release evidence; its
+tag is not moved. Earlier investigation runs above remain historical evidence.
 
 ```sh
 uv sync --locked --extra dev --python 3.14

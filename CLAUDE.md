@@ -59,11 +59,15 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **v1.2.0 — the Development Observatory release (RELEASED, on PyPI).**
-This branch migrates the server to **MCP Python SDK 2.3+ (<3)**; that migration is
-unreleased and does not change the seven-tool contract. The stdio endpoint serves
-legacy initialization and modern 2026-07-28 requests; SDK version and negotiated
-protocol version are separate. See `docs/mcp-sdk-v2-migration.md` for evidence.
+Current version: **v1.3.0 — MCP SDK 2 and dual-protocol stdio support.**
+The server uses **MCP Python SDK 2.3+ (<3)** and preserves the seven-tool contract
+of the published v1.2.1 baseline. The stdio endpoint serves legacy initialization
+(protocol 2025-11-25) and modern 2026-07-28 requests; SDK version and negotiated
+protocol version are separate. See `docs/mcp-sdk-v2-migration.md` and
+`docs/releases/v1.3.0.md` for compatibility and release details. v1.2.1 already
+included the post-v1.2.0 #32/#33 fixes (dispatch tags, summary coverage/stable
+summation, comparison domains and usage guidance); these are preserved here,
+not newly attributed to the SDK migration.
 The digest matrix now covers the four feedback channels of the dev loop — RepoState (what
 changed) -> BuildDigest (does it build) -> CIDigest (does it pass) -> PerfDigest (how fast) —
 through the SAME seven tools; a backend is a registry row, never a new API surface, and every
@@ -84,7 +88,8 @@ green — they died early), and `git_numstat` (RepoState: session-retrospective 
 --numstat -M` snapshots; binary files are `-`/`-` -> honest absence, never 0.0; renames parsed
 from git's real brace grammar). ptxas honesty nuance still holds: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0; `barriers` stays None on
-old toolkits. This migration passes 229 tests (+16 native-report fixture-gated skips). Benchmark artifacts live in the
+old toolkits. This migration passes 229 tests (+16 native-report fixture-gated
+skips). Benchmark artifacts live in the
 companion repo https://github.com/onlyxItachi/PerfDigest-MCP-Bench (token A/Bs, cross-backend
 runs, demanding-workload studies; local `eval/README.md` is the slim pointer).
 

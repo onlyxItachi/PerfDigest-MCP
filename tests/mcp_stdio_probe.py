@@ -8,6 +8,8 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import subprocess
+import sys
 from importlib.metadata import version
 from pathlib import Path
 
@@ -50,6 +52,15 @@ async def exercise(client, fixtures):
 
 
 async def probe(args):
+    # Query the exact server interpreter, not the client environment. Keep the
+    # distribution identity separate from the legacy SDK's serverInfo version.
+    metadata = subprocess.run([
+        str(args.server_python.absolute()), "-c",
+        "import json, sys; from importlib.metadata import version; "
+        "print(json.dumps({'python': sys.version, 'perfdigest': version('perfdigest-mcp'), "
+        "'mcp': version('mcp')}))",
+    ], check=True, capture_output=True, text=True, timeout=20)
+    server_metadata = json.loads(metadata.stdout)
     server = StdioServerParameters(
         # Do not resolve symlinks: a venv's Python may link to the base runtime.
         command=str(args.server_python.absolute()),
@@ -77,7 +88,10 @@ async def probe(args):
                 # only auto mode sends server/discover over the transport.
                 key = "discover" if args.mode == "auto" else "adopted"
                 connection[key] = wire(client.session.discover_result)
-    return {"client_sdk": version("mcp"), "mode": args.mode, "connection": connection, **data}
+    return {
+        "client_sdk": version("mcp"), "client_python": sys.version,
+        "server": server_metadata, "mode": args.mode, "connection": connection, **data,
+    }
 
 
 if __name__ == "__main__":
