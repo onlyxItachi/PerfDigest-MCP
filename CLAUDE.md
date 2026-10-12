@@ -84,7 +84,7 @@ green — they died early), and `git_numstat` (RepoState: session-retrospective 
 --numstat -M` snapshots; binary files are `-`/`-` -> honest absence, never 0.0; renames parsed
 from git's real brace grammar). ptxas honesty nuance still holds: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0; `barriers` stays None on
-old toolkits. 206 tests pass (+16 hardware-gated skips). Benchmark artifacts live in the
+old toolkits. This migration passes 229 tests (+16 native-report fixture-gated skips). Benchmark artifacts live in the
 companion repo https://github.com/onlyxItachi/PerfDigest-MCP-Bench (token A/Bs, cross-backend
 runs, demanding-workload studies; local `eval/README.md` is the slim pointer).
 
@@ -137,7 +137,7 @@ machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 206 pass + 16 hardware-gated skips
+uv run pytest            # 229 pass + 16 native-report fixture-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says
