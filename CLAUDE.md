@@ -59,7 +59,15 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **v1.2.0 — the Development Observatory release (RELEASED, on PyPI).**
+Current state: **v1.2.1 — MCP SDK v1 compatibility hotfix.**
+The dependency is bounded to `mcp[cli]>=1.2,<2` because this server uses the
+SDK 1 FastMCP interface. The Python 3.10+ floor and the same seven-tool API are
+unchanged. Release validation covers the locked MCP 1.27.2 and clean wheel
+installs with MCP 1.30.0. The declared MCP 1.2 minimum works with compatible
+Pydantic 2.10.6 / pydantic-settings 2.7.1; forcing that old SDK alongside current
+Pydantic fails on an upstream private import. This patch does not change the
+transitive-dependency policy or the documented Windows 3.14t wheel exception.
+
 The digest matrix now covers the four feedback channels of the dev loop — RepoState (what
 changed) -> BuildDigest (does it build) -> CIDigest (does it pass) -> PerfDigest (how fast) —
 through the SAME seven tools; a backend is a registry row, never a new API surface, and every
@@ -80,7 +88,7 @@ green — they died early), and `git_numstat` (RepoState: session-retrospective 
 --numstat -M` snapshots; binary files are `-`/`-` -> honest absence, never 0.0; renames parsed
 from git's real brace grammar). ptxas honesty nuance still holds: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0; `barriers` stays None on
-old toolkits. 206 tests pass (+16 hardware-gated skips). Benchmark artifacts live in the
+old toolkits. 216 tests pass (+16 hardware-gated skips). Benchmark artifacts live in the
 companion repo https://github.com/onlyxItachi/PerfDigest-MCP-Bench (token A/Bs, cross-backend
 runs, demanding-workload studies; local `eval/README.md` is the slim pointer).
 
@@ -130,7 +138,7 @@ machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 206 pass + 16 hardware-gated skips
+uv run pytest            # 216 pass + 16 hardware-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says
