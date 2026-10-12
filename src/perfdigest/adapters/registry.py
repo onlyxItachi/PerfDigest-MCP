@@ -1,6 +1,6 @@
 """Backend registry — format -> Backend dispatch, replacing hardcoded NVIDIA.
 
-Adapters call ``register()`` at import time (a side effect, like the FastMCP
+Adapters call ``register()`` at import time (a side effect, like the MCPServer
 tool decorators). The server resolves ``get_backend(format)`` and never imports a
 concrete reader. ``readable_backends()`` is the tier-1 (digest) view and is NOT
 platform-gated; capture gating lives in ``platform.capabilities``.

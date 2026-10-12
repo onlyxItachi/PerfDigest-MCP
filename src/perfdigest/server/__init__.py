@@ -1,1 +1,1 @@
-"""server — thin FastMCP shell; no business logic."""
+"""server — thin MCPServer shell; no business logic."""

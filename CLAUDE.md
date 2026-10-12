@@ -55,22 +55,19 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 2. **PRI reader in isolation** — `adapters/nsight/pri_reader.py`: `.ncu-rep` path →
    `NormalizedKernel`, tested with a plain script against a REAL report. ~80% of the work.
 3. **`mapping.py`** — the metric-name dict (most-changed file, isolated).
-4. **Server shell** — FastMCP + the 3 tools (`list_kernels`, `get_metrics`, `expand`).
+4. **Server shell** — MCPServer + the 3 original tools (`list_kernels`, `get_metrics`, `expand`).
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
-Current state: **v1.2.1 — MCP SDK v1 compatibility hotfix.**
-The dependency is bounded to `mcp[cli]>=1.2,<2` because this server uses the
-SDK 1 FastMCP interface. The Python 3.10+ floor and seven tool signatures are
-unchanged. The package also includes the post-v1.2.0 main fixes from #32/#33:
-dispatch tagging, summary distinct-name coverage and stable summation, both
-comparison domains, and corrected usage guidance. The SDK bound itself changes
-no application code. Release validation covers the locked MCP 1.27.2 and clean wheel
-installs with MCP 1.30.0. The declared MCP 1.2 minimum works with compatible
-Pydantic 2.10.6 / pydantic-settings 2.7.1; forcing that old SDK alongside current
-Pydantic fails on an upstream private import. This patch does not change the
-transitive-dependency policy or the documented Windows 3.14t wheel exception.
-
+Current version: **v1.3.0 — MCP SDK 2 and dual-protocol stdio support.**
+The server uses **MCP Python SDK 2.3+ (<3)** and preserves the seven-tool contract
+of the published v1.2.1 baseline. The stdio endpoint serves legacy initialization
+(protocol 2025-11-25) and modern 2026-07-28 requests; SDK version and negotiated
+protocol version are separate. See `docs/mcp-sdk-v2-migration.md` and
+`docs/releases/v1.3.0.md` for compatibility and release details. v1.2.1 already
+included the post-v1.2.0 #32/#33 fixes (dispatch tags, summary coverage/stable
+summation, comparison domains and usage guidance); these are preserved here,
+not newly attributed to the SDK migration.
 The digest matrix now covers the four feedback channels of the dev loop — RepoState (what
 changed) -> BuildDigest (does it build) -> CIDigest (does it pass) -> PerfDigest (how fast) —
 through the SAME seven tools; a backend is a registry row, never a new API surface, and every
@@ -91,7 +88,8 @@ green — they died early), and `git_numstat` (RepoState: session-retrospective 
 --numstat -M` snapshots; binary files are `-`/`-` -> honest absence, never 0.0; renames parsed
 from git's real brace grammar). ptxas honesty nuance still holds: the `Used ...` line is a
 complete enumeration, so an omitted component there is a GENUINE 0.0; `barriers` stays None on
-old toolkits. 216 tests pass (+16 hardware-gated skips). Benchmark artifacts live in the
+old toolkits. This migration passes 229 tests (+16 native-report fixture-gated
+skips). Benchmark artifacts live in the
 companion repo https://github.com/onlyxItachi/PerfDigest-MCP-Bench (token A/Bs, cross-backend
 runs, demanding-workload studies; local `eval/README.md` is the slim pointer).
 
@@ -133,7 +131,10 @@ machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 - **Python 3.10+** (the floor `pyproject.toml` declares and CI tests), packaged with
   **uv** (src-layout). CI runs 3.10/3.11/3.12/3.13/3.14 and free-threaded 3.14t on
   Linux, macOS and Windows; the one known gap is Windows + 3.14t, where `mcp`'s
-  `pywin32` dependency has no cp314t wheel yet (that cell is an allowed failure).
+  `pywin32` dependency has no cp314t wheel yet. CI recognizes only the exact
+  pywin32 312 install failure as **NOT EXECUTED**, with explicit test skips;
+  every other installation/test failure is strict. A green classifier is not
+  proof of Windows 3.14t execution.
   Entry points: `perfdigest-mcp` / `perfdigest` = `perfdigest.server.app:main`.
   Repo root **is** the package now.
 
@@ -141,7 +142,7 @@ machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 uv sync --extra dev      # base + pytest; all pure-Python readers work with no GPU
 uv sync --extra nvidia   # + ncu_report (NVIDIA PRI) for native .ncu-rep (alias: --extra cuda)
 uv run perfdigest        # run the multi-backend MCP server over stdio
-uv run pytest            # 216 pass + 16 hardware-gated skips
+uv run pytest            # 229 pass + 16 native-report fixture-gated skips
 ```
 
 - **`ncu_report` is now on PyPI** as `ncu-report` (the init prompt §3 predates this and says

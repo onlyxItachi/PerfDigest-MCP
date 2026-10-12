@@ -10,6 +10,7 @@ dist/
 # Virtual environments (recreated via `uv sync` — never commit)
 .venv/
 venv/
+work/
 
 # uv.lock IS committed (reproducible installs). Do not ignore it.
 

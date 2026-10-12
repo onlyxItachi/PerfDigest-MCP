@@ -121,11 +121,32 @@ uv tool install "perfdigest-mcp[nvidia]"  # + NVIDIA native binary reader (Linux
 
 Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](docs/clients.md).
 
+Version 1.3.0 uses [MCP Python SDK 2](docs/mcp-sdk-v2-migration.md) and serves
+both legacy MCP clients and protocol 2026-07-28 over the same stdio command,
+while preserving the seven tools and their v1.2.1 report contracts.
+
 ## Status
+
+**v1.3.0** — MCP SDK 2 with legacy-client compatibility
+
+The Python server now uses `MCPServer` and `mcp[cli]>=2.3,<3` (locked at 2.3.0).
+SDK 1 clients continue to initialize with protocol 2025-11-25. Modern clients can
+use `server/discover` or send 2026-07-28 requests without an initialization
+handshake. The seven tool schemas, mandatory format, missingness and raw evidence
+provenance remain covered against the actual published v1.2.1 package.
+
+Validation covers 229 tests plus 16 native-report fixture skips, real stdio
+clients and clean-wheel installs across Python 3.10–3.14/3.14t on
+Linux/macOS/Windows where dependencies install. **Windows 3.14t is NOT EXECUTED**:
+pywin32 312 has no applicable distribution. Only that exact installation gap is
+classified; every other installation or test failure is strict. No HTTP service,
+hardware capture or new performance claim is introduced. See the
+[release notes](docs/releases/v1.3.0.md) and
+[compatibility report](docs/mcp-sdk-v2-migration.md).
 
 **v1.2.1** — MCP SDK v1 compatibility hotfix
 
-Fresh installs now require `mcp[cli]>=1.2,<2`, preserving the FastMCP interface
+This legacy version requires `mcp[cli]>=1.2,<2`, preserving the FastMCP interface
 used by this release when MCP SDK 2 is available. The seven tool names and
 parameters and the Python 3.10+ support range are unchanged.
 This release also packages fixes already merged after v1.2.0 in #32 and #33:
@@ -133,8 +154,9 @@ torch.compile envelopes carry `[dispatch]` tags; summaries expose distinct-name
 coverage and use `math.fsum` for stable totals; comparisons add `domain_a` and
 `domain_b` while retaining the existing `domain` alias. Usage guidance explains
 fusion/group comparisons, Ninja time origins and names omitted by top-N.
-Validation: 216 tests pass with 16 real-report fixture skips; the existing
-Windows 3.14t `pywin32==312` wheel gap remains the sole allowed CI failure.
+Its release validation passed 216 tests with 16 real-report fixture skips.
+Windows 3.14t tests did not execute: the `pywin32==312` install failure was the
+sole allowed CI failure in that legacy release.
 Clean wheel installs and actual stdio calls to all seven tools were checked on
 Python 3.10 and 3.14 with MCP 1.30.0, as well as the locked MCP 1.27.2 environment.
 The declared MCP 1.2 floor is retained: forcing that old SDK with current
@@ -143,11 +165,8 @@ and pydantic-settings 2.7.1 combination passes. Normal fresh installs select a
 recent SDK 1 release.
 
 **v1.2.0** — the Development Observatory release
-(Python 3.10–3.14 incl. free-threaded 3.14t, CI-verified on Linux/macOS/Windows;
-one known upstream gap: *Windows* 3.14t cannot install yet because `mcp`'s
-`pywin32` dependency ships no cp314t wheel — that CI cell is a documented
-allowed-failure until pywin32 catches up):
-seven new backends extend the digest matrix from profilers to the whole
+
+Seven new backends extended the digest matrix from profilers to the whole
 edit→build→verify→measure loop. BuildDigest: `clang_time_trace` (compiler-phase
 traces, with `[total]` aggregate tagging), `cmake_profile` (configure-step
 traces — cmake emits bare `B`/`E` event pairs, stack-folded honestly),

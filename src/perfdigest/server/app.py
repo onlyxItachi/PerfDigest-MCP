@@ -1,13 +1,40 @@
-"""app — FastMCP instance + entry point.
+"""app — MCPServer instance + entry point.
 
 The ``mcp`` instance is created here; ``tools`` and ``prompts`` import it and
 register against it via decorators. ``main`` imports those modules for their
 registration side effects before running, so a bare ``uv run perfdigest``
 serves the full tool + prompt surface.
 """
-from mcp.server.fastmcp import FastMCP
+from importlib.metadata import version
+from typing import Any
 
-mcp = FastMCP("perfdigest")
+from mcp.server.mcpserver import Context, MCPServer
+from mcp.server.mcpserver.exceptions import ToolError, UnexpectedToolError
+from mcp.types import CallToolResult, InputRequiredResult
+
+
+class PerfDigestServer(MCPServer):
+    """Keep actionable report/input errors visible across SDK versions.
+
+    SDK 2 masks ordinary exceptions. Our readers deliberately use ValueError,
+    IndexError and file/import errors to explain how to correct a report request.
+    Translate those at the MCP boundary; direct Python calls keep their original
+    exception types, and unexpected crashes retain the SDK's safe error handling.
+    """
+
+    async def call_tool(
+        self, name: str, arguments: dict[str, Any], context: Context | None = None,
+    ) -> CallToolResult | InputRequiredResult:
+        try:
+            return await super().call_tool(name, arguments, context)
+        except UnexpectedToolError as exc:
+            cause = exc.__cause__
+            if isinstance(cause, (ValueError, IndexError, OSError, ImportError)):
+                raise ToolError(f"Error executing tool {name}: {cause}") from cause
+            raise
+
+
+mcp = PerfDigestServer("perfdigest", version=version("perfdigest-mcp"))
 
 
 def _register_backends() -> None:
@@ -34,7 +61,7 @@ def main() -> None:
     _register_backends()
     from perfdigest.server import prompts, tools  # noqa: F401
 
-    mcp.run()
+    mcp.run(transport="stdio")
 
 
 if __name__ == "__main__":

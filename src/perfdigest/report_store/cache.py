@@ -28,8 +28,8 @@ from perfdigest.core.metrics import NormalizedUnit
 
 _MAX_ENTRIES = 32
 _CACHE: "OrderedDict[tuple, list[NormalizedUnit]]" = OrderedDict()
-# FastMCP currently runs sync tools inline on the event loop; the lock is
-# future-proofing for an SDK that moves them to a threadpool.
+# MCPServer runs sync tools on worker threads. Protect the shared LRU;
+# report loading stays outside the lock so independent reports can progress.
 _LOCK = threading.Lock()
 
 
