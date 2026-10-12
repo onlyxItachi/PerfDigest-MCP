@@ -30,7 +30,13 @@ def test_all_tools_over_stdio_preserve_v1_contract(mode, tmp_path):
         "--output", str(output),
     ], check=True, timeout=100)
     data = json.loads(output.read_text(encoding="utf-8"))
-    verify_contract(data, FIXTURES)
+    try:
+        verify_contract(data, FIXTURES)
+    except AssertionError:
+        evidence = ROOT / "work/mcp-compat"
+        evidence.mkdir(parents=True, exist_ok=True)
+        (evidence / f"failed-{mode}.json").write_text(output.read_text(encoding="utf-8"), encoding="utf-8")
+        raise
     connection = data["connection"]
     if mode == "legacy":
         assert connection["protocol"] == "2025-11-25"

@@ -89,12 +89,13 @@ if __name__ == "__main__":
     parser.add_argument("--verify", action="store_true")
     args = parser.parse_args()
     result = asyncio.run(asyncio.wait_for(probe(args), timeout=90))
-    if args.verify:
-        from mcp_contract import verify_contract
-
-        verify_contract(result, args.fixtures)
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.write_text(rendered, encoding="utf-8")
     else:
         print(rendered)
+    # Keep the received wire evidence even if verification fails.
+    if args.verify:
+        from mcp_contract import verify_contract
+
+        verify_contract(result, args.fixtures)

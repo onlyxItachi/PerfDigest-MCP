@@ -70,8 +70,9 @@ Sources: [SDK 2 overview](https://github.com/modelcontextprotocol/python-sdk/blo
 `tests/fixtures/mcp_v1_contract.json` was captured from a separately installed
 SDK 1.27.2 client and the base server over a real stdio pipe. It contains every
 tool's name, description, input schema and output schema, plus deterministic
-success/error results. Only fixture paths and JSON text whitespace are
-normalized. Tests discard the two new protocol-envelope fields when comparing
+success/error results. Fixture paths, JSON text whitespace and the top-level
+description's common docstring indentation are normalized. Names and all input/
+output schema fields remain exact. Tests discard the two new protocol-envelope fields when comparing
 payloads; content-block layout, structuredContent and isError remain checked.
 
 The seven tools remain `list_kernels`, `get_metrics`, `expand`,
@@ -127,7 +128,16 @@ suite. The classifier has positive and negative regression tests. Its green
 job conclusion is **not** a Windows 3.14t support/execution pass.
 
 Hosted migration results and clean-wheel evidence will be appended after the
-draft PR run. Locally, downloads of some frozen-lock/floor wheels encountered a
+final draft PR run. The [first run](https://github.com/onlyxItachi/PerfDigest-MCP/actions/runs/38229043242)
+exposed a test-fixture portability error: all nine Python 3.10–3.12 cells and the
+3.10 wheel check failed on description indentation. A separately captured SDK
+1.30.0/Python 3.10 legacy listing confirms this difference already existed in
+v1. [Python 3.13's compiler change](https://docs.python.org/3/whatsnew/3.13.html#other-language-changes)
+strips common docstring indentation. Comparing only descriptions with
+`inspect.cleandoc` fixes the test without changing server behavior or relaxing
+any schema/payload assertions. The first failed run remains part of the record.
+
+Locally, downloads of some frozen-lock/floor wheels encountered a
 files.pythonhosted.org TLS hostname mismatch; those failed attempts are not
 counted as passing installation checks and TLS verification was not disabled.
 

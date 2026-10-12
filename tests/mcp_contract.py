@@ -1,5 +1,6 @@
 """Assertions shared by isolated SDK clients and the regular test suite."""
 import json
+import inspect
 from pathlib import Path
 
 
@@ -25,7 +26,13 @@ def normalize(value, fixtures):
 
 def verify_contract(data, fixtures):
     golden = json.loads((Path(__file__).parent / "fixtures/mcp_v1_contract.json").read_text(encoding="utf-8"))
-    assert data["tools"] == golden["tools"], "Tool names, schemas or descriptions changed"
+    def tools_for_comparison(tools):
+        # CPython 3.13 began stripping common docstring indentation at compile
+        # time. Both SDK 1 and SDK 2 use fn.__doc__; the historical v1 surface
+        # already differs by this whitespace across Python versions. Normalize
+        # ONLY the top-level description. Names and every schema field stay exact.
+        return [{**tool, "description": inspect.cleandoc(tool["description"])} for tool in tools]
+    assert tools_for_comparison(data["tools"]) == tools_for_comparison(golden["tools"]), "Tool names, schemas or description content changed"
     for label, expected in golden["calls"].items():
         # These two fields belong to the 2026 protocol envelope. Tool payloads,
         # isError, content blocks and structuredContent must remain equivalent.
