@@ -123,6 +123,25 @@ Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](doc
 
 ## Status
 
+**v1.2.1** — MCP SDK v1 compatibility hotfix
+
+Fresh installs now require `mcp[cli]>=1.2,<2`, preserving the FastMCP interface
+used by this release when MCP SDK 2 is available. The seven tool names and
+parameters and the Python 3.10+ support range are unchanged.
+This release also packages fixes already merged after v1.2.0 in #32 and #33:
+torch.compile envelopes carry `[dispatch]` tags; summaries expose distinct-name
+coverage and use `math.fsum` for stable totals; comparisons add `domain_a` and
+`domain_b` while retaining the existing `domain` alias. Usage guidance explains
+fusion/group comparisons, Ninja time origins and names omitted by top-N.
+Validation: 216 tests pass with 16 real-report fixture skips; the existing
+Windows 3.14t `pywin32==312` wheel gap remains the sole allowed CI failure.
+Clean wheel installs and actual stdio calls to all seven tools were checked on
+Python 3.10 and 3.14 with MCP 1.30.0, as well as the locked MCP 1.27.2 environment.
+The declared MCP 1.2 floor is retained: forcing that old SDK with current
+Pydantic fails on a removed private import, while its compatible Pydantic 2.10.6
+and pydantic-settings 2.7.1 combination passes. Normal fresh installs select a
+recent SDK 1 release.
+
 **v1.2.0** — the Development Observatory release
 (Python 3.10–3.14 incl. free-threaded 3.14t, CI-verified on Linux/macOS/Windows;
 one known upstream gap: *Windows* 3.14t cannot install yet because `mcp`'s
