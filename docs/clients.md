@@ -4,6 +4,10 @@ perfdigest is a local **stdio** MCP server. Once published it runs straight from
 PyPI with `uvx perfdigest-mcp` (no clone, no manual venv). Both clients below speak
 stdio MCP; the only difference is the config file format.
 
+The unreleased SDK 2 migration uses the same command and seven tools. Legacy
+clients still initialize normally; modern clients can use `server/discover`
+and protocol 2026-07-28. See the [compatibility evidence](mcp-sdk-v2-migration.md).
+
 ## Install (downloadable)
 
 ```bash

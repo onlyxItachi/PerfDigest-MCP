@@ -55,11 +55,15 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 2. **PRI reader in isolation** — `adapters/nsight/pri_reader.py`: `.ncu-rep` path →
    `NormalizedKernel`, tested with a plain script against a REAL report. ~80% of the work.
 3. **`mapping.py`** — the metric-name dict (most-changed file, isolated).
-4. **Server shell** — FastMCP + the 3 tools (`list_kernels`, `get_metrics`, `expand`).
+4. **Server shell** — MCPServer + the 3 original tools (`list_kernels`, `get_metrics`, `expand`).
 5. **Convention** — `server/prompts.py` (usage convention/vocabulary) + `report_store/discovery.py`.
 6. Then **`csv_reader.py`** as a second reader on the same contract (extension-ready proof).
 
 Current state: **v1.2.0 — the Development Observatory release (RELEASED, on PyPI).**
+This branch migrates the server to **MCP Python SDK 2.3+ (<3)**; that migration is
+unreleased and does not change the seven-tool contract. The stdio endpoint serves
+legacy initialization and modern 2026-07-28 requests; SDK version and negotiated
+protocol version are separate. See `docs/mcp-sdk-v2-migration.md` for evidence.
 The digest matrix now covers the four feedback channels of the dev loop — RepoState (what
 changed) -> BuildDigest (does it build) -> CIDigest (does it pass) -> PerfDigest (how fast) —
 through the SAME seven tools; a backend is a registry row, never a new API surface, and every
@@ -122,7 +126,10 @@ machinery via hooks), `adapters/criterion/` (directory-shaped report refs).
 - **Python 3.10+** (the floor `pyproject.toml` declares and CI tests), packaged with
   **uv** (src-layout). CI runs 3.10/3.11/3.12/3.13/3.14 and free-threaded 3.14t on
   Linux, macOS and Windows; the one known gap is Windows + 3.14t, where `mcp`'s
-  `pywin32` dependency has no cp314t wheel yet (that cell is an allowed failure).
+  `pywin32` dependency has no cp314t wheel yet. CI recognizes only the exact
+  pywin32 312 install failure as **NOT EXECUTED**, with explicit test skips;
+  every other installation/test failure is strict. A green classifier is not
+  proof of Windows 3.14t execution.
   Entry points: `perfdigest-mcp` / `perfdigest` = `perfdigest.server.app:main`.
   Repo root **is** the package now.
 

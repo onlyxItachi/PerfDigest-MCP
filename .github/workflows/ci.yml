@@ -21,21 +21,50 @@ jobs:
         # free-threaded 3.14 ("3.14t" is uv's key for the cp314t build).
         python: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.14t"]
     runs-on: ${{ matrix.os }}
-    # windows + 3.14t is a DOCUMENTED upstream gap, not our code (2026-07-18):
-    # mcp requires pywin32 on win32, and pywin32==312 ships no cp314t wheel, so
-    # `uv sync` fails before our suite can even run. Linux/macOS 3.14t legs are
-    # strict and green. This cell is allowed to fail so the matrix reports
-    # reality without going red on someone else's wheel gap — and it starts
-    # passing automatically the day pywin32 publishes cp314t wheels.
-    continue-on-error: ${{ matrix.os == 'windows-latest' && matrix.python == '3.14t' }}
+    # Windows 3.14t's known pywin32==312 wheel gap is recognized only in the
+    # install step. No job-level allowed failure can hide new SDK/test failures.
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
         uses: astral-sh/setup-uv@v5
       - name: Sync (dev only — pure-Python readers cover the suite, no hardware)
-        run: uv sync --extra dev --python ${{ matrix.python }}
+        id: sync
+        run: uv run --no-project --python ${{ matrix.python }} python tests/ci_sync.py ${{ matrix.python }}
       - name: Run tests
+        if: steps.sync.outputs.run_tests == 'true'
         # run must pin the SAME python + extras as sync: with a bare `uv run`,
         # a python-version mismatch recreates the venv without the dev extra
         # and pytest vanishes mid-job.
-        run: uv run --extra dev --python ${{ matrix.python }} pytest -q
+        run: uv run --locked --extra dev --python ${{ matrix.python }} pytest -q
+      - name: Real legacy SDK clients against the migrated stdio server
+        if: steps.sync.outputs.run_tests == 'true'
+        run: uv run --locked --extra dev --python ${{ matrix.python }} python tests/run_legacy_client.py
+      - name: Keep stdio compatibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-compat-${{ matrix.os }}-${{ matrix.python }}
+          path: |
+            work/mcp-compat/*.json
+            work/mcp-compat/*.txt
+          if-no-files-found: ignore
+
+  wheel:
+    name: wheel (ubuntu-latest, py${{ matrix.python }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.14"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Clean wheel install, dependency resolution and real stdio
+        run: uv run --no-project --python ${{ matrix.python }} python tests/verify_wheel.py
+      - name: Keep clean wheel evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-compat-${{ matrix.python }}
+          path: work/wheel-check/*.json
+          if-no-files-found: ignore

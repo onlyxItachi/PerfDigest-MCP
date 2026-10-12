@@ -121,13 +121,17 @@ uv tool install "perfdigest-mcp[nvidia]"  # + NVIDIA native binary reader (Linux
 
 Claude Code and OpenAI Codex setup (both stdio MCP): see [`docs/clients.md`](docs/clients.md).
 
+This branch's unreleased [SDK 2 migration](docs/mcp-sdk-v2-migration.md) serves
+both legacy MCP clients and protocol 2026-07-28 over the same stdio command,
+while preserving the seven tools and their report contracts.
+
 ## Status
 
 **v1.2.0** — the Development Observatory release
 (Python 3.10–3.14 incl. free-threaded 3.14t, CI-verified on Linux/macOS/Windows;
 one known upstream gap: *Windows* 3.14t cannot install yet because `mcp`'s
-`pywin32` dependency ships no cp314t wheel — that CI cell is a documented
-allowed-failure until pywin32 catches up):
+`pywin32` dependency ships no cp314t wheel — that CI cell records the exact
+known install gap as **NOT EXECUTED**; all other failures remain strict):
 seven new backends extend the digest matrix from profilers to the whole
 edit→build→verify→measure loop. BuildDigest: `clang_time_trace` (compiler-phase
 traces, with `[total]` aggregate tagging), `cmake_profile` (configure-step

@@ -1,0 +1,566 @@
+{
+  "provenance": {
+    "source_commit": "390ad80a952f7af2c86c3e18baddb8d2423a2192",
+    "mcp": "1.27.2",
+    "pydantic": "2.14.1",
+    "protocol": "2025-11-25",
+    "capture": "Independent installed client and baseline server over stdio; fixture paths and JSON text whitespace normalized."
+  },
+  "tools": [
+    {
+      "name": "compare_metrics",
+      "description": "Delta digest of one unit across two reports — the measure->edit->measure tool.\n\nAfter changing code and re-profiling, call this with A = the before report\nand B = the after report: each metric comes back as {a, b, delta, delta_pct}\nwith ``delta = b - a`` (negative duration_us delta = B is faster). ``kernel``\nmatches in BOTH reports unless ``kernel_b`` overrides the B-side (renamed or\nrestructured kernels). Comparing two DIFFERENT kernels of one report (pass\nthe same path twice) is also legitimate. A metric missing on either side\nyields delta = 'not_available_in_this_export' — never a fake 0.0.\n",
+      "inputSchema": {
+        "properties": {
+          "report_a": {
+            "title": "Report A",
+            "type": "string"
+          },
+          "report_b": {
+            "title": "Report B",
+            "type": "string"
+          },
+          "format": {
+            "title": "Format",
+            "type": "string"
+          },
+          "kernel": {
+            "title": "Kernel",
+            "type": "string"
+          },
+          "kernel_b": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Kernel B"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Metrics"
+          }
+        },
+        "required": [
+          "report_a",
+          "report_b",
+          "format",
+          "kernel"
+        ],
+        "title": "compare_metricsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "expand",
+      "description": "Lazy raw access — the safety valve when the digest is not enough.\n\nReturns raw vendor metrics for one unit, filtered by a case-insensitive\nsubstring over vendor metric names (e.g. 'dram', 'stall', 'cache').\n``section='all'`` returns everything (large). Use this instead of ever\nreading the report file directly.\n",
+      "inputSchema": {
+        "properties": {
+          "report_ref": {
+            "title": "Report Ref",
+            "type": "string"
+          },
+          "format": {
+            "title": "Format",
+            "type": "string"
+          },
+          "kernel": {
+            "title": "Kernel",
+            "type": "string"
+          },
+          "section": {
+            "title": "Section",
+            "type": "string"
+          }
+        },
+        "required": [
+          "report_ref",
+          "format",
+          "kernel",
+          "section"
+        ],
+        "title": "expandArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_metrics",
+      "description": "Compact numeric digest for one unit, in standard hardware/runtime terms.\n\n``metrics=None`` returns the backend's default core set. A metric the export\ndoes not contain is returned as 'not_available_in_this_export' — honest\nabsence, never zero. ``kernel`` accepts an exact name, a unique substring, or\nan index. The vocabulary is domain-appropriate: GPU terms (dram_pct_peak,\nachieved_occupancy) for kernels/passes, CPU terms (ipc, llc_miss_rate,\nself_pct) for cpu_function units.\n",
+      "inputSchema": {
+        "properties": {
+          "report_ref": {
+            "title": "Report Ref",
+            "type": "string"
+          },
+          "format": {
+            "title": "Format",
+            "type": "string"
+          },
+          "kernel": {
+            "title": "Kernel",
+            "type": "string"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Metrics"
+          }
+        },
+        "required": [
+          "report_ref",
+          "format",
+          "kernel"
+        ],
+        "title": "get_metricsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "list_kernels",
+      "description": "List every profiled unit in a report (name, index, duration_us, domain).\n\nWorks for any backend's ``format`` on any host (tier-1, never platform-gated):\n'ncu-rep'/'ncu-csv' (NVIDIA kernels), 'rocprof-csv' (AMD kernels),\n'perf-stat-json'/'perf-report' (CPU functions), 'metal-trace' (Metal passes).\nCall this first to pick the hottest unit by duration_us.\n",
+      "inputSchema": {
+        "properties": {
+          "report_ref": {
+            "title": "Report Ref",
+            "type": "string"
+          },
+          "format": {
+            "title": "Format",
+            "type": "string"
+          }
+        },
+        "required": [
+          "report_ref",
+          "format"
+        ],
+        "title": "list_kernelsArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Result",
+            "type": "array"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "list_kernelsOutput",
+        "type": "object"
+      }
+    },
+    {
+      "name": "platform_capabilities",
+      "description": "What this host can DIGEST (everything) vs CAPTURE (gated) — call before profiling.\n\nReturns the machine identity plus two lists: ``can_digest`` (universal — any\nbackend with an installed reader, so a GPU-less host is still a first-class\ndigester of reports captured elsewhere) and ``can_capture_here`` (gated by\nOS + tool presence). Use it to avoid spending context on a capture that cannot\nrun here — e.g. CUDA on a Mac is not capturable but is fully digestable.\n",
+      "inputSchema": {
+        "properties": {},
+        "title": "platform_capabilitiesArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "suggest_profile_command",
+      "description": "The correct, platform-aware profiler invocation for ``target`` — or a refusal.\n\n``backend`` is a registered name ('nsight','rocm','linux_perf','metal'). If\ncapturable here, returns the exact command (POSIX/PowerShell/WSL-aware). If\nnot (wrong OS / missing tool), refuses and redirects to the tier-1 path:\ncapture on a host that supports it, then digest the report here.\n",
+      "inputSchema": {
+        "properties": {
+          "backend": {
+            "title": "Backend",
+            "type": "string"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "backend",
+          "target"
+        ],
+        "title": "suggest_profile_commandArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "summarize_report",
+      "description": "The N hottest units + their core metrics in ONE call — start here.\n\nReplaces the list_kernels + N x get_metrics round trips when orienting in an\nunfamiliar report. Units are ranked by duration_us, falling back to self_pct\n(CPU sampler symbols carry no wall time), then file order. When durations\nexist, ``coverage_pct_of_total_duration`` says how much of the report's total\ntime the returned units account for. Same honesty rule as get_metrics:\n'not_available_in_this_export' is NOT MEASURED, never zero.\n",
+      "inputSchema": {
+        "properties": {
+          "report_ref": {
+            "title": "Report Ref",
+            "type": "string"
+          },
+          "format": {
+            "title": "Format",
+            "type": "string"
+          },
+          "top_n": {
+            "default": 5,
+            "title": "Top N",
+            "type": "integer"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Metrics"
+          }
+        },
+        "required": [
+          "report_ref",
+          "format"
+        ],
+        "title": "summarize_reportArguments",
+        "type": "object"
+      }
+    }
+  ],
+  "calls": {
+    "list": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "name": "add_kernel",
+            "index": 0,
+            "duration_us": 5.0,
+            "domain": "gpu_kernel"
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "name": "matmul_kernel",
+            "index": 1,
+            "duration_us": 20.0,
+            "domain": "gpu_kernel"
+          }
+        }
+      ],
+      "structuredContent": {
+        "result": [
+          {
+            "name": "add_kernel",
+            "index": 0,
+            "duration_us": 5.0,
+            "domain": "gpu_kernel"
+          },
+          {
+            "name": "matmul_kernel",
+            "index": 1,
+            "duration_us": 20.0,
+            "domain": "gpu_kernel"
+          }
+        ]
+      },
+      "isError": false
+    },
+    "defaults": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "kernel": "add_kernel",
+            "index": 0,
+            "format": "ncu-csv",
+            "domain": "gpu_kernel",
+            "raw_ref": "<fixtures>/nvidia_sample.ncu-csv",
+            "metrics": {
+              "duration_us": 5.0,
+              "compute_pct_peak": 30.0,
+              "dram_pct_peak": 95.0,
+              "achieved_occupancy": 60.0,
+              "theoretical_occupancy": "not_available_in_this_export",
+              "l1_hit_rate": "not_available_in_this_export",
+              "l2_hit_rate": 88.0,
+              "registers_per_thread": "not_available_in_this_export",
+              "block_size": "not_available_in_this_export",
+              "grid_size": "not_available_in_this_export",
+              "mem_throughput_gbps": "not_available_in_this_export",
+              "branch_efficiency": "not_available_in_this_export",
+              "warp_cycles_per_issue": "not_available_in_this_export",
+              "shared_mem_per_block": "not_available_in_this_export"
+            }
+          }
+        }
+      ],
+      "isError": false
+    },
+    "missing_metric": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "kernel": "add_kernel",
+            "index": 0,
+            "format": "ncu-csv",
+            "domain": "gpu_kernel",
+            "raw_ref": "<fixtures>/nvidia_sample.ncu-csv",
+            "metrics": {
+              "duration_us": 5.0,
+              "never_measured": "not_available_in_this_export"
+            },
+            "unknown_metrics": {
+              "requested_but_not_in_vocabulary": [
+                "never_measured"
+              ],
+              "known_terms": [
+                "achieved_occupancy",
+                "block_size",
+                "branch_efficiency",
+                "compute_pct_peak",
+                "dram_pct_peak",
+                "duration_us",
+                "grid_size",
+                "l1_hit_rate",
+                "l2_hit_rate",
+                "mem_throughput_gbps",
+                "registers_per_thread",
+                "shared_mem_per_block",
+                "theoretical_occupancy",
+                "warp_cycles_per_issue"
+              ],
+              "hint": "use expand(section=...) for raw vendor counters"
+            }
+          }
+        }
+      ],
+      "isError": false
+    },
+    "empty_metrics": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "kernel": "add_kernel",
+            "index": 0,
+            "format": "ncu-csv",
+            "domain": "gpu_kernel",
+            "raw_ref": "<fixtures>/nvidia_sample.ncu-csv",
+            "metrics": {}
+          }
+        }
+      ],
+      "isError": false
+    },
+    "expand": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "kernel": "add_kernel",
+            "index": 0,
+            "domain": "gpu_kernel",
+            "section_filter": "all",
+            "metric_count": 5,
+            "raw_ref": "<fixtures>/nvidia_sample.ncu-csv",
+            "metrics": {
+              "gpu__time_duration.sum": 5000.0,
+              "sm__throughput.avg.pct_of_peak_sustained_elapsed": 30.0,
+              "gpu__dram_throughput.avg.pct_of_peak_sustained_elapsed": 95.0,
+              "lts__t_sector_hit_rate.pct": 88.0,
+              "sm__warps_active.avg.pct_of_peak_sustained_active": 60.0
+            }
+          }
+        }
+      ],
+      "isError": false
+    },
+    "summary": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "format": "ncu-csv",
+            "domain": "gpu_kernel",
+            "raw_ref": "<fixtures>/nvidia_sample.ncu-csv",
+            "total_units": 2,
+            "distinct_names_total": 2,
+            "returned": 2,
+            "sorted_by": "duration_us",
+            "units": [
+              {
+                "name": "matmul_kernel",
+                "index": 1,
+                "domain": "gpu_kernel",
+                "duration_us": 20.0,
+                "metrics": {
+                  "duration_us": 20.0,
+                  "compute_pct_peak": 85.0,
+                  "dram_pct_peak": 40.0,
+                  "achieved_occupancy": 45.0,
+                  "theoretical_occupancy": "not_available_in_this_export",
+                  "l1_hit_rate": "not_available_in_this_export",
+                  "l2_hit_rate": 70.0,
+                  "registers_per_thread": "not_available_in_this_export",
+                  "block_size": "not_available_in_this_export",
+                  "grid_size": "not_available_in_this_export",
+                  "mem_throughput_gbps": "not_available_in_this_export",
+                  "branch_efficiency": "not_available_in_this_export",
+                  "warp_cycles_per_issue": "not_available_in_this_export",
+                  "shared_mem_per_block": "not_available_in_this_export"
+                }
+              },
+              {
+                "name": "add_kernel",
+                "index": 0,
+                "domain": "gpu_kernel",
+                "duration_us": 5.0,
+                "metrics": {
+                  "duration_us": 5.0,
+                  "compute_pct_peak": 30.0,
+                  "dram_pct_peak": 95.0,
+                  "achieved_occupancy": 60.0,
+                  "theoretical_occupancy": "not_available_in_this_export",
+                  "l1_hit_rate": "not_available_in_this_export",
+                  "l2_hit_rate": 88.0,
+                  "registers_per_thread": "not_available_in_this_export",
+                  "block_size": "not_available_in_this_export",
+                  "grid_size": "not_available_in_this_export",
+                  "mem_throughput_gbps": "not_available_in_this_export",
+                  "branch_efficiency": "not_available_in_this_export",
+                  "warp_cycles_per_issue": "not_available_in_this_export",
+                  "shared_mem_per_block": "not_available_in_this_export"
+                }
+              }
+            ],
+            "total_duration_us": 25.0,
+            "coverage_pct_of_total_duration": 100.0
+          }
+        }
+      ],
+      "isError": false
+    },
+    "compare": {
+      "content": [
+        {
+          "type": "text",
+          "text": {
+            "kernel_a": "add_kernel",
+            "kernel_b": "matmul_kernel",
+            "index_a": 0,
+            "index_b": 1,
+            "format": "ncu-csv",
+            "domain": "gpu_kernel",
+            "domain_a": "gpu_kernel",
+            "domain_b": "gpu_kernel",
+            "raw_ref_a": "<fixtures>/nvidia_sample.ncu-csv",
+            "raw_ref_b": "<fixtures>/nvidia_sample.ncu-csv",
+            "sign_convention": "delta = b - a",
+            "metrics": {
+              "duration_us": {
+                "a": 5.0,
+                "b": 20.0,
+                "delta": 15.0,
+                "delta_pct": 300.0
+              },
+              "never_measured": {
+                "a": "not_available_in_this_export",
+                "b": "not_available_in_this_export",
+                "delta": "not_available_in_this_export",
+                "delta_pct": "not_available_in_this_export"
+              }
+            },
+            "unknown_metrics": {
+              "requested_but_not_in_vocabulary": [
+                "never_measured"
+              ],
+              "known_terms": [
+                "achieved_occupancy",
+                "block_size",
+                "branch_efficiency",
+                "compute_pct_peak",
+                "dram_pct_peak",
+                "duration_us",
+                "grid_size",
+                "l1_hit_rate",
+                "l2_hit_rate",
+                "mem_throughput_gbps",
+                "registers_per_thread",
+                "shared_mem_per_block",
+                "theoretical_occupancy",
+                "warp_cycles_per_issue"
+              ],
+              "hint": "use expand(section=...) for raw vendor counters"
+            }
+          }
+        }
+      ],
+      "isError": false
+    },
+    "unknown_format": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Error executing tool list_kernels: unsupported format 'unknown-format'. Known formats: cargo-diag, cargo-json, chrome-trace, clang-time-trace, cmake-profile, cmake-trace, criterion, criterion-json, ftime-trace, gh-run-log, gha-log, git-numstat, metal, metal-json, metal-trace, ncu-csv, ncu-rep, ncu_csv, ncu_rep, ninja-log, ninja_log, numstat, perf, perf-report, perf-stat-json, pri, ptxas, ptxas-verbose, rocm-csv, rocprof, rocprof-csv, torch-trace. Pass the format you produced (e.g. 'ncu-rep' for `ncu -o`, 'perf-script' for `perf script`, 'rocprof-csv', 'metal-trace')."
+        }
+      ],
+      "isError": true
+    },
+    "missing_report": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Error executing tool list_kernels: report not found: <fixtures>/absent-report (also tried <fixtures>/absent-report.csv)."
+        }
+      ],
+      "isError": true
+    },
+    "missing_unit": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Error executing tool get_metrics: unit 'no-such-unit' not found. Available: #0 add_kernel, #1 matmul_kernel"
+        }
+      ],
+      "isError": true
+    },
+    "unknown_backend": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Error executing tool suggest_profile_command: unknown backend 'unknown-backend'. Known backends: cargo_diag, chrome_trace, clang_time_trace, cmake_profile, criterion, gha_log, git_numstat, linux_perf, metal, ninja_log, nsight, nsight_csv, ptxas, rocm."
+        }
+      ],
+      "isError": true
+    }
+  }
+}
