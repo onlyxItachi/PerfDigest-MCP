@@ -61,8 +61,11 @@ a folder under `adapters/` with a reader + `mapping.py` + a `backend.py` that `r
 
 Current state: **v1.2.1 — MCP SDK v1 compatibility hotfix.**
 The dependency is bounded to `mcp[cli]>=1.2,<2` because this server uses the
-SDK 1 FastMCP interface. The Python 3.10+ floor and the same seven-tool API are
-unchanged. Release validation covers the locked MCP 1.27.2 and clean wheel
+SDK 1 FastMCP interface. The Python 3.10+ floor and seven tool signatures are
+unchanged. The package also includes the post-v1.2.0 main fixes from #32/#33:
+dispatch tagging, summary distinct-name coverage and stable summation, both
+comparison domains, and corrected usage guidance. The SDK bound itself changes
+no application code. Release validation covers the locked MCP 1.27.2 and clean wheel
 installs with MCP 1.30.0. The declared MCP 1.2 minimum works with compatible
 Pydantic 2.10.6 / pydantic-settings 2.7.1; forcing that old SDK alongside current
 Pydantic fails on an upstream private import. This patch does not change the
